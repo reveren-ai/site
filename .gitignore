@@ -1,0 +1,32 @@
+# Next.js
+.next/
+out/
+next-env.d.ts
+
+# Build / cache
+.cache/
+dist/
+build/
+coverage/
+playwright-report/
+test-results/
+
+# Node
+node_modules/
+.pnpm-store/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*

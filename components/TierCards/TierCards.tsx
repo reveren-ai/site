@@ -1,0 +1,121 @@
+import { Box, Card, CardContent, Stack, Typography, Button, Chip } from "@mui/material";
+import { tiers, pricingFootnote } from "@/lib/pricing";
+
+export default function TierCards() {
+  return (
+    <Box component="section" className="rv-section--tight">
+      <Box className="rv-container">
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" },
+            gap: 3,
+            alignItems: "stretch",
+          }}
+        >
+          {tiers.map((t) => (
+            <Card
+              key={t.id}
+              sx={{
+                p: 0.5,
+                ...(t.popular
+                  ? {
+                      borderColor: "primary.main",
+                      borderWidth: 2,
+                      transform: { lg: "scale(1.04)" },
+                      boxShadow:
+                        "0 24px 60px -24px rgba(22,20,18,0.22), 0 6px 16px rgba(22,20,18,0.06)",
+                    }
+                  : {}),
+              }}
+            >
+              <CardContent
+                sx={{ p: 3.5, height: "100%", display: "flex", flexDirection: "column", gap: 2.5 }}
+              >
+                <Stack direction="row" alignItems="center" justifyContent="space-between">
+                  <Typography variant="eyebrow" component="div">
+                    {t.label}
+                  </Typography>
+                  {t.popular ? (
+                    <Chip
+                      label="Most popular"
+                      size="small"
+                      sx={{ bgcolor: "primary.main", color: "primary.contrastText", fontWeight: 500 }}
+                    />
+                  ) : null}
+                </Stack>
+
+                <Stack direction="row" alignItems="baseline" spacing={1}>
+                  <Typography
+                    component="div"
+                    sx={{
+                      fontSize: "2.5rem",
+                      fontWeight: 700,
+                      letterSpacing: "-0.025em",
+                      lineHeight: 1,
+                      fontVariantNumeric: "tabular-nums",
+                    }}
+                  >
+                    {t.price}
+                  </Typography>
+                  {t.priceSuffix ? (
+                    <Typography variant="body2" color="text.secondary">
+                      {t.priceSuffix}
+                    </Typography>
+                  ) : null}
+                </Stack>
+
+                <Typography variant="caption" color="text.secondary" component="div">
+                  {t.cadence}
+                </Typography>
+
+                <Typography variant="body2" color="text.secondary" sx={{ minHeight: 36 }}>
+                  {t.audience}
+                </Typography>
+
+                <Stack component="ul" spacing={1} sx={{ listStyle: "none", p: 0, m: 0, flex: 1 }}>
+                  {t.features.map((f) => (
+                    <Typography
+                      key={f}
+                      component="li"
+                      variant="body2"
+                      sx={{
+                        position: "relative",
+                        pl: 2.5,
+                        "&::before": {
+                          content: '""',
+                          position: "absolute",
+                          left: 0,
+                          top: "0.65em",
+                          width: 8,
+                          height: 1.5,
+                          backgroundColor: "primary.main",
+                        },
+                      }}
+                    >
+                      {f}
+                    </Typography>
+                  ))}
+                </Stack>
+
+                <Button
+                  component="a"
+                  href={t.cta.href}
+                  variant={t.cta.variant}
+                  size="large"
+                  fullWidth
+                >
+                  {t.cta.label}
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 4, maxWidth: 800 }}>
+          {pricingFootnote}
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
