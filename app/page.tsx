@@ -1,25 +1,30 @@
+// Landing IA per HANDOFF.md §5.2 (Claude Design's section order). The
+// previous IA components (AudienceCards, CapabilityGrid, NotThis,
+// Comparison) live alongside in `components/` and can be swapped in here
+// to reinstate or A/B individual sections.
+
 import Hero from "@/components/Hero/Hero";
-import AudienceCards from "@/components/AudienceCards/AudienceCards";
-import CapabilityGrid from "@/components/CapabilityGrid/CapabilityGrid";
+import Problem from "@/components/Problem/Problem";
+import Solution from "@/components/Solution/Solution";
+import AgentCompatibility from "@/components/AgentCompatibility/AgentCompatibility";
 import ProofPoint from "@/components/ProofPoint/ProofPoint";
-import NotThis from "@/components/NotThis/NotThis";
 import PricingTeaser from "@/components/PricingTeaser/PricingTeaser";
-import Comparison from "@/components/Comparison/Comparison";
 import ManifestoTeaser from "@/components/ManifestoTeaser/ManifestoTeaser";
 import OpenFormat from "@/components/OpenFormat/OpenFormat";
+import FounderBio from "@/components/FounderBio/FounderBio";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <AudienceCards />
-      <CapabilityGrid />
+      <Problem />
+      <Solution />
+      <AgentCompatibility />
       <ProofPoint />
-      <NotThis />
       <PricingTeaser />
-      <Comparison />
       <ManifestoTeaser />
       <OpenFormat />
+      <FounderBio />
     </>
   );
 }

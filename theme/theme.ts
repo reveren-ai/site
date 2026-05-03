@@ -146,14 +146,33 @@ export const theme = createTheme({
           boxShadow: "none",
           "&:hover": { boxShadow: "none" },
         },
-        outlined: ({ theme: t }) => ({
-          borderColor: t.palette.divider,
-          color: t.palette.text.primary,
+        outlined: {
+          borderColor: "var(--mui-palette-divider)",
+          color: "var(--mui-palette-text-primary)",
           "&:hover": {
-            borderColor: t.palette.text.secondary,
+            borderColor: "var(--mui-palette-text-secondary)",
             backgroundColor: "var(--mui-palette-action-hover)",
           },
-        }),
+        },
+        outlinedPrimary: {
+          // MUI's per-color rule (`MuiButton-outlinedPrimary`) wins on specificity
+          // over the generic `outlined` rule above. Without this, in dark mode
+          // the button text resolves to primary.main = #C9D1DC, which is visible
+          // on the page bg but reads as a low-emphasis chip rather than a CTA.
+          // Force text.primary so the action label has full contrast on either bg.
+          color: "var(--mui-palette-text-primary)",
+          borderColor: "var(--mui-palette-divider)",
+          "&:hover": {
+            borderColor: "var(--mui-palette-text-secondary)",
+            backgroundColor: "var(--mui-palette-action-hover)",
+          },
+        },
+        textPrimary: {
+          color: "var(--mui-palette-text-primary)",
+          "&:hover": {
+            backgroundColor: "var(--mui-palette-action-hover)",
+          },
+        },
       },
     },
     MuiPaper: {

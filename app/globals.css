@@ -70,6 +70,19 @@ html[data-mode="light"] {
   color-scheme: light;
 }
 
+/* Mode-aware shadow tokens. Light-mode ink is invisible on dark surfaces,
+   so swap to higher-opacity black for dark mode. Components reference these
+   via var(--rv-shadow-pop) instead of hardcoding rgba(22,20,18,…). */
+:root,
+html[data-mode="light"] {
+  --rv-shadow-card: 0 1px 2px rgba(22,20,18,0.04), 0 8px 24px -12px rgba(22,20,18,0.10);
+  --rv-shadow-pop: 0 24px 60px -24px rgba(22,20,18,0.22), 0 6px 16px rgba(22,20,18,0.06);
+}
+html[data-mode="dark"] {
+  --rv-shadow-card: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px -12px rgba(0,0,0,0.6);
+  --rv-shadow-pop: 0 24px 60px -24px rgba(0,0,0,0.7), 0 6px 16px rgba(0,0,0,0.4);
+}
+
 /* Container — used by every section's wrapper. */
 .rv-container {
   width: 100%;

@@ -23,8 +23,7 @@ export default function TierCards() {
                       borderColor: "primary.main",
                       borderWidth: 2,
                       transform: { lg: "scale(1.04)" },
-                      boxShadow:
-                        "0 24px 60px -24px rgba(22,20,18,0.22), 0 6px 16px rgba(22,20,18,0.06)",
+                      boxShadow: "var(--rv-shadow-pop)",
                     }
                   : {}),
               }}
