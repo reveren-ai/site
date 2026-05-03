@@ -30,6 +30,7 @@ export default function Hero() {
 
             <Typography
               variant="subtitle1"
+              component="p"
               color="text.secondary"
               sx={{ maxWidth: 640, fontSize: { xs: "1.0625rem", md: "1.1875rem" } }}
             >

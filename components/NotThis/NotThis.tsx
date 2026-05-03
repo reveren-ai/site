@@ -22,10 +22,10 @@ export default function NotThis() {
         </Stack>
 
         <Stack
-          divider={
-            <Box aria-hidden sx={{ height: 1, bgcolor: "divider" }} />
-          }
-          sx={{ borderTop: "1px solid", borderColor: "divider" }}
+          sx={{
+            borderTop: "1px solid",
+            borderColor: "divider",
+          }}
         >
           {notThis.map((n) => (
             <Box
@@ -36,6 +36,8 @@ export default function NotThis() {
                 gridTemplateColumns: { xs: "1fr", md: "minmax(0, 4fr) minmax(0, 8fr)" },
                 gap: { xs: 1, md: 6 },
                 alignItems: "baseline",
+                borderBottom: "1px solid",
+                borderColor: "divider",
               }}
             >
               <Typography

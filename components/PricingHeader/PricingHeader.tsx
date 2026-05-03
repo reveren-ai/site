@@ -11,7 +11,7 @@ export default function PricingHeader() {
           <Typography variant="h1" component="h1" sx={{ fontSize: { xs: "2.5rem", md: "3.75rem" } }}>
             Round numbers. No tricks.
           </Typography>
-          <Typography variant="subtitle1" color="text.secondary">
+          <Typography variant="subtitle1" component="p" color="text.secondary">
             All prices in USD, billed monthly. Local <code>reveren run</code> is unlimited
             and free on every tier. Cloud runs apply only when you use the hosted
             orchestrator (analytics, registry, GitHub App, MCP write).

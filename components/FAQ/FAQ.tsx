@@ -19,11 +19,14 @@ export default function FAQ() {
         </Stack>
 
         <Stack
-          divider={<Box aria-hidden sx={{ height: 1, bgcolor: "divider" }} />}
           sx={{
             borderTop: "1px solid",
             borderBottom: "1px solid",
             borderColor: "divider",
+            "& > details:not(:last-child)": {
+              borderBottom: "1px solid",
+              borderColor: "divider",
+            },
           }}
         >
           {faq.map((item) => (

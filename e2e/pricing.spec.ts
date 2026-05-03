@@ -18,12 +18,15 @@ test.describe("pricing page", () => {
 
   test("matrix renders the five row groups in order", async ({ page }) => {
     await page.goto("/pricing");
-    const groups = ["PIPELINE", "PLAYBOOKS", "AGENTS", "CLOUD", "SUPPORT"];
+    const groups = ["Pipeline", "Playbooks", "Agents", "Cloud", "Support"];
     const table = page.getByRole("table", { name: /pricing feature matrix/i });
     await expect(table).toBeVisible();
     const positions: number[] = [];
     for (const g of groups) {
-      const cell = table.getByText(g, { exact: false }).first();
+      // Group header rows render as a single cell that exactly equals the
+      // group label — match by exact text scoped to cells to avoid bleed
+      // from row labels that contain the same word (e.g. "Cloud pipeline runs").
+      const cell = table.getByRole("cell", { name: g, exact: true }).first();
       await expect(cell).toBeVisible();
       const box = await cell.boundingBox();
       positions.push(box?.y ?? -1);
@@ -35,7 +38,7 @@ test.describe("pricing page", () => {
 
   test("FAQ items expand on click", async ({ page }) => {
     await page.goto("/pricing");
-    const summary = page.getByText(/Why not just \.cursorrules/i);
+    const summary = page.getByText(/Why not just use/i);
     await summary.scrollIntoViewIfNeeded();
     await summary.click();
     await expect(page.getByText(/vendor-specific single files/i)).toBeVisible();

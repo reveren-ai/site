@@ -16,12 +16,15 @@ test.describe("landing page", () => {
 
     await page.goto("/");
 
-    // Pick the FIRST button labelled with the install command — it's the hero CTA.
-    const cta = page.getByRole("button", { name: /npx @reveren-ai\/core init/i }).first();
+    // Scope to the hero section. After click, the button's accessible name
+    // flips from the install command to "Copied", so we assert by looking
+    // for the new label inside the same section rather than re-resolving
+    // the install-command locator.
+    const hero = page.locator("section").first();
+    const cta = hero.getByRole("button", { name: /npx @reveren-ai\/core init/i });
     await expect(cta).toBeVisible();
     await cta.click();
-
-    await expect(cta).toContainText(/Copied/i);
+    await expect(hero.getByRole("button", { name: /copied/i })).toBeVisible();
   });
 
   test("nav offers Pricing and Manifesto links that resolve", async ({ page }) => {

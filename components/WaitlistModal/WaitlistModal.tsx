@@ -88,7 +88,7 @@ export default function WaitlistModal({ open, onClose }: WaitlistModalProps) {
           </Box>
         </DialogContent>
       ) : (
-        <Box component="form" onSubmit={handleSubmit} noValidate>
+        <Box component="form" onSubmit={handleSubmit}>
           <DialogContent>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
               Today the CLI is a placeholder; the real one ships when the public

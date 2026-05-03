@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Inter, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import ThemeRegistry from "@/theme/ThemeRegistry";
 import { modeInitScript } from "@/lib/mode";
@@ -99,14 +100,12 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
     >
-      <head>
-        <script
-          // Sets data-mode on <html> before paint. CSP-safe (self-hosted, no eval).
-          // suppressHydrationWarning above lets us mutate the attribute before React mounts.
+      <body>
+        <Script
+          id="rv-mode-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: modeInitScript }}
         />
-      </head>
-      <body>
         <ThemeRegistry>
           <a href="#main" className="rv-skip-link">
             Skip to content
@@ -119,3 +118,4 @@ export default function RootLayout({
     </html>
   );
 }
+

@@ -1,7 +1,10 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const PORT = Number(process.env.PORT ?? 3000);
-const BASE_URL = `http://127.0.0.1:${PORT}`;
+// Use localhost (not 127.0.0.1) — Next 16 dev rejects cross-origin requests
+// from 127.0.0.1 by default, which prevents the client bundle from
+// hydrating and breaks every interactive test.
+const BASE_URL = `http://localhost:${PORT}`;
 
 export default defineConfig({
   testDir: "./e2e",

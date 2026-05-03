@@ -25,6 +25,9 @@ node_modules/
 .idea/
 .DS_Store
 
+# Agent worktrees and tooling shadow trees
+.claude/
+
 # Logs
 *.log
 npm-debug.log*

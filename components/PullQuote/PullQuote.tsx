@@ -4,8 +4,9 @@ import { fonts } from "@/theme/tokens";
 export default function PullQuote({ children }: { children: React.ReactNode }) {
   return (
     <Box
-      component="aside"
+      component="figure"
       sx={{
+        m: 0,
         my: { xs: 5, md: 7 },
         py: { xs: 3, md: 4 },
         px: { xs: 0, md: 2 },

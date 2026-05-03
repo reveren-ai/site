@@ -10,7 +10,7 @@ export type ComparisonRow = {
 };
 
 export const comparisonHeader = {
-  feature: "",
+  feature: "Feature",
   cursorrules: ".cursorrules",
   copilot: "Copilot Instructions",
   windsurf: "Windsurf rules",

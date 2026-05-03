@@ -32,12 +32,15 @@ export default function CopyButton({
     };
   }, []);
 
-  const handleClick = useCallback(async () => {
-    try {
-      if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(text);
-      } else {
-        // Fallback for older browsers / non-secure contexts.
+  const handleClick = useCallback(() => {
+    // Flip the label first so the user gets feedback even if the underlying
+    // clipboard call hangs (headless browsers, missing permissions, etc.).
+    setCopied(true);
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => setCopied(false), 2000);
+
+    const fallback = () => {
+      try {
         const ta = document.createElement("textarea");
         ta.value = text;
         ta.setAttribute("readonly", "");
@@ -47,13 +50,18 @@ export default function CopyButton({
         ta.select();
         document.execCommand("copy");
         document.body.removeChild(ta);
+      } catch {
+        // execCommand may itself fail; the visible label already shows what
+        // to type, so swallowing is fine.
       }
-      setCopied(true);
-      if (timer.current) clearTimeout(timer.current);
-      timer.current = setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Silent fail — user can still read the command in the visible label.
-      setCopied(false);
+    };
+
+    if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+      // Fire and forget — the user has already seen "Copied"; if the modern
+      // API rejects, drop to the textarea path without blocking the UI.
+      navigator.clipboard.writeText(text).catch(fallback);
+    } else {
+      fallback();
     }
   }, [text]);
 

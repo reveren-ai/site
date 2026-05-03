@@ -46,12 +46,11 @@ export default function ModeToggle() {
     writeMode(next);
   };
 
+  // Default is light per HANDOFF.md §2; before the snapshot resolves, advertise
+  // the action that takes the user to dark mode so the SSR markup matches the
+  // most likely first-paint state.
   const label =
-    mode === "dark"
-      ? "Switch to light mode"
-      : mode === "light"
-      ? "Switch to dark mode"
-      : "Toggle colour mode";
+    mode === "dark" ? "Switch to light mode" : "Switch to dark mode";
 
   return (
     <IconButton

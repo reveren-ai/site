@@ -16,6 +16,8 @@ test.describe("manifesto page", () => {
     const cta = page.getByRole("button", { name: /npx @reveren-ai\/core init/i }).last();
     await cta.scrollIntoViewIfNeeded();
     await cta.click();
-    await expect(cta).toContainText(/Copied/i);
+    // Label flips to "Copied"; locator re-evaluation by the original
+    // accessible name would mismatch, so assert on the new name.
+    await expect(page.getByRole("button", { name: /copied/i }).first()).toBeVisible();
   });
 });

@@ -10,9 +10,9 @@ import MenuIcon from "@mui/icons-material/MenuRounded";
 import CloseIcon from "@mui/icons-material/CloseRounded";
 import WaitlistButton from "@/components/WaitlistModal/WaitlistButton";
 
-type Link = { href: string; label: string; external?: boolean };
+type NavLink = { href: string; label: string; external?: boolean };
 
-export default function MobileNav({ links }: { links: Link[] }) {
+export default function MobileNav({ links }: { links: NavLink[] }) {
   const [open, setOpen] = useState(false);
 
   return (

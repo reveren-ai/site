@@ -8,6 +8,7 @@ export default function Cell({ value }: { value: CellValue }) {
     return (
       <Box
         component="span"
+        role="img"
         aria-label="Included"
         title="Included"
         sx={{ display: "inline-flex", color: "primary.main" }}
@@ -20,6 +21,7 @@ export default function Cell({ value }: { value: CellValue }) {
     return (
       <Box
         component="span"
+        role="img"
         aria-label="Not included"
         title="Not included"
         sx={{ display: "inline-flex", color: "text.disabled" }}

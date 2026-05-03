@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Box, Stack, Typography, Tooltip } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { featureMatrix, tiers } from "@/lib/pricing";
 import { fonts } from "@/theme/tokens";
 import Cell from "./Cell";
@@ -168,15 +168,7 @@ export default function PricingMatrix() {
                             : {}),
                         }}
                       >
-                        {row.label === "Local `reveren run`" && row[t.id as keyof typeof row] === "Unlimited" ? (
-                          <Tooltip title="Always free, on every tier.">
-                            <Box component="span">
-                              <Cell value={row[t.id as keyof typeof row] as never} />
-                            </Box>
-                          </Tooltip>
-                        ) : (
-                          <Cell value={row[t.id as keyof typeof row] as never} />
-                        )}
+                        <Cell value={row[t.id as keyof typeof row] as never} />
                       </Box>
                     ))}
                   </Box>

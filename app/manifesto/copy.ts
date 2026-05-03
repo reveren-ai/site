@@ -5,6 +5,8 @@
 // hedge. Don't reference competitors by name unless naming them strengthens
 // our position.
 
+import { INSTALL_COMMAND } from "@/lib/install";
+
 export const manifesto = {
   title: "The agent doesn't need a smarter model. It needs an operating manual.",
   author: "Innocent Muisha",
@@ -52,7 +54,7 @@ export const manifesto = {
     {
       heading: "If you've read this far.",
       body: [
-        "Run npx @reveren-ai/core init. Watch it scaffold .playbooks/ in your repo. Run reveren run plan-engineering on the next feature. Tell me whether the agent's output got better.",
+        `Run ${INSTALL_COMMAND}. Watch it scaffold .playbooks/ in your repo. Run reveren run plan-engineering on the next feature. Tell me whether the agent's output got better.`,
         "If it didn't, email me. I'll fix it.",
       ],
     },
