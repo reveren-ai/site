@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
 import { capabilities } from "@/lib/capabilities";
 
 export default function CapabilityGrid() {
@@ -18,41 +18,36 @@ export default function CapabilityGrid() {
           sx={{
             display: "grid",
             gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" },
-            gap: { xs: 3, md: 4 },
+            gap: 3,
           }}
         >
           {capabilities.map((c, i) => (
-            <Stack
-              key={c.id}
-              spacing={1.5}
-              sx={{
-                position: "relative",
-                pt: 4,
-                pb: 1,
-                pr: { xs: 0, md: 3 },
-              }}
-            >
-              <Box
-                aria-hidden
+            <Card key={c.id} sx={{ height: "100%" }}>
+              <CardContent
                 sx={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: 1,
-                  bgcolor: "divider",
+                  p: { xs: 3, md: 4 },
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 1.5,
                 }}
-              />
-              <Typography variant="caption" component="div" color="text.secondary" sx={{ fontVariantNumeric: "tabular-nums" }}>
-                {String(i + 1).padStart(2, "0")}
-              </Typography>
-              <Typography variant="h4" component="h3">
-                {c.label}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {c.description}
-              </Typography>
-            </Stack>
+              >
+                <Typography
+                  variant="caption"
+                  component="div"
+                  color="text.secondary"
+                  sx={{ fontVariantNumeric: "tabular-nums" }}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </Typography>
+                <Typography variant="h4" component="h3">
+                  {c.label}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {c.description}
+                </Typography>
+              </CardContent>
+            </Card>
           ))}
         </Box>
       </Box>
