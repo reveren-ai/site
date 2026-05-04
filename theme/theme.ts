@@ -190,11 +190,19 @@ export const theme = createTheme({
         elevation: 0,
       },
       styleOverrides: {
-        root: ({ theme: t }) => ({
+        root: {
           borderRadius: radius.lg,
-          border: `1px solid ${t.palette.divider}`,
-          backgroundColor: t.palette.background.paper,
-        }),
+          border: "1px solid var(--mui-palette-divider)",
+          backgroundColor: "var(--mui-palette-background-paper)",
+          color: "var(--mui-palette-text-primary)",
+        },
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          color: "var(--mui-palette-text-primary)",
+        },
       },
     },
     MuiLink: {
@@ -202,15 +210,15 @@ export const theme = createTheme({
         underline: "hover",
       },
       styleOverrides: {
-        root: ({ theme: t }) => ({
-          color: t.palette.text.primary,
-          textDecorationColor: t.palette.divider,
+        root: {
+          color: "var(--mui-palette-text-primary)",
+          textDecorationColor: "var(--mui-palette-divider)",
           "&:focus-visible": {
             outline: `2px solid var(--mui-palette-primary-main)`,
             outlineOffset: 2,
             borderRadius: 2,
           },
-        }),
+        },
       },
     },
     MuiChip: {

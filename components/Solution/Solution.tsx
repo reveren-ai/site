@@ -25,7 +25,16 @@ export default function Solution() {
           }}
         >
           {solution.map((s, i) => (
-            <Stack key={s.id} spacing={1.5} sx={{ position: "relative", pt: 3 }}>
+            <Stack
+              key={s.id}
+              spacing={1.5}
+              sx={{
+                position: "relative",
+                pt: 4,
+                pb: 1,
+                pr: { xs: 0, md: 3 },
+              }}
+            >
               <Box
                 aria-hidden
                 sx={{

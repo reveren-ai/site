@@ -22,7 +22,16 @@ export default function CapabilityGrid() {
           }}
         >
           {capabilities.map((c, i) => (
-            <Stack key={c.id} spacing={1.5} sx={{ position: "relative", pt: 3 }}>
+            <Stack
+              key={c.id}
+              spacing={1.5}
+              sx={{
+                position: "relative",
+                pt: 4,
+                pb: 1,
+                pr: { xs: 0, md: 3 },
+              }}
+            >
               <Box
                 aria-hidden
                 sx={{

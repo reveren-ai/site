@@ -10,7 +10,7 @@ export default function ThemeRegistry({ children }: { children: React.ReactNode 
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
       <ThemeProvider
         theme={theme}
-        defaultMode="system"
+        defaultMode="light"
         // MUI's CssVarsProvider also writes data-mode on hydration; without
         // this, it would clobber the inline mode-init script's value because
         // it reads from its default key ("mui-mode") and finds nothing.
