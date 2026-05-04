@@ -36,17 +36,21 @@ test.describe("landing page", () => {
     await expect(page).toHaveURL(/\/manifesto$/);
   });
 
-  test("renders sections in HANDOFF.md §5.2 order", async ({ page }) => {
+  test("A/B layout — both old and new sections render in interleaved order", async ({ page }) => {
     await page.goto("/");
     const expected = [
       "One pipeline. Every agent.",                             // Hero
-      "Three failure modes every team hits at scale.",          // Problem
-      "Four primitives. Composable in any order.",              // Solution
-      "Works with whichever agent you already pay for.",        // AgentCompatibility
+      "Three audiences, one operating manual.",                 // AudienceCards (old)
+      "Three failure modes every team hits at scale.",          // Problem (new)
+      "Four capabilities. Composable in any order.",            // CapabilityGrid (old)
+      "Four primitives. Composable in any order.",              // Solution (new)
+      "Works with whichever agent you already pay for.",        // AgentCompatibility (new)
       "mrktable runs on its own playbooks.",                    // ProofPoint
+      "Five things we deliberately don't do.",                  // NotThis (old)
       "Round numbers. No .99.",                                  // PricingTeaser
+      "Single-file rules vs. a real standards layer.",          // Comparison (old)
       "The .playbooks/ format is yours.",                       // OpenFormat
-      "Innocent Muisha",                                         // FounderBio
+      "Innocent Muisha",                                         // FounderBio (new)
     ];
     const positions: number[] = [];
     for (const text of expected) {

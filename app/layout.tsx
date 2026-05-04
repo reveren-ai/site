@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { Inter, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import ThemeRegistry from "@/theme/ThemeRegistry";
 import { modeInitScript } from "@/lib/mode";
@@ -100,12 +99,17 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
     >
+      <head>
+        {/*
+          Sets data-mode on <html> before paint so MUI's CSS-vars resolve
+          to the right palette on the first frame. Inline so it runs
+          synchronously; CSP-safe (no eval). React 19 hoists this into
+          the rendered <head>; previous attempts via next/script with
+          strategy="beforeInteractive" got deferred in production.
+        */}
+        <script dangerouslySetInnerHTML={{ __html: modeInitScript }} />
+      </head>
       <body>
-        <Script
-          id="rv-mode-init"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{ __html: modeInitScript }}
-        />
         <ThemeRegistry>
           <a href="#main" className="rv-skip-link">
             Skip to content
