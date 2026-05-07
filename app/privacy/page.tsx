@@ -68,7 +68,7 @@ export default function PrivacyPage() {
 
           <p>
             If a future opt-in telemetry feature is added — for example, to help
-            us understand which playbooks people actually run — it will be
+            us understand which protocols people actually run — it will be
             disabled by default, prompted on first run, and documented inline in
             the CLI&apos;s output before any data leaves your machine.
           </p>
@@ -77,7 +77,7 @@ export default function PrivacyPage() {
 
           <p>
             The Phase 1 dashboard introduces accounts, billing, and the private
-            playbook registry. When that ships, this page will expand to cover:
+            protocol registry. When that ships, this page will expand to cover:
           </p>
 
           <ul>
@@ -93,7 +93,7 @@ export default function PrivacyPage() {
             </li>
             <li>
               <strong>Usage metering.</strong> When the CLI is signed in to a
-              paid plan, we record which playbook ran, against which repository
+              paid plan, we record which protocol ran, against which repository
               identifier (a hash, not the source), how long it took, and which
               model provider was invoked. We do not record your prompts, your
               code, or model responses.

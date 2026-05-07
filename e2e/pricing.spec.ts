@@ -18,7 +18,7 @@ test.describe("pricing page", () => {
 
   test("matrix renders the five row groups in order", async ({ page }) => {
     await page.goto("/pricing");
-    const groups = ["Pipeline", "Playbooks", "Agents", "Cloud", "Support"];
+    const groups = ["Pipeline", "Protocols", "Agents", "Cloud", "Support"];
     const table = page.getByRole("table", { name: /pricing feature matrix/i });
     await expect(table).toBeVisible();
     const positions: number[] = [];

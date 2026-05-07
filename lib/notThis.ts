@@ -30,6 +30,6 @@ export const notThis: NotThisItem[] = [
   {
     id: "not-locked-in",
     rule: "Not single-vendor lock-in.",
-    body: "The .playbooks/ format is open. Your investment in playbooks travels with you across agents, IDEs, even off-platform.",
+    body: "The .protocols/ format is open. Your investment in protocols travels with you across agents, IDEs, even off-platform.",
   },
 ];

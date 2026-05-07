@@ -6,8 +6,8 @@ export type SolutionPillar = {
 
 export const solution: SolutionPillar[] = [
   {
-    id: "playbooks",
-    label: "Playbooks",
+    id: "protocols",
+    label: "Protocols",
     description:
       "Versioned, repo-aware instructions in plain Markdown. Author once. Run from any agent. The format is open — your work travels with you.",
   },
@@ -15,7 +15,7 @@ export const solution: SolutionPillar[] = [
     id: "pipelines",
     label: "Pipelines",
     description:
-      "Chain playbooks into deterministic workflows: plan → ship → review → qa → document. The agent stops freelancing and follows the manual.",
+      "Chain protocols into deterministic workflows: plan → ship → review → qa → document. The agent stops freelancing and follows the manual.",
   },
   {
     id: "standards",
@@ -35,5 +35,5 @@ export const solutionIntro = {
   eyebrow: "The standards layer",
   headline: "Four primitives. Composable in any order.",
   body:
-    "Playbooks describe the work. Pipelines chain them. Standards make them consistent. Audit makes them defensible. Together they're the operating manual the agent didn't ship with.",
+    "Protocols describe the work. Pipelines chain them. Standards make them consistent. Audit makes them defensible. Together they're the operating manual the agent didn't ship with.",
 };

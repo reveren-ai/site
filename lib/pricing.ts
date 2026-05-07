@@ -25,7 +25,7 @@ export const tiers: Tier[] = [
     audience: "Solo learners, hobbyists, evaluators",
     cta: { label: "Try free", href: "#install", variant: "outlined" },
     features: [
-      "Full base playbook library",
+      "Full base protocol library",
       "CLI: init / run / list / sync",
       "Single repo",
       "200 cloud pipeline runs / month",
@@ -43,7 +43,7 @@ export const tiers: Tier[] = [
     popular: true,
     features: [
       "Everything in Free",
-      "Custom playbooks",
+      "Custom protocols",
       "Multi-step pipelines",
       "Unlimited repos",
       "CI/CD integration",
@@ -62,7 +62,7 @@ export const tiers: Tier[] = [
     features: [
       "Everything in Pro",
       "Hosted dashboard",
-      "Private playbook registry",
+      "Private protocol registry",
       "Team sync + analytics",
       "GitHub App / SSO",
       "MCP server (write)",
@@ -117,7 +117,7 @@ export const featureMatrix: MatrixGroup[] = [
     label: "Pipeline",
     rows: [
       {
-        label: "Multi-step playbook chains",
+        label: "Multi-step protocol chains",
         free: false,
         pro: true,
         team: true,
@@ -148,12 +148,12 @@ export const featureMatrix: MatrixGroup[] = [
     ],
   },
   {
-    id: "playbooks",
-    label: "Playbooks",
+    id: "protocols",
+    label: "Protocols",
     rows: [
-      { label: "Base playbook library (12)", free: true, pro: true, team: true, enterprise: true },
-      { label: "Author custom playbooks", free: false, pro: true, team: true, enterprise: true },
-      { label: "Private playbook registry", free: false, pro: false, team: true, enterprise: true },
+      { label: "Base protocol library (12)", free: true, pro: true, team: true, enterprise: true },
+      { label: "Author custom protocols", free: false, pro: true, team: true, enterprise: true },
+      { label: "Private protocol registry", free: false, pro: false, team: true, enterprise: true },
       { label: "Versioned changesets", free: false, pro: true, team: true, enterprise: true },
     ],
   },

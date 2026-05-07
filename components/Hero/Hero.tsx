@@ -34,7 +34,7 @@ export default function Hero() {
               color="text.secondary"
               sx={{ maxWidth: 640, fontSize: { xs: "1.0625rem", md: "1.1875rem" } }}
             >
-              Stop correcting your AI. Start directing it. <strong style={{ color: "var(--mui-palette-text-primary)", fontWeight: 600 }}>reveren</strong> is structured, versioned, repo-aware guardrails for AI coding agents — playbooks plus pipelines that make whichever agent you already pay for dramatically better.
+              Stop correcting your AI. Start directing it. <strong style={{ color: "var(--mui-palette-text-primary)", fontWeight: 600 }}>reveren</strong> is structured, versioned, repo-aware guardrails for AI coding agents — protocols plus pipelines that make whichever agent you already pay for dramatically better.
             </Typography>
 
             <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ pt: 1 }}>

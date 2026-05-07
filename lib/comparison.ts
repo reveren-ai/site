@@ -23,7 +23,7 @@ export const comparisonRows: ComparisonRow[] = [
     cursorrules: "Single file",
     copilot: "Single file",
     windsurf: "Single file",
-    reveren: "Versioned library, one file per playbook",
+    reveren: "Versioned library, one file per protocol",
   },
   {
     feature: "Multi-step pipelines",

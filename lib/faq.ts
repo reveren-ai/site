@@ -9,7 +9,7 @@ export const faq: FaqItem[] = [
     id: "vs-cursorrules",
     question: "Why not just use .cursorrules / Copilot Instructions / Windsurf rules?",
     answer:
-      "Those are vendor-specific single files. Your investment doesn't move when you switch agents, and they don't compose into multi-step pipelines. reveren's playbooks are an open format that runs across every major coding agent and chains into deterministic workflows.",
+      "Those are vendor-specific single files. Your investment doesn't move when you switch agents, and they don't compose into multi-step pipelines. reveren's protocols are an open format that runs across every major coding agent and chains into deterministic workflows.",
   },
   {
     id: "what-counts-as-cloud-run",
@@ -33,7 +33,7 @@ export const faq: FaqItem[] = [
     id: "switch-agents",
     question: "What happens if I switch agents next year?",
     answer:
-      "Your playbooks come with you. The .playbooks/ format is open-spec and version-controlled in your repo. Switching agents is a config change, not a migration.",
+      "Your protocols come with you. The .protocols/ format is open-spec and version-controlled in your repo. Switching agents is a config change, not a migration.",
   },
   {
     id: "discount",

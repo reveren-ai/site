@@ -23,10 +23,10 @@ describe("pricing data", () => {
     expect(free?.priceSuffix).toBeUndefined();
   });
 
-  it("matrix is grouped into Pipeline, Playbooks, Agents, Cloud, Support — in that order", () => {
+  it("matrix is grouped into Pipeline, Protocols, Agents, Cloud, Support — in that order", () => {
     expect(featureMatrix.map((g) => g.id)).toEqual([
       "pipeline",
-      "playbooks",
+      "protocols",
       "agents",
       "cloud",
       "support",

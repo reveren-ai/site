@@ -37,12 +37,12 @@ export const metadata: Metadata = {
     template: "%s · reveren",
   },
   description:
-    "Structured, versioned, repo-aware guardrails for AI coding agents. Playbooks plus pipelines that make whichever agent you already pay for dramatically better.",
+    "Structured, versioned, repo-aware guardrails for AI coding agents. Protocols plus pipelines that make whichever agent you already pay for dramatically better.",
   applicationName: "reveren",
   authors: [{ name: "reveren" }],
   keywords: [
     "AI coding agents",
-    "playbooks",
+    "protocols",
     "Claude",
     "Cursor",
     "Copilot",

@@ -26,7 +26,7 @@ export default function CtaBand() {
             Sixty seconds. One command.
           </Typography>
           <Typography variant="body1" color="text.secondary">
-            No credit card. No signup. The CLI scaffolds .playbooks/ in your repo and
+            No credit card. No signup. The CLI scaffolds .protocols/ in your repo and
             wires the agent you're already using.
           </Typography>
           <Stack

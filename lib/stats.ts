@@ -9,7 +9,7 @@ export type Stat = {
 };
 
 export const proofStats: Stat[] = [
-  { value: "12", label: "playbooks shipped", hint: "all MIT in the base library" },
+  { value: "12", label: "protocols shipped", hint: "all MIT in the base library" },
   { value: "6", label: "agents tested" },
   { value: "4", label: "pipeline runners" },
   { value: "610+", label: "tests passing" },
@@ -19,7 +19,7 @@ export const proofStats: Stat[] = [
 
 export const proofStory = {
   eyebrow: "Built with reveren",
-  headline: "mrktable runs on its own playbooks.",
+  headline: "mrktable runs on its own protocols.",
   body:
-    "mrktable is a production newsletter platform shipping with Next.js 16, Prisma 7, Stripe, Auth.js, and twelve agents working from the same playbook library. We dogfood reveren before we ship it. The numbers below are real, not aspirational.",
+    "mrktable is a production newsletter platform shipping with Next.js 16, Prisma 7, Stripe, Auth.js, and twelve agents working from the same protocol library. We dogfood reveren before we ship it. The numbers below are real, not aspirational.",
 };

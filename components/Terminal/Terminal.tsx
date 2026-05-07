@@ -32,7 +32,7 @@ export default function Terminal() {
   return (
     <Box
       role="img"
-      aria-label="Terminal: npx @reveren-ai/core init writes a .playbooks/ directory and prepares your repo for agent runs."
+      aria-label="Terminal: npx @reveren-ai/core init writes a .protocols/ directory and prepares your repo for agent runs."
       sx={(t) => ({
         position: "relative",
         borderRadius: 2,

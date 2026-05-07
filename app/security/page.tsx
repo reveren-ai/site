@@ -37,7 +37,7 @@ export default function SecurityPage() {
 
           <p>
             The CLI is a Node binary distributed on npm under the BSL +
-            Additional Use Grant. When you run a playbook, it:
+            Additional Use Grant. When you run a protocol, it:
           </p>
 
           <ul>
@@ -117,7 +117,7 @@ export default function SecurityPage() {
             <li>
               <strong>Least-privilege OAuth scopes.</strong> The GitHub App
               integration requests only the repository permissions strictly
-              needed by the playbooks you install on a given repository.
+              needed by the protocols you install on a given repository.
             </li>
             <li>
               <strong>Audit log.</strong> Team and Enterprise tiers include an

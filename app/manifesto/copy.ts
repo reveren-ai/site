@@ -26,15 +26,15 @@ export const manifesto = {
       heading: "What an operating manual looks like.",
       body: [
         "An operating manual is the set of instructions that lets a competent person do good work in your specific context. It is not a tutorial. It is not training material. It is the thing the senior engineer would say to the new hire on day one: how we do things here, why, and what to do when reality deviates.",
-        "We call this a playbook. A playbook is a versioned Markdown file with typed front-matter that tells the agent: here is the role you are playing, here are the inputs you receive, here is the work you do, here is what you produce, here is what success looks like. It is repo-aware because it lives in your repo. It is agent-agnostic because it is plain Markdown that any agent can read. It composes into pipelines because the format is structured.",
-        "Twelve playbooks is enough to run a real engineering team. Plan-product. Plan-ux. Plan-engineering. Ship. Review. QA. Document. Capture-learnings. Improve. Cyber. Legal. Audit. Each one is replaceable. Each one is forkable. Each one travels with you across agents.",
+        "We call this a protocol. A protocol is a versioned Markdown file with typed front-matter that tells the agent: here is the role you are playing, here are the inputs you receive, here is the work you do, here is what you produce, here is what success looks like. It is repo-aware because it lives in your repo. It is agent-agnostic because it is plain Markdown that any agent can read. It composes into pipelines because the format is structured.",
+        "Twelve protocols is enough to run a real engineering team. Plan-product. Plan-ux. Plan-engineering. Ship. Review. QA. Document. Capture-learnings. Improve. Cyber. Legal. Audit. Each one is replaceable. Each one is forkable. Each one travels with you across agents.",
       ],
     },
     {
       heading: "Why this should be open.",
       body: [
         "If this works, it becomes infrastructure. Infrastructure that is single-vendor is rented, not owned. We don't think teams should rent the format their work runs in.",
-        "So the .playbooks/ format is open under CC-BY 4.0, and the reference CLI is MIT. If reveren the company disappears tomorrow, your team's playbooks keep working. Anyone can build a competing CLI tomorrow. We win by being the best implementation, not by trapping the schema.",
+        "So the .protocols/ format is open under CC-BY 4.0, and the reference CLI is MIT. If reveren the company disappears tomorrow, your team's protocols keep working. Anyone can build a competing CLI tomorrow. We win by being the best implementation, not by trapping the schema.",
       ],
     },
     {
@@ -47,14 +47,14 @@ export const manifesto = {
     {
       heading: "How this gets to a billion-dollar company.",
       body: [
-        "Standards layers compound. The first ten teams using reveren each authoring two private playbooks adds twenty playbooks of value. The hundredth team adds two hundred. The marketplace, once it opens, lets a vibe coder buy the playbook a staff engineer wrote on Tuesday and use it on Wednesday. The agent, whichever agent, gets better every time someone ships a playbook.",
+        "Standards layers compound. The first ten teams using reveren each authoring two private protocols adds twenty protocols of value. The hundredth team adds two hundred. The marketplace, once it opens, lets a vibe coder buy the protocol a staff engineer wrote on Tuesday and use it on Wednesday. The agent, whichever agent, gets better every time someone ships a protocol.",
         "Revenue is the orchestrator: cloud runs, hosted dashboard, private registry, GitHub App, Enterprise self-host. The CLI is free forever because the CLI is the wedge. The orchestrator is the moat because the orchestrator is the network.",
       ],
     },
     {
       heading: "If you've read this far.",
       body: [
-        `Run ${INSTALL_COMMAND}. Watch it scaffold .playbooks/ in your repo. Run reveren run plan-engineering on the next feature. Tell me whether the agent's output got better.`,
+        `Run ${INSTALL_COMMAND}. Watch it scaffold .protocols/ in your repo. Run reveren run plan-engineering on the next feature. Tell me whether the agent's output got better.`,
         "If it didn't, email me. I'll fix it.",
       ],
     },

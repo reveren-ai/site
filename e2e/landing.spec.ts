@@ -45,11 +45,11 @@ test.describe("landing page", () => {
       "Four capabilities. Composable in any order.",            // CapabilityGrid (old)
       "Four primitives. Composable in any order.",              // Solution (new)
       "Works with whichever agent you already pay for.",        // AgentCompatibility (new)
-      "mrktable runs on its own playbooks.",                    // ProofPoint
+      "mrktable runs on its own protocols.",                    // ProofPoint
       "Five things we deliberately don't do.",                  // NotThis (old)
       "Round numbers. No .99.",                                  // PricingTeaser
       "Single-file rules vs. a real standards layer.",          // Comparison (old)
-      "The .playbooks/ format is yours.",                       // OpenFormat
+      "The .protocols/ format is yours.",                       // OpenFormat
       "Innocent Muisha",                                         // FounderBio (new)
     ];
     const positions: number[] = [];

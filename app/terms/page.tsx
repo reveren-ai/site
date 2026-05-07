@@ -44,8 +44,8 @@ export default function TermsPage() {
 
           <p>
             Pre-launch, the things you can do are: browse this site, read the
-            docs, install the open-source CLI, run playbooks against your own
-            repositories, contribute playbooks back to the open library, and
+            docs, install the open-source CLI, run protocols against your own
+            repositories, contribute protocols back to the open library, and
             join the waitlist. Joining the waitlist means you&apos;ll get one
             email when the CLI is generally available, plus occasional product
             updates that you can unsubscribe from.
@@ -75,15 +75,15 @@ export default function TermsPage() {
               BSL <code>LICENSE</code> in that repository.
             </li>
             <li>
-              <strong>The open playbook library</strong> at{" "}
-              <a href="https://github.com/reveren-ai/playbooks">
-                github.com/reveren-ai/playbooks
+              <strong>The open protocol library</strong> at{" "}
+              <a href="https://github.com/reveren-ai/protocols">
+                github.com/reveren-ai/protocols
               </a>{" "}
               is published under the MIT License. Use it, fork it, embed it,
               ship products built on it.
             </li>
             <li>
-              <strong>The <code>.playbooks/</code> format specification</strong>
+              <strong>The <code>.protocols/</code> format specification</strong>
               {" "}at{" "}
               <a href="https://github.com/reveren-ai/spec">
                 github.com/reveren-ai/spec
@@ -134,7 +134,7 @@ export default function TermsPage() {
 
           <ul>
             <li>
-              run playbooks against repositories you do not own or have explicit
+              run protocols against repositories you do not own or have explicit
               permission to modify;
             </li>
             <li>
@@ -171,9 +171,9 @@ export default function TermsPage() {
 
           <p>
             You retain ownership of every line of code in your repositories,
-            every prompt you give the CLI, and every playbook you author. By
+            every prompt you give the CLI, and every protocol you author. By
             running the CLI, you grant us no license to your code. By
-            submitting a playbook to the open MIT-licensed library, you license
+            submitting a protocol to the open MIT-licensed library, you license
             it under that library&apos;s MIT terms — and you retain the right
             to use it however else you want.
           </p>
@@ -187,7 +187,7 @@ export default function TermsPage() {
             including merchantability, fitness for a particular purpose, and
             non-infringement. AI-assisted code generation produces output that
             you must review before using. Reveren does not warrant that
-            playbook output is correct, secure, or free of defects.
+            protocol output is correct, secure, or free of defects.
           </p>
 
           <h2>Limitation of liability</h2>

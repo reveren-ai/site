@@ -19,13 +19,13 @@ export default function OpenFormat() {
               Open by design
             </Typography>
             <Typography variant="h2" component="h2">
-              The .playbooks/ format is yours.
+              The .protocols/ format is yours.
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Every playbook is plain Markdown with a typed front-matter block. Version-controlled in your repo. Readable by humans, parseable by agents, portable between vendors.
+              Every protocol is plain Markdown with a typed front-matter block. Version-controlled in your repo. Readable by humans, parseable by agents, portable between vendors.
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              We publish the spec under CC-BY 4.0. The reference CLI is MIT. If we disappear tomorrow, your team's playbooks keep working.
+              We publish the spec under CC-BY 4.0. The reference CLI is MIT. If we disappear tomorrow, your team's protocols keep working.
             </Typography>
             <Box>
               <Button
@@ -59,7 +59,7 @@ export default function OpenFormat() {
               whiteSpace: "pre",
             }}
           >
-{`# .playbooks/ship.playbook.md
+{`# .protocols/ship.protocol.md
 ---
 name: ship
 mode: pipeline
