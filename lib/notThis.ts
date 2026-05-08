@@ -1,4 +1,7 @@
-// Counter-positioning copy — verbatim from MVP-SITE-ADJUSTMENTS.md §6.
+// Counter-positioning copy — extends MVP-SITE-ADJUSTMENTS.md §6 with the
+// sixth "Not a vendor-locked marketplace" principle from
+// DESIGN-REVISION-HANDOVER-PODS.md §6 (the marketplace moat against
+// Anthropic Skills + GPT Store).
 
 export type NotThisItem = {
   id: string;
@@ -31,5 +34,10 @@ export const notThis: NotThisItem[] = [
     id: "not-locked-in",
     rule: "Not single-vendor lock-in.",
     body: "The .protocols/ format is open. Your investment in protocols travels with you across agents, IDEs, even off-platform.",
+  },
+  {
+    id: "not-a-locked-marketplace",
+    rule: "Not a vendor-locked marketplace.",
+    body: "Anthropic Skills runs on Claude. ChatGPT GPT Store runs on ChatGPT. The reveren Pod Marketplace runs on every agent your team already pays for. Author once. Sell on every agent.",
   },
 ];

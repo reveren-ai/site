@@ -14,10 +14,10 @@ export default function NotThis() {
             What reveren isn't
           </Typography>
           <Typography variant="h2" component="h2">
-            Five things we deliberately don't do.
+            Six things we deliberately don't do.
           </Typography>
           <Typography variant="body1" color="text.secondary">
-            Counter-positioning matters more than feature lists. Here's where we draw lines.
+            Counter-positioning matters more than feature lists. Here's where we draw lines — including the one that separates an open marketplace from a vendor-locked one.
           </Typography>
         </Stack>
 
