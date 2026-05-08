@@ -16,9 +16,9 @@ test.describe("pricing page", () => {
     expect(text).toContain("$39");
   });
 
-  test("matrix renders the five row groups in order", async ({ page }) => {
+  test("matrix renders the six row groups in order", async ({ page }) => {
     await page.goto("/pricing");
-    const groups = ["Pipeline", "Protocols", "Agents", "Cloud", "Support"];
+    const groups = ["Pipeline", "Marketplace", "Protocols", "Agents", "Cloud", "Support"];
     const table = page.getByRole("table", { name: /pricing feature matrix/i });
     await expect(table).toBeVisible();
     const positions: number[] = [];

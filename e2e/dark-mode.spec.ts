@@ -31,13 +31,21 @@ for (const route of routes) {
   });
 }
 
-test("Join waitlist button stays visible in dark mode", async ({ page }) => {
+test("Join waitlist button stays visible in dark mode", async ({ page, viewport }) => {
   await page.goto("/");
   await page.evaluate(() => localStorage.setItem("rv-mode", "dark"));
   await page.reload();
   await page.waitForFunction(
     () => document.documentElement.dataset.mode === "dark",
   );
+
+  // On mobile the desktop nav (with the inline waitlist button) is hidden;
+  // the button lives inside MobileNav's drawer. Open the menu first so the
+  // assertion targets the same control on both projects.
+  const isMobile = (viewport?.width ?? 1280) < 900;
+  if (isMobile) {
+    await page.getByRole("button", { name: /open menu/i }).click();
+  }
 
   const btn = page.getByRole("button", { name: /join waitlist/i }).first();
   await expect(btn).toBeVisible();
