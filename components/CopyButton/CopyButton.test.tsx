@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "@/theme/theme";
@@ -39,5 +39,105 @@ describe("CopyButton", () => {
   it("renders a custom label when provided", () => {
     renderWithTheme(<CopyButton text="some text" label="Copy install" />);
     expect(screen.getByRole("button")).toHaveTextContent("Copy install");
+  });
+
+  it("falls back to execCommand textarea path when clipboard API is missing", () => {
+    const originalClipboard = navigator.clipboard;
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      writable: true,
+      value: undefined,
+    });
+    if (typeof document.execCommand !== "function") {
+      Object.defineProperty(document, "execCommand", {
+        configurable: true,
+        writable: true,
+        value: () => true,
+      });
+    }
+    const execSpy = vi
+      .spyOn(document, "execCommand")
+      .mockImplementation(() => true);
+
+    renderWithTheme(<CopyButton text="fallback text" />);
+    fireEvent.click(screen.getByRole("button"));
+
+    expect(execSpy).toHaveBeenCalledWith("copy");
+
+    execSpy.mockRestore();
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      writable: true,
+      value: originalClipboard,
+    });
+  });
+
+  it("falls back to execCommand if the clipboard API rejects", async () => {
+    const originalClipboard = navigator.clipboard;
+    // Replace the entire clipboard so userEvent's shim doesn't reinstall it.
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      writable: true,
+      value: { writeText: vi.fn().mockRejectedValue(new Error("denied")) },
+    });
+    if (typeof document.execCommand !== "function") {
+      Object.defineProperty(document, "execCommand", {
+        configurable: true,
+        writable: true,
+        value: () => true,
+      });
+    }
+    const execSpy = vi
+      .spyOn(document, "execCommand")
+      .mockImplementation(() => true);
+
+    renderWithTheme(<CopyButton text="rejected text" />);
+    fireEvent.click(screen.getByRole("button"));
+
+    await waitFor(() => {
+      expect(execSpy).toHaveBeenCalledWith("copy");
+    });
+
+    execSpy.mockRestore();
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      writable: true,
+      value: originalClipboard,
+    });
+  });
+
+  it("swallows execCommand failures without throwing", () => {
+    const originalClipboard = navigator.clipboard;
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      writable: true,
+      value: undefined,
+    });
+    if (typeof document.execCommand !== "function") {
+      Object.defineProperty(document, "execCommand", {
+        configurable: true,
+        writable: true,
+        value: () => true,
+      });
+    }
+    const execSpy = vi.spyOn(document, "execCommand").mockImplementation(() => {
+      throw new Error("permission denied");
+    });
+
+    renderWithTheme(<CopyButton text="will fail" />);
+    expect(() => fireEvent.click(screen.getByRole("button"))).not.toThrow();
+
+    execSpy.mockRestore();
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      writable: true,
+      value: originalClipboard,
+    });
+  });
+
+  it("renders without an icon when showIcon=false", () => {
+    renderWithTheme(<CopyButton text="x" showIcon={false} />);
+    const button = screen.getByRole("button");
+    expect(button.querySelector("svg")).toBeNull();
   });
 });
