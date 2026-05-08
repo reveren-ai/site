@@ -97,6 +97,33 @@ export default function TierCards() {
                   ))}
                 </Stack>
 
+                <Box
+                  sx={{
+                    py: 2,
+                    borderTop: "1px solid",
+                    borderBottom: "1px solid",
+                    borderColor: "divider",
+                    display: "flex",
+                    alignItems: "baseline",
+                    justifyContent: "space-between",
+                    gap: 2,
+                  }}
+                >
+                  <Typography
+                    variant="eyebrow"
+                    component="div"
+                    color="text.secondary"
+                  >
+                    Pod credits
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{ fontWeight: 600, textAlign: "right" }}
+                  >
+                    {t.podCredits}
+                  </Typography>
+                </Box>
+
                 <Button
                   component="a"
                   href={t.cta.href}

@@ -23,14 +23,37 @@ describe("pricing data", () => {
     expect(free?.priceSuffix).toBeUndefined();
   });
 
-  it("matrix is grouped into Pipeline, Protocols, Agents, Cloud, Support — in that order", () => {
+  it("matrix is grouped into Pipeline, Marketplace, Protocols, Agents, Cloud, Support — in that order", () => {
     expect(featureMatrix.map((g) => g.id)).toEqual([
       "pipeline",
+      "marketplace",
       "protocols",
       "agents",
       "cloud",
       "support",
     ]);
+  });
+
+  it("every tier carries a podCredits string", () => {
+    for (const t of tiers) {
+      expect(typeof t.podCredits).toBe("string");
+      expect(t.podCredits.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("Marketplace group has a Pod credits row with values for all tiers", () => {
+    const marketplace = featureMatrix.find((g) => g.id === "marketplace");
+    expect(marketplace).toBeDefined();
+    const podCredits = marketplace?.rows.find((r) => /Pod credits/i.test(r.label));
+    expect(podCredits).toBeDefined();
+    expect(podCredits?.free).toBeDefined();
+    expect(podCredits?.pro).toBeDefined();
+    expect(podCredits?.team).toBeDefined();
+    expect(podCredits?.enterprise).toBeDefined();
+  });
+
+  it("footnote explains pod credits", () => {
+    expect(pricingFootnote).toMatch(/[Pp]od credits/);
   });
 
   it("every matrix row has values for all four tiers", () => {

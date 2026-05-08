@@ -14,6 +14,9 @@ export type Tier = {
   cta: { label: string; href: string; variant: "contained" | "outlined" };
   popular?: boolean;
   features: string[];
+  // Pod Marketplace credits per DESIGN-REVISION-HANDOVER-PODS.md §5.
+  // One credit = one paid pod / month at no additional cost (creators still paid).
+  podCredits: string;
 };
 
 export const tiers: Tier[] = [
@@ -31,6 +34,7 @@ export const tiers: Tier[] = [
       "200 cloud pipeline runs / month",
       "Community support",
     ],
+    podCredits: "Free pods only",
   },
   {
     id: "pro",
@@ -50,6 +54,7 @@ export const tiers: Tier[] = [
       "MCP server (read)",
       "2,000 cloud runs / mo · overage $0.015 / run",
     ],
+    podCredits: "1 paid pod / month",
   },
   {
     id: "team",
@@ -68,6 +73,7 @@ export const tiers: Tier[] = [
       "MCP server (write)",
       "6,000 cloud runs / seat · overage $0.012 / run",
     ],
+    podCredits: "3 paid pods / org / month",
   },
   {
     id: "enterprise",
@@ -84,11 +90,12 @@ export const tiers: Tier[] = [
       "Security review",
       "Optional professional services engagement",
     ],
+    podCredits: "Unlimited",
   },
 ];
 
 export const pricingFootnote =
-  "All prices in USD. Local-only `reveren run` is unlimited and free on every tier. Cloud pipeline runs apply only when you use the hosted orchestrator (analytics, registry, GitHub App, MCP write).";
+  "All prices in USD. Local-only `reveren run` is unlimited and free on every tier. Cloud pipeline runs apply only when you use the hosted orchestrator (analytics, registry, GitHub App, MCP write). Pod credits entitle you to one paid Marketplace pod per month at no additional cost — creators are still paid. Beyond included credits, additional pods are purchased separately (self-host pods $1–$9 / mo; hosted pods $19+ / mo).";
 
 // Feature matrix — five row groups per HANDOFF.md §5.3, with cell values
 // that can be boolean | string | number. Order matters: Pipeline first
@@ -144,6 +151,41 @@ export const featureMatrix: MatrixGroup[] = [
         pro: "Unlimited",
         team: "Unlimited",
         enterprise: "Unlimited",
+      },
+    ],
+  },
+  {
+    id: "marketplace",
+    label: "Marketplace",
+    rows: [
+      {
+        label: "Pod credits / month",
+        hint: "One paid Marketplace pod, no extra charge",
+        free: "Free pods only",
+        pro: 1,
+        team: "3 / org",
+        enterprise: "Unlimited",
+      },
+      {
+        label: "Author + sell pods",
+        free: false,
+        pro: true,
+        team: true,
+        enterprise: true,
+      },
+      {
+        label: "Creator revenue share",
+        free: "—",
+        pro: "70 / 30",
+        team: "70 / 30",
+        enterprise: "Negotiated",
+      },
+      {
+        label: "Private org pod registry",
+        free: false,
+        pro: false,
+        team: true,
+        enterprise: true,
       },
     ],
   },
