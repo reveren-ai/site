@@ -121,7 +121,19 @@ export default function PodsPage() {
             </Typography>
           </Stack>
 
-          <Box sx={{ overflowX: { xs: "auto", lg: "visible" } }}>
+          <Box
+            tabIndex={0}
+            aria-label="Pod marketplace comparison table (scrollable)"
+            sx={{
+              overflowX: { xs: "auto", lg: "visible" },
+              "&:focus-visible": {
+                outline: "2px solid",
+                outlineColor: "primary.main",
+                outlineOffset: 2,
+                borderRadius: 2,
+              },
+            }}
+          >
             <Box
               role="table"
               aria-label="reveren Pods vs Anthropic Skills vs GPT Store"

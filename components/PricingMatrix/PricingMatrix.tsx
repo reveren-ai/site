@@ -23,7 +23,19 @@ export default function PricingMatrix() {
           </Typography>
         </Stack>
 
-        <Box sx={{ overflowX: { xs: "auto", lg: "visible" } }}>
+        <Box
+          tabIndex={0}
+          aria-label="reveren pricing feature matrix (scrollable)"
+          sx={{
+            overflowX: { xs: "auto", lg: "visible" },
+            "&:focus-visible": {
+              outline: "2px solid",
+              outlineColor: "primary.main",
+              outlineOffset: 2,
+              borderRadius: 2,
+            },
+          }}
+        >
           <Box
             role="table"
             aria-label="reveren pricing feature matrix"
