@@ -83,6 +83,19 @@ html[data-mode="dark"] {
   --rv-shadow-pop: 0 24px 60px -24px rgba(0,0,0,0.7), 0 6px 16px rgba(0,0,0,0.4);
 }
 
+/* Loud-CTA surface: mode-invariant Iron slate + white. Used for
+   conversion-grade moments (popular tier, primary feature CTAs) where we
+   want the same brand presence in both modes. Dark-mode primary.main is the
+   *light* slate which fails WCAG with white text — this token sidesteps
+   that mapping for these specific surfaces only. */
+:root,
+html[data-mode="light"],
+html[data-mode="dark"] {
+  --rv-cta-bg: #3A4553;
+  --rv-cta-bg-hover: #2B3441;
+  --rv-cta-fg: #FFFFFF;
+}
+
 /* Container — used by every section's wrapper. */
 .rv-container {
   width: 100%;
@@ -97,13 +110,14 @@ html[data-mode="dark"] {
   }
 }
 
-/* Section spacing rhythm. */
+/* Section spacing rhythm. Tightened from clamp(64px, 9vw, 128px) — between
+   adjacent sections the cumulative gap was reading as a pause, not a beat. */
 .rv-section {
-  padding-block: clamp(64px, 9vw, 128px);
+  padding-block: clamp(56px, 7vw, 104px);
 }
 
 .rv-section--tight {
-  padding-block: clamp(48px, 6vw, 96px);
+  padding-block: clamp(40px, 5vw, 80px);
 }
 
 /* Skip-to-content link — visible only on keyboard focus. */

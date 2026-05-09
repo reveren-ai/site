@@ -143,6 +143,15 @@ export default function FeatureTeaser() {
                       variant={card.cta.variant}
                       size="large"
                       fullWidth
+                      sx={
+                        card.cta.variant === "contained"
+                          ? {
+                              bgcolor: "var(--rv-cta-bg)",
+                              color: "var(--rv-cta-fg)",
+                              "&:hover": { bgcolor: "var(--rv-cta-bg-hover)" },
+                            }
+                          : undefined
+                      }
                     >
                       {card.cta.label}
                     </Button>
