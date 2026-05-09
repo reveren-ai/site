@@ -1,10 +1,12 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { notThis } from "@/lib/notThis";
+import { fonts } from "@/theme/tokens";
 import {
   MotionReveal,
   MotionStagger,
   MotionItem,
 } from "@/components/motion/MotionPrimitives";
+import MotionDrawLine from "@/components/motion/MotionDrawLine";
 
 export default function NotThis() {
   return (
@@ -29,37 +31,64 @@ export default function NotThis() {
         </MotionReveal>
 
         <MotionStagger
-          stagger={0.06}
+          stagger={0.07}
           sx={{
-            borderTop: "1px solid",
-            borderColor: "divider",
             display: "flex",
             flexDirection: "column",
           }}
         >
-          {notThis.map((n) => (
+          {notThis.map((n, i) => (
             <MotionItem
               key={n.id}
               sx={{
                 py: { xs: 3.5, md: 4 },
-                display: "grid",
-                gridTemplateColumns: { xs: "1fr", md: "minmax(0, 4fr) minmax(0, 8fr)" },
-                gap: { xs: 1, md: 6 },
-                alignItems: "baseline",
-                borderBottom: "1px solid",
-                borderColor: "divider",
+                position: "relative",
               }}
             >
-              <Typography
-                variant="h4"
-                component="h3"
-                sx={{ fontWeight: 600, fontSize: { xs: "1.125rem", md: "1.25rem" } }}
+              {/* Top accent rule — draws left-to-right on entry. */}
+              <MotionDrawLine
+                duration={520}
+                delay={i * 50}
+                color="primary.main"
+                sx={{ mb: { xs: 2.5, md: 3 }, opacity: 0.85 }}
+              />
+
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: {
+                    xs: "1fr",
+                    md: "minmax(0, 1fr) minmax(0, 4fr) minmax(0, 8fr)",
+                  },
+                  gap: { xs: 1, md: 6 },
+                  alignItems: "baseline",
+                }}
               >
-                {n.rule}
-              </Typography>
-              <Typography variant="body1" color="text.secondary">
-                {n.body}
-              </Typography>
+                <Typography
+                  component="div"
+                  aria-hidden
+                  sx={{
+                    fontFamily: fonts.mono,
+                    fontSize: 12,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "text.secondary",
+                    fontVariantNumeric: "tabular-nums",
+                  }}
+                >
+                  {String(i + 1).padStart(2, "0")} / 06
+                </Typography>
+                <Typography
+                  variant="h4"
+                  component="h3"
+                  sx={{ fontWeight: 600, fontSize: { xs: "1.125rem", md: "1.25rem" } }}
+                >
+                  {n.rule}
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  {n.body}
+                </Typography>
+              </Box>
             </MotionItem>
           ))}
         </MotionStagger>

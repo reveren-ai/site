@@ -1,11 +1,16 @@
 import { Box, Card, CardContent, Stack, Typography, Button, Chip } from "@mui/material";
 import { tiers, pricingFootnote } from "@/lib/pricing";
+import {
+  MotionStagger,
+  MotionItem,
+} from "@/components/motion/MotionPrimitives";
 
 export default function TierCards() {
   return (
     <Box component="section" className="rv-section--tight">
       <Box className="rv-container">
-        <Box
+        <MotionStagger
+          stagger={0.08}
           sx={{
             display: "grid",
             gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" },
@@ -14,10 +19,20 @@ export default function TierCards() {
           }}
         >
           {tiers.map((t) => (
+            <MotionItem key={t.id} sx={{ height: "100%" }}>
             <Card
-              key={t.id}
+              className={t.popular ? "rv-popular-pulse" : undefined}
               sx={{
                 p: 0.5,
+                height: "100%",
+                transition:
+                  "transform 140ms cubic-bezier(0.22,1,0.36,1), box-shadow 140ms cubic-bezier(0.22,1,0.36,1)",
+                "&:hover": {
+                  transform: t.popular
+                    ? { xs: "translateY(-2px)", lg: "scale(1.04) translateY(-2px)" }
+                    : "translateY(-2px)",
+                  boxShadow: "var(--rv-shadow-pop)",
+                },
                 ...(t.popular
                   ? {
                       borderColor: "primary.main",
@@ -135,8 +150,9 @@ export default function TierCards() {
                 </Button>
               </CardContent>
             </Card>
+            </MotionItem>
           ))}
-        </Box>
+        </MotionStagger>
 
         <Typography variant="body2" color="text.secondary" sx={{ mt: 4, maxWidth: 800 }}>
           {pricingFootnote}

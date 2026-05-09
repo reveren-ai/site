@@ -2,7 +2,11 @@ import { Box, Stack, Typography, Chip } from "@mui/material";
 import CheckIcon from "@mui/icons-material/CheckRounded";
 import { supportedAgents, agentsIntro } from "@/lib/agents";
 import { fonts } from "@/theme/tokens";
-import { MotionReveal } from "@/components/motion/MotionPrimitives";
+import {
+  MotionReveal,
+  MotionStagger,
+  MotionItem,
+} from "@/components/motion/MotionPrimitives";
 
 export default function AgentCompatibility() {
   return (
@@ -22,91 +26,94 @@ export default function AgentCompatibility() {
           </Stack>
         </MotionReveal>
 
-        <MotionReveal>
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: { xs: "repeat(2, 1fr)", sm: "repeat(3, 1fr)", md: "repeat(6, 1fr)" },
-              gap: { xs: 0, md: 0 },
-              border: "1px solid",
-              borderColor: "divider",
-              borderRadius: 2,
-              overflow: "hidden",
-              bgcolor: "background.paper",
-            }}
-          >
-            {supportedAgents.map((a, i) => (
-              <Stack
-                key={a.id}
-                direction="row"
-                alignItems="center"
-                spacing={1.25}
+        <MotionStagger
+          stagger={0.06}
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "repeat(2, 1fr)", sm: "repeat(3, 1fr)", md: "repeat(6, 1fr)" },
+            gap: { xs: 0, md: 0 },
+            border: "1px solid",
+            borderColor: "divider",
+            borderRadius: 2,
+            overflow: "hidden",
+            bgcolor: "background.paper",
+          }}
+        >
+          {supportedAgents.map((a, i) => (
+            <MotionItem
+              key={a.id}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1.25,
+                px: { xs: 2, md: 2.5 },
+                py: 2.25,
+                borderRight: {
+                  xs: i % 2 === 0 ? "1px solid" : "none",
+                  sm: (i + 1) % 3 !== 0 ? "1px solid" : "none",
+                  md: i < supportedAgents.length - 1 ? "1px solid" : "none",
+                },
+                borderBottom: {
+                  xs: i < supportedAgents.length - 2 ? "1px solid" : "none",
+                  sm: i < supportedAgents.length - (supportedAgents.length % 3 || 3) ? "1px solid" : "none",
+                  md: "none",
+                },
+                borderColor: "divider",
+                transition: "background-color 140ms cubic-bezier(0.22,1,0.36,1)",
+                "&:hover": {
+                  bgcolor: "background.default",
+                },
+              }}
+            >
+              <Box
+                aria-hidden
                 sx={{
-                  px: { xs: 2, md: 2.5 },
-                  py: 2.25,
-                  borderRight: {
-                    xs: i % 2 === 0 ? "1px solid" : "none",
-                    sm: (i + 1) % 3 !== 0 ? "1px solid" : "none",
-                    md: i < supportedAgents.length - 1 ? "1px solid" : "none",
-                  },
-                  borderBottom: {
-                    xs: i < supportedAgents.length - 2 ? "1px solid" : "none",
-                    sm: i < supportedAgents.length - (supportedAgents.length % 3 || 3) ? "1px solid" : "none",
-                    md: "none",
-                  },
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 22,
+                  height: 22,
+                  borderRadius: 999,
+                  bgcolor: a.status === "supported" ? "primary.main" : "transparent",
+                  color: a.status === "supported" ? "primary.contrastText" : "text.secondary",
+                  border: a.status === "supported" ? "none" : "1px solid",
                   borderColor: "divider",
+                  flexShrink: 0,
                 }}
               >
-                <Box
-                  aria-hidden
+                <CheckIcon sx={{ fontSize: 14 }} />
+              </Box>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 500,
+                  color: "text.primary",
+                  flex: 1,
+                  minWidth: 0,
+                }}
+              >
+                {a.label}
+              </Typography>
+              {a.status === "beta" ? (
+                <Chip
+                  label="Beta"
+                  size="small"
                   sx={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: 22,
-                    height: 22,
-                    borderRadius: 999,
-                    bgcolor: a.status === "supported" ? "primary.main" : "transparent",
-                    color: a.status === "supported" ? "primary.contrastText" : "text.secondary",
-                    border: a.status === "supported" ? "none" : "1px solid",
+                    fontFamily: fonts.mono,
+                    fontSize: "0.625rem",
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                    height: 18,
+                    bgcolor: "transparent",
+                    color: "text.secondary",
+                    border: "1px solid",
                     borderColor: "divider",
-                    flexShrink: 0,
                   }}
-                >
-                  <CheckIcon sx={{ fontSize: 14 }} />
-                </Box>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontWeight: 500,
-                    color: "text.primary",
-                    flex: 1,
-                    minWidth: 0,
-                  }}
-                >
-                  {a.label}
-                </Typography>
-                {a.status === "beta" ? (
-                  <Chip
-                    label="Beta"
-                    size="small"
-                    sx={{
-                      fontFamily: fonts.mono,
-                      fontSize: "0.625rem",
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      height: 18,
-                      bgcolor: "transparent",
-                      color: "text.secondary",
-                      border: "1px solid",
-                      borderColor: "divider",
-                    }}
-                  />
-                ) : null}
-              </Stack>
-            ))}
-          </Box>
-        </MotionReveal>
+                />
+              ) : null}
+            </MotionItem>
+          ))}
+        </MotionStagger>
 
         <Typography variant="caption" color="text.secondary" sx={{ mt: 3, display: "block" }}>
           More agents coming as MCP coverage expands. Bring your own model. No vendor lock-in.

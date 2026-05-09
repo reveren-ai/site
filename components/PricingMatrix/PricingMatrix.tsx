@@ -3,6 +3,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { featureMatrix, tiers } from "@/lib/pricing";
 import { fonts } from "@/theme/tokens";
 import Cell from "./Cell";
+import { MotionReveal } from "@/components/motion/MotionPrimitives";
 
 // CSS-grid pricing matrix. Sticky head, popular column wash, hard contrast.
 // Per HANDOFF.md §6 we deliberately avoid <Table> so we keep the structural
@@ -14,15 +15,18 @@ export default function PricingMatrix() {
   return (
     <Box id="matrix" component="section" className="rv-section">
       <Box className="rv-container">
-        <Stack spacing={2} sx={{ mb: { xs: 4, md: 6 }, maxWidth: 760 }}>
-          <Typography variant="eyebrow" component="div">
-            Compare every feature
-          </Typography>
-          <Typography variant="h2" component="h2">
-            What you get, exactly.
-          </Typography>
-        </Stack>
+        <MotionReveal>
+          <Stack spacing={2} sx={{ mb: { xs: 4, md: 6 }, maxWidth: 760 }}>
+            <Typography variant="eyebrow" component="div">
+              Compare every feature
+            </Typography>
+            <Typography variant="h2" component="h2">
+              What you get, exactly.
+            </Typography>
+          </Stack>
+        </MotionReveal>
 
+        <MotionReveal>
         <Box
           tabIndex={0}
           aria-label="reveren pricing feature matrix (scrollable)"
@@ -189,6 +193,7 @@ export default function PricingMatrix() {
             ))}
           </Box>
         </Box>
+        </MotionReveal>
       </Box>
     </Box>
   );

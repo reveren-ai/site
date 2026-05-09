@@ -23,7 +23,7 @@ export default function FounderBio() {
               alignItems: "start",
             }}
           >
-            <Box>
+            <Box className="rv-photo-settle">
               {founder.photoUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img

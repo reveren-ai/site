@@ -2,6 +2,11 @@
 
 import { Box, Stack, Typography } from "@mui/material";
 import { faq } from "@/lib/faq";
+import {
+  MotionReveal,
+  MotionStagger,
+  MotionItem,
+} from "@/components/motion/MotionPrimitives";
 
 // Uses native <details> / <summary> so it degrades gracefully without JS,
 // styled to match the rest of the system (no MUI Accordion needed for this).
@@ -9,29 +14,34 @@ export default function FAQ() {
   return (
     <Box component="section" className="rv-section">
       <Box className="rv-container">
-        <Stack spacing={2} sx={{ mb: { xs: 4, md: 6 }, maxWidth: 760 }}>
-          <Typography variant="eyebrow" component="div">
-            FAQ
-          </Typography>
-          <Typography variant="h2" component="h2">
-            Questions worth answering.
-          </Typography>
-        </Stack>
+        <MotionReveal>
+          <Stack spacing={2} sx={{ mb: { xs: 4, md: 6 }, maxWidth: 760 }}>
+            <Typography variant="eyebrow" component="div">
+              FAQ
+            </Typography>
+            <Typography variant="h2" component="h2">
+              Questions worth answering.
+            </Typography>
+          </Stack>
+        </MotionReveal>
 
-        <Stack
+        <MotionStagger
+          stagger={0.05}
           sx={{
             borderTop: "1px solid",
             borderBottom: "1px solid",
             borderColor: "divider",
-            "& > details:not(:last-child)": {
+            display: "flex",
+            flexDirection: "column",
+            "& > div:not(:last-child) > details": {
               borderBottom: "1px solid",
               borderColor: "divider",
             },
           }}
         >
           {faq.map((item) => (
+            <MotionItem key={item.id} y={0}>
             <Box
-              key={item.id}
               component="details"
               sx={{
                 "& > summary": {
@@ -71,8 +81,9 @@ export default function FAQ() {
               <Box component="summary">{item.question}</Box>
               <p>{item.answer}</p>
             </Box>
+            </MotionItem>
           ))}
-        </Stack>
+        </MotionStagger>
       </Box>
     </Box>
   );

@@ -1,7 +1,64 @@
 import { Box, Stack, Typography, Button } from "@mui/material";
 import { fonts } from "@/theme/tokens";
 import { GITHUB_SPEC_URL } from "@/lib/install";
-import { MotionReveal } from "@/components/motion/MotionPrimitives";
+import {
+  MotionReveal,
+  MotionStagger,
+  MotionItem,
+} from "@/components/motion/MotionPrimitives";
+
+// Frontmatter keys get a subtle primary tint inside the demo block — visual
+// syntax-highlight cue without pulling a real highlighter dependency.
+const FRONTMATTER_KEYS = new Set([
+  "name:",
+  "mode:",
+  "agents:",
+  "inputs:",
+]);
+
+const CODE_LINES = [
+  "# .protocols/ship.protocol.md",
+  "---",
+  "name: ship",
+  "mode: pipeline",
+  "agents: [claude, cursor, copilot, windsurf]",
+  "inputs:",
+  "  - branch",
+  "  - tests_pass",
+  "---",
+  "",
+  "When the feature is done, reviewed, and ready",
+  "to merge, run lint, tests, build. Update docs.",
+  "Open a PR with conventional title.",
+  "",
+  "Stop on any failed check. Don't auto-amend.",
+];
+
+function tintLine(line: string) {
+  // Hash header ("# ..."): full primary tint, conveys "this is a doc heading".
+  if (line.startsWith("# ")) {
+    return <Box component="span" sx={{ color: "primary.main" }}>{line}</Box>;
+  }
+  // YAML separator ("---"): muted divider treatment.
+  if (line === "---") {
+    return <Box component="span" sx={{ color: "text.secondary", opacity: 0.6 }}>{line}</Box>;
+  }
+  // "key: value" front-matter lines: tint the key, leave the value default.
+  const colonIdx = line.indexOf(":");
+  if (colonIdx > 0) {
+    const key = line.slice(0, colonIdx + 1);
+    const rest = line.slice(colonIdx + 1);
+    if (FRONTMATTER_KEYS.has(key.trim())) {
+      return (
+        <>
+          <Box component="span" sx={{ color: "primary.main", fontWeight: 500 }}>{key}</Box>
+          <Box component="span">{rest}</Box>
+        </>
+      );
+    }
+  }
+  return <>{line}</>;
+}
 
 export default function OpenFormat() {
   return (
@@ -49,42 +106,41 @@ export default function OpenFormat() {
             </Stack>
           </MotionReveal>
 
-          <MotionReveal delay={0.12}>
-            <Box
-              component="pre"
-              aria-hidden
-              sx={{
-                m: 0,
-                p: 3,
-                borderRadius: 2,
-                border: "1px solid",
-                borderColor: "divider",
-                fontFamily: fonts.mono,
-                fontSize: 13,
-                lineHeight: 1.7,
-                color: "var(--mui-palette-text-primary)",
-                bgcolor: "var(--mui-palette-background-default)",
-                overflowX: "auto",
-                whiteSpace: "pre",
-              }}
-            >
-{`# .protocols/ship.protocol.md
----
-name: ship
-mode: pipeline
-agents: [claude, cursor, copilot, windsurf]
-inputs:
-  - branch
-  - tests_pass
----
-
-When the feature is done, reviewed, and ready
-to merge, run lint, tests, build. Update docs.
-Open a PR with conventional title.
-
-Stop on any failed check. Don't auto-amend.`}
-            </Box>
-          </MotionReveal>
+          <MotionStagger
+            stagger={0.045}
+            delay={0.18}
+            aria-hidden
+            sx={{
+              m: 0,
+              p: 3,
+              borderRadius: 2,
+              border: "1px solid",
+              borderColor: "divider",
+              fontFamily: fonts.mono,
+              fontSize: 13,
+              lineHeight: 1.7,
+              color: "var(--mui-palette-text-primary)",
+              bgcolor: "var(--mui-palette-background-default)",
+              overflowX: "auto",
+              whiteSpace: "pre",
+            }}
+          >
+            {CODE_LINES.map((line, i) => (
+              <MotionItem
+                key={i}
+                y={0}
+                sx={{
+                  display: "block",
+                  minHeight: "1.7em",
+                }}
+              >
+                {tintLine(line)}
+                {/* Force the empty lines to occupy a row so the stagger pacing
+                    feels like reading a real file, not a wall of text. */}
+                {line === "" ? " " : null}
+              </MotionItem>
+            ))}
+          </MotionStagger>
         </Box>
       </Box>
     </Box>

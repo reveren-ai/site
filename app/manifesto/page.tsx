@@ -4,6 +4,7 @@ import ManifestoHeader from "@/components/ManifestoHeader/ManifestoHeader";
 import Prose from "@/components/Prose/Prose";
 import PullQuote from "@/components/PullQuote/PullQuote";
 import TerminalButton from "@/components/TerminalButton/TerminalButton";
+import { MotionReveal } from "@/components/motion/MotionPrimitives";
 import { manifesto } from "./copy";
 
 export const metadata: Metadata = {
@@ -40,28 +41,30 @@ export default function ManifestoPage() {
 
       <Box component="section" className="rv-section" sx={{ pt: { xs: 6, md: 10 } }}>
         <Box className="rv-container">
-          <Stack
-            spacing={3}
-            sx={{
-              maxWidth: 600,
-              mx: "auto",
-              textAlign: "center",
-              py: { xs: 5, md: 7 },
-              borderTop: "1px solid",
-              borderBottom: "1px solid",
-              borderColor: "divider",
-            }}
-          >
-            <Typography variant="eyebrow" component="div">
-              Try it
-            </Typography>
-            <Typography variant="h3" component="h2">
-              Sixty seconds. One command.
-            </Typography>
-            <Box>
-              <TerminalButton />
-            </Box>
-          </Stack>
+          <MotionReveal>
+            <Stack
+              spacing={3}
+              sx={{
+                maxWidth: 600,
+                mx: "auto",
+                textAlign: "center",
+                py: { xs: 5, md: 7 },
+                borderTop: "1px solid",
+                borderBottom: "1px solid",
+                borderColor: "divider",
+              }}
+            >
+              <Typography variant="eyebrow" component="div">
+                Try it
+              </Typography>
+              <Typography variant="h3" component="h2">
+                Sixty seconds. One command.
+              </Typography>
+              <Box>
+                <TerminalButton />
+              </Box>
+            </Stack>
+          </MotionReveal>
         </Box>
       </Box>
     </>

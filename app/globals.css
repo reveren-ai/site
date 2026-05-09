@@ -140,3 +140,144 @@ html[data-mode="dark"] {
   outline: 2px solid var(--mui-palette-primary-main);
   outline-offset: 2px;
 }
+
+/* Logo mark — three bars stack in top-down on first paint. The opacity
+   target is per-bar (0.42 / 0.7 / 1.0) so we drive it via a CSS variable
+   on each bar; the keyframe animates from 0 to var(--rv-mark-opacity).
+   Honours prefers-reduced-motion via the global rule above. */
+@keyframes rv-mark-bar-in {
+  from {
+    transform: translateY(-3px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: var(--rv-mark-opacity, 1);
+  }
+}
+
+.rv-mark-bar {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: rv-mark-bar-in 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  opacity: var(--rv-mark-opacity, 1);
+}
+
+.rv-mark-bar--1 {
+  --rv-mark-opacity: 0.42;
+  animation-delay: 0ms;
+}
+
+.rv-mark-bar--2 {
+  --rv-mark-opacity: 0.7;
+  animation-delay: 80ms;
+}
+
+.rv-mark-bar--3 {
+  --rv-mark-opacity: 1;
+  animation-delay: 160ms;
+}
+
+/* Wordmark — serif word eases in after the bars settle. */
+@keyframes rv-wordmark-word-in {
+  from {
+    transform: translateX(-4px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.rv-wordmark-word {
+  transform-origin: left center;
+  transform-box: fill-box;
+  animation: rv-wordmark-word-in 480ms cubic-bezier(0.22, 1, 0.36, 1) 220ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-mark-bar,
+  .rv-wordmark-word {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* Popular pricing tier — single accent-ring pulse on first paint to draw
+   the eye to the recommended tier without strobing. Plays once, then leaves
+   the static accent border untouched. */
+@keyframes rv-popular-pulse {
+  0% {
+    box-shadow:
+      var(--rv-shadow-pop),
+      0 0 0 0 color-mix(in srgb, var(--mui-palette-primary-main) 60%, transparent);
+  }
+  60% {
+    box-shadow:
+      var(--rv-shadow-pop),
+      0 0 0 12px color-mix(in srgb, var(--mui-palette-primary-main) 0%, transparent);
+  }
+  100% {
+    box-shadow:
+      var(--rv-shadow-pop),
+      0 0 0 0 color-mix(in srgb, var(--mui-palette-primary-main) 0%, transparent);
+  }
+}
+
+.rv-popular-pulse {
+  animation: rv-popular-pulse 1600ms cubic-bezier(0.22, 1, 0.36, 1) 600ms 1 both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-popular-pulse {
+    animation: none !important;
+  }
+}
+
+/* Founder photo / monogram entrance. Subtle 0.97 → 1 scale + fade so the
+   block "settles" into view rather than appearing flat. Deliberately calmer
+   than the section's MotionReveal so they don't compete. */
+@keyframes rv-photo-settle {
+  from {
+    transform: scale(0.97);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.rv-photo-settle {
+  animation: rv-photo-settle 480ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-photo-settle {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Nav scroll-progress hairline. The width is driven by a CSS variable
+   updated by <NavScrollProgress />; defaults to 0% so SSR renders empty. */
+.rv-nav-progress {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  width: var(--rv-nav-progress, 0%);
+  background-color: var(--mui-palette-primary-main);
+  pointer-events: none;
+  transition: width 80ms linear;
+  opacity: 0.85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-nav-progress {
+    transition: none;
+  }
+}

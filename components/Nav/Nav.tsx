@@ -4,6 +4,7 @@ import Wordmark from "@/components/Logo/Wordmark";
 import ModeToggle from "@/components/ModeToggle/ModeToggle";
 import WaitlistButton from "@/components/WaitlistModal/WaitlistButton";
 import MobileNav from "./MobileNav";
+import NavScrollProgress from "./NavScrollProgress";
 
 const links = [
   { href: "/pricing", label: "Pricing" },
@@ -26,6 +27,7 @@ export default function Nav() {
         borderColor: "divider",
       }}
     >
+      <NavScrollProgress />
       <Box className="rv-container">
         <Stack
           direction="row"

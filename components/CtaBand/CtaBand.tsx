@@ -1,11 +1,13 @@
 import { Box, Stack, Typography, Button } from "@mui/material";
 import CopyButton from "@/components/CopyButton/CopyButton";
 import { INSTALL_COMMAND } from "@/lib/install";
+import { MotionReveal } from "@/components/motion/MotionPrimitives";
 
 export default function CtaBand() {
   return (
     <Box component="section" className="rv-section" sx={{ bgcolor: "background.default" }}>
       <Box className="rv-container">
+        <MotionReveal>
         <Stack
           spacing={3}
           sx={{
@@ -45,6 +47,7 @@ export default function CtaBand() {
             </Button>
           </Stack>
         </Stack>
+        </MotionReveal>
       </Box>
     </Box>
   );
