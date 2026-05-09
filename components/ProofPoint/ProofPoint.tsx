@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, Button } from "@mui/material";
 import { proofStats, proofStory } from "@/lib/stats";
 import {
   MotionReveal,
@@ -19,7 +19,7 @@ export default function ProofPoint() {
           }}
         >
           <MotionReveal sx={{ position: { md: "sticky" }, top: { md: 96 } }}>
-            <Stack spacing={2}>
+            <Stack spacing={2.5}>
               <Typography variant="eyebrow" component="div">
                 {proofStory.eyebrow}
               </Typography>
@@ -29,6 +29,23 @@ export default function ProofPoint() {
               <Typography variant="body1" color="text.secondary">
                 {proofStory.body}
               </Typography>
+              <Box sx={{ pt: 1 }}>
+                <Button
+                  component="a"
+                  href="https://mrktable.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="outlined"
+                  size="large"
+                  sx={{
+                    transition:
+                      "transform 140ms cubic-bezier(0.22,1,0.36,1), box-shadow 140ms cubic-bezier(0.22,1,0.36,1)",
+                    "&:hover": { transform: "translateY(-1px)" },
+                  }}
+                >
+                  View mrktable →
+                </Button>
+              </Box>
             </Stack>
           </MotionReveal>
 

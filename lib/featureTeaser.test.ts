@@ -10,14 +10,15 @@ describe("featureTeaser (roadmap cards)", () => {
     ]);
   });
 
-  it("uses vague-precision Mo dates, not concrete calendar months", () => {
+  it("uses explicit MMM YYYY dates, not vague quarters", () => {
     for (const card of featureTeaser) {
       if (card.status === "available") continue;
-      expect(card.statusLabel).toMatch(/Mo \d/);
-      expect(card.statusLabel).not.toMatch(/Q[1-4]/);
-      expect(card.statusLabel).not.toMatch(
-        /Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec/i,
+      // Format: "Release N · MMM YYYY" — explicit calendar promise.
+      expect(card.statusLabel).toMatch(
+        /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4}/,
       );
+      expect(card.statusLabel).not.toMatch(/Q[1-4]/);
+      expect(card.statusLabel).not.toMatch(/Mo \d/);
     }
   });
 
