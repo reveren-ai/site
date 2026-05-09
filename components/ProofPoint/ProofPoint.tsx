@@ -5,6 +5,7 @@ import {
   MotionStagger,
   MotionItem,
 } from "@/components/motion/MotionPrimitives";
+import { StatNumber, StatBattery } from "@/components/motion/StatAnimations";
 
 export default function ProofPoint() {
   return (
@@ -61,51 +62,58 @@ export default function ProofPoint() {
               overflow: "hidden",
             }}
           >
-            {proofStats.map((s, i) => (
-              <MotionItem
-                key={s.label}
-                y={0}
-                sx={{
-                  borderRight: {
-                    xs: i % 2 === 0 ? "1px solid" : "none",
-                    sm: (i + 1) % 3 !== 0 ? "1px solid" : "none",
-                  },
-                  borderBottom: {
-                    xs: i < 4 ? "1px solid" : "none",
-                    sm: i < 3 ? "1px solid" : "none",
-                  },
-                  borderColor: "divider",
-                  bgcolor: "background.paper",
-                }}
-              >
-                <Stack
-                  spacing={0.5}
+            {proofStats.map((s, i) => {
+              // Auto-detect percentage stats — those get a battery gauge below
+              // the number. Parse the leading digits as the fill target.
+              const pctMatch = s.value.match(/^([0-9]+(?:\.[0-9]+)?)%/);
+              const pctFill = pctMatch ? parseFloat(pctMatch[1]) : null;
+              return (
+                <MotionItem
+                  key={s.label}
+                  y={0}
                   sx={{
-                    p: { xs: 3, md: 4 },
+                    borderRight: {
+                      xs: i % 2 === 0 ? "1px solid" : "none",
+                      sm: (i + 1) % 3 !== 0 ? "1px solid" : "none",
+                    },
+                    borderBottom: {
+                      xs: i < 4 ? "1px solid" : "none",
+                      sm: i < 3 ? "1px solid" : "none",
+                    },
+                    borderColor: "divider",
+                    bgcolor: "background.paper",
                   }}
                 >
-                  <Typography
-                    variant="h2"
-                    component="div"
+                  <Stack
+                    spacing={0.5}
                     sx={{
-                      fontSize: { xs: "2.5rem", md: "3rem" },
-                      letterSpacing: "-0.04em",
-                      fontVariantNumeric: "tabular-nums",
+                      p: { xs: 3, md: 4 },
                     }}
                   >
-                    {s.value}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {s.label}
-                  </Typography>
-                  {s.hint ? (
-                    <Typography variant="caption" color="text.disabled">
-                      {s.hint}
+                    <Typography
+                      variant="h2"
+                      component="div"
+                      sx={{
+                        fontSize: { xs: "2.5rem", md: "3rem" },
+                        letterSpacing: "-0.04em",
+                        fontVariantNumeric: "tabular-nums",
+                      }}
+                    >
+                      <StatNumber value={s.value} />
                     </Typography>
-                  ) : null}
-                </Stack>
-              </MotionItem>
-            ))}
+                    {pctFill !== null ? <StatBattery percent={pctFill} /> : null}
+                    <Typography variant="body2" color="text.secondary">
+                      {s.label}
+                    </Typography>
+                    {s.hint ? (
+                      <Typography variant="caption" color="text.disabled">
+                        {s.hint}
+                      </Typography>
+                    ) : null}
+                  </Stack>
+                </MotionItem>
+              );
+            })}
           </MotionStagger>
         </Box>
       </Box>
