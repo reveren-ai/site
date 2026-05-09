@@ -1,5 +1,10 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { proofStats, proofStory } from "@/lib/stats";
+import {
+  MotionReveal,
+  MotionStagger,
+  MotionItem,
+} from "@/components/motion/MotionPrimitives";
 
 export default function ProofPoint() {
   return (
@@ -13,19 +18,22 @@ export default function ProofPoint() {
             alignItems: "start",
           }}
         >
-          <Stack spacing={2} sx={{ position: { md: "sticky" }, top: { md: 96 } }}>
-            <Typography variant="eyebrow" component="div">
-              {proofStory.eyebrow}
-            </Typography>
-            <Typography variant="h2" component="h2">
-              {proofStory.headline}
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              {proofStory.body}
-            </Typography>
-          </Stack>
+          <MotionReveal sx={{ position: { md: "sticky" }, top: { md: 96 } }}>
+            <Stack spacing={2}>
+              <Typography variant="eyebrow" component="div">
+                {proofStory.eyebrow}
+              </Typography>
+              <Typography variant="h2" component="h2">
+                {proofStory.headline}
+              </Typography>
+              <Typography variant="body1" color="text.secondary">
+                {proofStory.body}
+              </Typography>
+            </Stack>
+          </MotionReveal>
 
-          <Box
+          <MotionStagger
+            stagger={0.05}
             sx={{
               display: "grid",
               gridTemplateColumns: { xs: "repeat(2, 1fr)", sm: "repeat(3, 1fr)" },
@@ -37,15 +45,13 @@ export default function ProofPoint() {
             }}
           >
             {proofStats.map((s, i) => (
-              <Stack
+              <MotionItem
                 key={s.label}
-                spacing={0.5}
+                y={0}
                 sx={{
-                  p: { xs: 3, md: 4 },
                   borderRight: {
                     xs: i % 2 === 0 ? "1px solid" : "none",
-                    sm:
-                      (i + 1) % 3 !== 0 ? "1px solid" : "none",
+                    sm: (i + 1) % 3 !== 0 ? "1px solid" : "none",
                   },
                   borderBottom: {
                     xs: i < 4 ? "1px solid" : "none",
@@ -55,28 +61,35 @@ export default function ProofPoint() {
                   bgcolor: "background.paper",
                 }}
               >
-                <Typography
-                  variant="h2"
-                  component="div"
+                <Stack
+                  spacing={0.5}
                   sx={{
-                    fontSize: { xs: "2.5rem", md: "3rem" },
-                    letterSpacing: "-0.04em",
-                    fontVariantNumeric: "tabular-nums",
+                    p: { xs: 3, md: 4 },
                   }}
                 >
-                  {s.value}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {s.label}
-                </Typography>
-                {s.hint ? (
-                  <Typography variant="caption" color="text.disabled">
-                    {s.hint}
+                  <Typography
+                    variant="h2"
+                    component="div"
+                    sx={{
+                      fontSize: { xs: "2.5rem", md: "3rem" },
+                      letterSpacing: "-0.04em",
+                      fontVariantNumeric: "tabular-nums",
+                    }}
+                  >
+                    {s.value}
                   </Typography>
-                ) : null}
-              </Stack>
+                  <Typography variant="body2" color="text.secondary">
+                    {s.label}
+                  </Typography>
+                  {s.hint ? (
+                    <Typography variant="caption" color="text.disabled">
+                      {s.hint}
+                    </Typography>
+                  ) : null}
+                </Stack>
+              </MotionItem>
             ))}
-          </Box>
+          </MotionStagger>
         </Box>
       </Box>
     </Box>

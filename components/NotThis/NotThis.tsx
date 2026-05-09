@@ -1,5 +1,10 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { notThis } from "@/lib/notThis";
+import {
+  MotionReveal,
+  MotionStagger,
+  MotionItem,
+} from "@/components/motion/MotionPrimitives";
 
 export default function NotThis() {
   return (
@@ -9,26 +14,31 @@ export default function NotThis() {
       sx={{ bgcolor: "background.default" }}
     >
       <Box className="rv-container">
-        <Stack spacing={2} sx={{ mb: { xs: 5, md: 8 }, maxWidth: 760 }}>
-          <Typography variant="eyebrow" component="div">
-            What reveren isn't
-          </Typography>
-          <Typography variant="h2" component="h2">
-            Six things we deliberately don't do.
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Counter-positioning matters more than feature lists. Here's where we draw lines — including the one that separates an open marketplace from a vendor-locked one.
-          </Typography>
-        </Stack>
+        <MotionReveal>
+          <Stack spacing={2} sx={{ mb: { xs: 5, md: 8 }, maxWidth: 760 }}>
+            <Typography variant="eyebrow" component="div">
+              What reveren isn't
+            </Typography>
+            <Typography variant="h2" component="h2">
+              Six things we deliberately don't do.
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              Counter-positioning matters more than feature lists. Here's where we draw lines — including the one that separates an open marketplace from a vendor-locked one.
+            </Typography>
+          </Stack>
+        </MotionReveal>
 
-        <Stack
+        <MotionStagger
+          stagger={0.06}
           sx={{
             borderTop: "1px solid",
             borderColor: "divider",
+            display: "flex",
+            flexDirection: "column",
           }}
         >
           {notThis.map((n) => (
-            <Box
+            <MotionItem
               key={n.id}
               sx={{
                 py: { xs: 3.5, md: 4 },
@@ -50,9 +60,9 @@ export default function NotThis() {
               <Typography variant="body1" color="text.secondary">
                 {n.body}
               </Typography>
-            </Box>
+            </MotionItem>
           ))}
-        </Stack>
+        </MotionStagger>
       </Box>
     </Box>
   );
