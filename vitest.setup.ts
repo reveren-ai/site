@@ -22,3 +22,29 @@ if (typeof window !== "undefined" && typeof window.matchMedia !== "function") {
     }),
   });
 }
+
+// jsdom also lacks IntersectionObserver. `motion/react`'s whileInView triggers
+// observe() on mount, so a no-op stub is enough to let render() return without
+// throwing. The viewport callback is never fired in tests — we only assert on
+// the eventual rendered DOM, not on entrance animations.
+if (typeof window !== "undefined" && typeof window.IntersectionObserver === "undefined") {
+  class StubIntersectionObserver implements IntersectionObserver {
+    readonly root = null;
+    readonly rootMargin = "";
+    readonly thresholds: ReadonlyArray<number> = [];
+    observe = () => undefined;
+    unobserve = () => undefined;
+    disconnect = () => undefined;
+    takeRecords = () => [];
+  }
+  Object.defineProperty(window, "IntersectionObserver", {
+    configurable: true,
+    writable: true,
+    value: StubIntersectionObserver,
+  });
+  Object.defineProperty(globalThis, "IntersectionObserver", {
+    configurable: true,
+    writable: true,
+    value: StubIntersectionObserver,
+  });
+}
