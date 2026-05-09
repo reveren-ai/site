@@ -97,6 +97,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
     >
       <head>
@@ -107,7 +108,10 @@ export default function RootLayout({
           the rendered <head>; previous attempts via next/script with
           strategy="beforeInteractive" got deferred in production.
         */}
-        <script dangerouslySetInnerHTML={{ __html: modeInitScript }} />
+        <script
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{ __html: modeInitScript }}
+        />
       </head>
       <body>
         <ThemeRegistry>
