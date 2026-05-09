@@ -109,7 +109,7 @@ export default function AgentCompatibility() {
         </MotionReveal>
 
         <Typography variant="caption" color="text.secondary" sx={{ mt: 3, display: "block" }}>
-          More agents coming as MCP coverage expands. Bring your own keys, no model lock-in.
+          More agents coming as MCP coverage expands. Bring your own model. No vendor lock-in.
         </Typography>
       </Box>
     </Box>

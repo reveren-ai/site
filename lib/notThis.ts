@@ -23,7 +23,7 @@ export const notThis: NotThisItem[] = [
   {
     id: "not-a-model",
     rule: "Not a model provider.",
-    body: "Bring your own model API keys. We're the standards layer between your codebase and whichever model you pay for.",
+    body: "Bring your own model. We're the standards layer between your codebase and whichever model you pay for.",
   },
   {
     id: "not-a-knowledge-base",

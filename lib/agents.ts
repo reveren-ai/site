@@ -22,5 +22,5 @@ export const agentsIntro = {
   eyebrow: "Agent-agnostic",
   headline: "Works with whichever agent you already pay for.",
   body:
-    "Bring your own model API keys. reveren is the standards layer between your codebase and whichever coding agent you use today. Switch agents next quarter and your protocols come with you.",
+    "Bring your own model. reveren is the standards layer between your codebase and whichever coding agent you use today. Switch agents next quarter and your protocols come with you.",
 };

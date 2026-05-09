@@ -206,7 +206,7 @@ export const featureMatrix: MatrixGroup[] = [
       { label: "Claude · Cursor · Copilot · Windsurf · GPT", free: true, pro: true, team: true, enterprise: true },
       { label: "MCP server (read)", free: false, pro: true, team: true, enterprise: true },
       { label: "MCP server (write)", free: false, pro: false, team: true, enterprise: true },
-      { label: "Bring-your-own model keys", free: true, pro: true, team: true, enterprise: true },
+      { label: "Bring your own model", free: true, pro: true, team: true, enterprise: true },
     ],
   },
   {

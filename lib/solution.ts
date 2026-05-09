@@ -21,7 +21,7 @@ export const solution: SolutionPillar[] = [
     id: "standards",
     label: "Standards",
     description:
-      "One source of truth for naming, testing, deploying, reviewing — applied identically by every agent on every PR. Decisions stop dissolving between sessions.",
+      "One source of truth for naming, testing, coverage thresholds, deploying, reviewing — applied identically by every agent on every PR. Coverage drift becomes a CI failure, not an oversight.",
   },
   {
     id: "audit",
