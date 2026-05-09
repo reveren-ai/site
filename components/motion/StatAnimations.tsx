@@ -33,23 +33,24 @@ export function StatNumber({ value, duration = 0.9 }: StatNumberProps) {
   const reduced = useReducedMotion();
   // Start at target so SSR, no-JS, screen readers, search engines, and
   // jsdom-based tests all see the real value. The animation kicks on
-  // viewport entry: it resets to 0 and counts up to target. Skipped when
-  // the user prefers reduced motion.
+  // viewport entry: animate() drives `n` from 0 → target via its onUpdate
+  // callback (which is the only setState call here — synchronous setState
+  // inside an effect body trips React 19's react-hooks/set-state-in-effect
+  // rule, so the "has animated" guard uses a ref, not state).
   const [n, setN] = useState<number>(parsed?.target ?? 0);
-  const [hasAnimated, setHasAnimated] = useState(false);
+  const hasAnimatedRef = useRef(false);
 
   useEffect(() => {
-    if (!parsed || reduced || hasAnimated) return;
+    if (!parsed || reduced || hasAnimatedRef.current) return;
     if (!inView) return;
-    setHasAnimated(true);
-    setN(0);
+    hasAnimatedRef.current = true;
     const controls = animate(0, parsed.target, {
       duration,
       ease,
       onUpdate: (v) => setN(v),
     });
     return () => controls.stop();
-  }, [inView, reduced, duration, parsed, hasAnimated]);
+  }, [inView, reduced, duration, parsed]);
 
   if (!parsed) return <>{value}</>;
 
