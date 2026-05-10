@@ -4,7 +4,15 @@ import ThemeRegistry from "@/theme/ThemeRegistry";
 import { modeInitScript } from "@/lib/mode";
 import Nav from "@/components/Nav/Nav";
 import Footer from "@/components/Footer/Footer";
+import JsonLd from "@/components/JsonLd";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/jsonLd";
 import "./globals.css";
+
+// Vercel sets VERCEL_ENV to "production" only on the production deployment.
+// Preview (uat / develop / PR) and local dev should noindex so we don't
+// fight the canonical reveren.ai for ranking and so unfinished copy on
+// non-prod hosts doesn't leak into search results.
+const isProductionEnv = process.env.VERCEL_ENV === "production";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -75,10 +83,13 @@ export const metadata: Metadata = {
   icons: {
     icon: [{ url: "/logo/svg/reveren-favicon.svg", type: "image/svg+xml" }],
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: isProductionEnv
+    ? { index: true, follow: true }
+    : {
+        index: false,
+        follow: false,
+        googleBot: { index: false, follow: false },
+      },
 };
 
 export const viewport: Viewport = {
@@ -112,6 +123,10 @@ export default function RootLayout({
           suppressHydrationWarning
           dangerouslySetInnerHTML={{ __html: modeInitScript }}
         />
+        {/* Sitewide structured data — rendered once per page so search engines
+            can attach the reveren brand + sitelinks searchbox to every URL. */}
+        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={websiteJsonLd()} />
       </head>
       <body>
         <ThemeRegistry>

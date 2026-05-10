@@ -4,6 +4,8 @@ import TierCards from "@/components/TierCards/TierCards";
 import PricingMatrix from "@/components/PricingMatrix/PricingMatrix";
 import FAQ from "@/components/FAQ/FAQ";
 import CtaBand from "@/components/CtaBand/CtaBand";
+import JsonLd from "@/components/JsonLd";
+import { faqPageJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -15,6 +17,7 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <>
+      <JsonLd data={faqPageJsonLd()} />
       <PricingHeader />
       <TierCards />
       <PricingMatrix />

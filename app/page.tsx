@@ -10,10 +10,13 @@ import PricingTeaser from "@/components/PricingTeaser/PricingTeaser";
 import ManifestoTeaser from "@/components/ManifestoTeaser/ManifestoTeaser";
 import OpenFormat from "@/components/OpenFormat/OpenFormat";
 import FounderBio from "@/components/FounderBio/FounderBio";
+import JsonLd from "@/components/JsonLd";
+import { softwareApplicationJsonLd } from "@/lib/jsonLd";
 
 export default function Home() {
   return (
     <>
+      <JsonLd data={softwareApplicationJsonLd()} />
       <Hero />
       <FeatureTeaser />
       <AudienceCards />

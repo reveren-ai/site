@@ -5,6 +5,8 @@ import Prose from "@/components/Prose/Prose";
 import PullQuote from "@/components/PullQuote/PullQuote";
 import TerminalButton from "@/components/TerminalButton/TerminalButton";
 import { MotionReveal } from "@/components/motion/MotionPrimitives";
+import JsonLd from "@/components/JsonLd";
+import { articleJsonLd } from "@/lib/jsonLd";
 import { manifesto } from "./copy";
 
 // Render a body string with inline `code` segments (Markdown-style backticks)
@@ -31,6 +33,19 @@ export default function ManifestoPage() {
 
   return (
     <>
+      <JsonLd
+        data={articleJsonLd({
+          title: manifesto.title,
+          author: manifesto.author,
+          // `manifesto.date` is human-friendly ("May 2026"); convert to ISO
+          // YYYY-MM for schema.org consumers. The 1st of the month is the
+          // implied publish day for monthly editorial cadence.
+          datePublished: "2026-05-01",
+          description:
+            "The agent doesn't need a smarter model. It needs an operating manual. Why standards layers, not better models, are what comes next.",
+          url: "https://reveren.ai/manifesto",
+        })}
+      />
       <ManifestoHeader title={manifesto.title} author={manifesto.author} date={manifesto.date} />
 
       <Box className="rv-container">
