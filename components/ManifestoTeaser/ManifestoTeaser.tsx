@@ -1,4 +1,7 @@
+"use client";
+
 import { Box, Stack, Typography, Button } from "@mui/material";
+import posthog from "posthog-js";
 import { fonts } from "@/theme/tokens";
 import { MotionReveal } from "@/components/motion/MotionPrimitives";
 import { durSlow } from "@/lib/animations";
@@ -36,6 +39,7 @@ export default function ManifestoTeaser() {
                 href="/manifesto"
                 variant="text"
                 size="large"
+                onClick={() => posthog.capture("manifesto_cta_clicked", { source: "manifesto_teaser" })}
                 sx={{
                   // Underline-offset transition only — no boxShadow on links
                   // (RSC hydration trap). textDecoration handled inline.
