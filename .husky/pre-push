@@ -1,0 +1,9 @@
+# Pre-push parity gate. Runs the same checks GitHub Actions runs so CI
+# failures get caught locally before they hit origin. Skips the slow
+# `pnpm build` + Playwright steps — those stay in CI but are unlikely to
+# fail if typecheck + lint + unit tests all pass.
+#
+# To bypass in an emergency: `git push --no-verify` (use sparingly; the
+# whole point is that we *don't* push something CI will reject).
+
+pnpm pre-push
