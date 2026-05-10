@@ -1,0 +1,48 @@
+// reveren site database schema. Pre-launch: only the WaitlistSignup table.
+// Phase 1 will add User / Account / Session / Subscription via Auth.js v5.
+// Generator output lives at lib/generated/prisma (gitignored) — the
+// `prisma generate` step runs as part of the Vercel build.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+// Prisma 7: connection URLs belong in prisma.config.ts (for migrate) and
+// are passed to `new PrismaClient({ datasourceUrl })` at runtime (for the
+// app). Schema only declares the provider here.
+datasource db {
+  provider = "postgresql"
+}
+
+// Pre-launch waitlist signups. Replaces the in-memory stub in
+// app/api/waitlist/route.ts so signups survive a Vercel cold start.
+//
+// Tier-aware: enterprise leads carry company / seats / use-case so sales
+// can route the inbound. General waitlist signups (CLI launch waitlist)
+// just need email.
+model WaitlistSignup {
+  id        String   @id @default(cuid())
+  email     String
+  // 'pro' | 'team' | 'enterprise' | 'general'. String rather than enum so
+  // we can add new tiers without a migration.
+  tier      String
+  company   String?
+  seats     Int?
+  // 'banking' | 'healthcare' | 'government' | 'regulated' | 'other'.
+  // Same reasoning as `tier` — leave as String for forward compatibility.
+  useCase   String?
+  // Pathname the signup came from (/, /pricing, /pods, /manifesto, etc.)
+  // so the funnel attribution is queryable without re-instrumenting client
+  // code later.
+  source    String?
+  // SHA-256 of the requester's IP. Used for dedup + anti-abuse without
+  // storing PII; never reversed back to a clear-text address.
+  ipHash    String?
+  createdAt DateTime @default(now())
+
+  @@index([tier])
+  @@index([email])
+  @@index([createdAt])
+  @@map("waitlist_signups")
+}

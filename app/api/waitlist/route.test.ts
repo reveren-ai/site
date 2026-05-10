@@ -1,4 +1,16 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
+
+// Mock the Prisma singleton so tests don't touch a real Neon branch.
+// `prisma.waitlistSignup.create` is the only method the route calls.
+const createMock = vi.fn().mockResolvedValue({ id: "test-id" });
+vi.mock("@/lib/prisma", () => ({
+  prisma: {
+    waitlistSignup: {
+      create: (args: unknown) => createMock(args),
+    },
+  },
+}));
+
 import { POST } from "./route";
 
 function makeRequest(body: unknown, headers: Record<string, string> = {}) {
@@ -13,6 +25,8 @@ describe("POST /api/waitlist", () => {
   beforeEach(async () => {
     // Each test uses a unique IP so the in-memory rate limiter doesn't leak
     // between tests within the same process.
+    createMock.mockClear();
+    createMock.mockResolvedValue({ id: "test-id" });
   });
 
   it("accepts a valid email", async () => {
@@ -167,6 +181,44 @@ describe("POST /api/waitlist", () => {
         ),
       );
       expect(res.status).toBe(400);
+    });
+  });
+
+  describe("persistence", () => {
+    it("inserts the signup with hashed IP + source path", async () => {
+      const res = await POST(
+        makeRequest(
+          { email: "persist@example.com", tier: "pro" },
+          { "x-real-ip": "10.0.2.1", referer: "https://reveren.ai/pricing" },
+        ),
+      );
+      expect(res.status).toBe(200);
+      expect(createMock).toHaveBeenCalledTimes(1);
+      const arg = createMock.mock.calls[0]?.[0] as {
+        data: Record<string, unknown>;
+      };
+      expect(arg.data.email).toBe("persist@example.com");
+      expect(arg.data.tier).toBe("pro");
+      expect(arg.data.source).toBe("/pricing");
+      // ipHash should be SHA-256 hex (64 chars), not the raw IP.
+      expect(arg.data.ipHash).toMatch(/^[0-9a-f]{64}$/);
+      expect(arg.data.ipHash).not.toBe("10.0.2.1");
+    });
+
+    it("returns 503 on DB failure without leaking the error", async () => {
+      createMock.mockRejectedValueOnce(new Error("connection refused"));
+      const res = await POST(
+        makeRequest(
+          { email: "boom@example.com" },
+          { "x-real-ip": "10.0.2.2" },
+        ),
+      );
+      expect(res.status).toBe(503);
+      const body = (await res.json()) as { ok: boolean; error: string };
+      expect(body.ok).toBe(false);
+      // User-facing error must not echo the raw exception.
+      expect(body.error).not.toMatch(/connection refused/i);
+      expect(body.error).toMatch(/try again/i);
     });
   });
 });

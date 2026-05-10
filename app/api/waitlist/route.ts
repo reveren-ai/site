@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { createHash } from "node:crypto";
+import { prisma } from "@/lib/prisma";
 
-// Pre-Go-Live: validates and returns 200 without persisting. Phase 1 wires
-// real persistence (Neon + email confirmation) and must capture every field
-// — email, tier, company, seats, useCase — not just email. Don't add a DB
-// call here yet.
+// Persists tier-aware waitlist signups to the Neon-backed waitlist_signups
+// table (Prisma model: WaitlistSignup). Inserts are intentionally
+// non-idempotent — a given email may sign up at multiple tiers over time
+// and each event matters for funnel analysis. The in-memory rate limit
+// below caps abuse before it reaches the DB.
 
 const schema = z
   .object({
@@ -63,6 +66,27 @@ function clientKey(req: Request): string | null {
   const real = req.headers.get("x-real-ip");
   if (real) return real;
   return null;
+}
+
+// SHA-256 of the IP. Used for dedup + anti-abuse without storing PII;
+// never reversed. Hex output is fine — collision risk on a few thousand
+// signups is negligible.
+function hashIp(ip: string): string {
+  return createHash("sha256").update(ip).digest("hex");
+}
+
+// Extract the path the user was on when they hit the waitlist (referer).
+// Used for funnel attribution: which surface drove the signup. Returns
+// undefined if the referer is missing or cross-origin.
+function sourcePath(req: Request): string | undefined {
+  const referer = req.headers.get("referer");
+  if (!referer) return undefined;
+  try {
+    const url = new URL(referer);
+    return url.pathname;
+  } catch {
+    return undefined;
+  }
 }
 
 export async function POST(req: Request) {
@@ -132,9 +156,30 @@ export async function POST(req: Request) {
     );
   }
 
-  // TODO(phase-1): persist all captured fields (email, tier, company, seats,
-  // useCase) to the waitlist table; send tier-aware confirmation email.
-  // Today this validates and returns 200 without writing anywhere.
+  try {
+    await prisma.waitlistSignup.create({
+      data: {
+        email: parsed.data.email,
+        tier: parsed.data.tier,
+        company: parsed.data.company,
+        seats: parsed.data.seats,
+        useCase: parsed.data.useCase,
+        source: sourcePath(req),
+        ipHash: hashIp(key),
+      },
+    });
+  } catch (err) {
+    // Don't surface DB internals to the caller. Log for observability,
+    // return a transient 503 so the user can retry.
+    console.error("[waitlist] insert failed:", err);
+    return NextResponse.json(
+      { ok: false, error: "Could not record your signup. Please try again." },
+      { status: 503 },
+    );
+  }
+
+  // Email confirmation comes in Phase 1 alongside Auth.js + Resend wiring.
+  // Today the DB row is the system of record.
   return NextResponse.json(
     { ok: true, message: "You're on the list." },
     { status: 200 },
