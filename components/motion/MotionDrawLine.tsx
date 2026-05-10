@@ -8,6 +8,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
+import { useReducedMotion } from "motion/react";
 
 type MotionDrawLineProps = {
   /** Line thickness in pixels. Default 1. */
@@ -31,30 +32,27 @@ export default function MotionDrawLine({
   origin = "left",
   sx,
 }: MotionDrawLineProps) {
+  // useReducedMotion subscribes via useSyncExternalStore under the hood, so we
+  // avoid the setState-in-effect pattern (react-hooks/set-state-in-effect).
+  // Returns boolean | null — null during SSR, before the matchMedia read.
+  const reduced = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const [drawn, setDrawn] = useState(false);
-  const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(mq.matches);
-    const handler = () => setReduced(mq.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-
-  useEffect(() => {
-    if (reduced) {
-      setDrawn(true);
-      return;
-    }
+    // Reduced motion: render permanently drawn (handled by `visuallyDrawn`
+    // below). The effect short-circuits without touching state — no observer
+    // needed, no setDrawn call inside the effect body.
+    if (reduced) return;
     const node = ref.current;
     if (!node) return;
     const obs = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
           if (e.isIntersecting) {
+            // setState lives inside the observer callback (an external
+            // event source), not in the effect body — the cascading-render
+            // lint rule does not apply.
             setDrawn(true);
             obs.disconnect();
             break;
@@ -66,6 +64,8 @@ export default function MotionDrawLine({
     obs.observe(node);
     return () => obs.disconnect();
   }, [reduced]);
+
+  const visuallyDrawn = drawn || Boolean(reduced);
 
   const transformOrigin =
     origin === "right" ? "right center" : origin === "center" ? "center center" : "left center";
@@ -89,7 +89,7 @@ export default function MotionDrawLine({
           inset: 0,
           bgcolor: color,
           transformOrigin,
-          transform: drawn ? "scaleX(1)" : "scaleX(0)",
+          transform: visuallyDrawn ? "scaleX(1)" : "scaleX(0)",
           transition: reduced
             ? "none"
             : `transform ${duration}ms cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms`,
