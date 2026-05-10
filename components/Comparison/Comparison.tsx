@@ -89,7 +89,8 @@ export default function Comparison() {
             </Box>
           </MotionReveal>
 
-          {/* Body rows — cascade after the header */}
+          {/* Body rows — cascade after the header. The first row gets extra
+              top padding to breathe under the heading row's bottom border. */}
           <MotionStagger stagger={0.07} delay={0.12}>
             {comparisonRows.map((row, idx) => (
               <MotionItem
@@ -108,7 +109,8 @@ export default function Comparison() {
                     key={k}
                     sx={{
                       px: 3,
-                      py: 2.25,
+                      pt: idx === 0 ? 3.25 : 2.25,
+                      pb: 2.25,
                       fontSize: 14,
                       color: k === "feature" ? "text.primary" : "text.secondary",
                       fontWeight: k === "feature" ? 500 : 400,

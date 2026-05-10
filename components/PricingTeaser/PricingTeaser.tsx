@@ -167,15 +167,6 @@ export default function PricingTeaser() {
                     variant={t.cta.variant}
                     size="large"
                     fullWidth
-                    sx={
-                      t.cta.variant === "contained"
-                        ? {
-                            bgcolor: "var(--rv-cta-bg)",
-                            color: "var(--rv-cta-fg)",
-                            "&:hover": { bgcolor: "var(--rv-cta-bg-hover)" },
-                          }
-                        : undefined
-                    }
                   >
                     {t.cta.label}
                   </Button>
