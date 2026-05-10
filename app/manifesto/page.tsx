@@ -7,6 +7,17 @@ import TerminalButton from "@/components/TerminalButton/TerminalButton";
 import { MotionReveal } from "@/components/motion/MotionPrimitives";
 import { manifesto } from "./copy";
 
+// Render a body string with inline `code` segments (Markdown-style backticks)
+// turned into <code> elements. Prose styles them via the `& code` selector.
+function renderInlineCode(text: string): React.ReactNode {
+  const parts = text.split(/(`[^`]+`)/g);
+  return parts.map((part, i) =>
+    part.startsWith("`") && part.endsWith("`") && part.length > 1
+      ? <code key={i}>{part.slice(1, -1)}</code>
+      : part,
+  );
+}
+
 export const metadata: Metadata = {
   title: "Manifesto",
   description:
@@ -24,12 +35,12 @@ export default function ManifestoPage() {
 
       <Box className="rv-container">
         <Prose>
-          <p>{manifesto.intro}</p>
+          <p>{renderInlineCode(manifesto.intro)}</p>
           {manifesto.sections.map((s, sectionIdx) => (
             <Box key={s.heading} component="div">
               <h2>{s.heading}</h2>
               {s.body.map((p, i) => (
-                <p key={i}>{p}</p>
+                <p key={i}>{renderInlineCode(p)}</p>
               ))}
               {pullQuoteAfter.includes(sectionIdx) && manifesto.pullQuotes[pullQuoteAfter.indexOf(sectionIdx)] ? (
                 <PullQuote>{manifesto.pullQuotes[pullQuoteAfter.indexOf(sectionIdx)]}</PullQuote>
