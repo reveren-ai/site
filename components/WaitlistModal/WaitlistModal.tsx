@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import posthog from "posthog-js";
 import {
   Dialog,
   DialogTitle,
@@ -81,6 +82,7 @@ export default function WaitlistModal({
     e.preventDefault();
     setStatus("submitting");
     setError(null);
+    posthog.capture("waitlist_form_submitted", { tier, is_enterprise: isEnterprise });
     try {
       const body: Record<string, unknown> = { email };
       if (tier !== "general") body.tier = tier;
@@ -105,9 +107,23 @@ export default function WaitlistModal({
         throw new Error(data.error ?? "Something went wrong.");
       }
       setStatus("success");
+      posthog.identify(email, { waitlist_tier: tier });
+      // Funnel attribution: which tier converted, from which surface.
+      // PostHog autocapture also records the form submit as a generic
+      // event, but the explicit capture lets us aggregate "Pro waitlist
+      // signups this week" without having to filter autocapture noise.
+      posthog.capture("waitlist_signup_succeeded", {
+        tier,
+        is_enterprise: isEnterprise,
+      });
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Network error.");
+      posthog.capture("waitlist_signup_failed", {
+        tier,
+        is_enterprise: isEnterprise,
+        error_message: err instanceof Error ? err.message : "Network error.",
+      });
     }
   };
 

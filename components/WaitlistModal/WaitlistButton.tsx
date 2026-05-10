@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import type { ButtonProps } from "@mui/material/Button";
+import posthog from "posthog-js";
 import WaitlistModal, { type WaitlistTier } from "./WaitlistModal";
 
 type WaitlistButtonProps = Omit<ButtonProps, "onClick"> & {
@@ -25,7 +26,15 @@ export default function WaitlistButton({
 
   return (
     <>
-      <Button {...rest} variant={variant} size={size} onClick={() => setOpen(true)}>
+      <Button
+        {...rest}
+        variant={variant}
+        size={size}
+        onClick={() => {
+          posthog.capture("waitlist_modal_opened", { tier });
+          setOpen(true);
+        }}
+      >
         {label}
       </Button>
       <WaitlistModal open={open} onClose={() => setOpen(false)} tier={tier} />

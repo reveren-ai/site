@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createHash } from "node:crypto";
 import { prisma } from "@/lib/prisma";
+import { getPostHogClient } from "@/lib/posthog-server";
 
 // Persists tier-aware waitlist signups to the Neon-backed waitlist_signups
 // table (Prisma model: WaitlistSignup). Inserts are intentionally
@@ -156,6 +157,8 @@ export async function POST(req: Request) {
     );
   }
 
+  const source = sourcePath(req);
+
   try {
     await prisma.waitlistSignup.create({
       data: {
@@ -164,7 +167,7 @@ export async function POST(req: Request) {
         company: parsed.data.company,
         seats: parsed.data.seats,
         useCase: parsed.data.useCase,
-        source: sourcePath(req),
+        source,
         ipHash: hashIp(key),
       },
     });
@@ -177,6 +180,24 @@ export async function POST(req: Request) {
       { status: 503 },
     );
   }
+
+  const posthog = getPostHogClient();
+  posthog.identify({
+    distinctId: parsed.data.email,
+    properties: { waitlist_tier: parsed.data.tier },
+  });
+  posthog.capture({
+    distinctId: parsed.data.email,
+    event: "waitlist_signup_recorded",
+    properties: {
+      tier: parsed.data.tier,
+      source,
+      has_company: Boolean(parsed.data.company),
+      has_seats: Boolean(parsed.data.seats),
+      has_use_case: Boolean(parsed.data.useCase),
+    },
+  });
+  await posthog._shutdown();
 
   // Email confirmation comes in Phase 1 alongside Auth.js + Resend wiring.
   // Today the DB row is the system of record.

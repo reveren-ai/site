@@ -1,4 +1,7 @@
+"use client";
+
 import { Box, Stack, Typography, Button } from "@mui/material";
+import posthog from "posthog-js";
 import CopyButton from "@/components/CopyButton/CopyButton";
 import { INSTALL_COMMAND } from "@/lib/install";
 import { MotionReveal } from "@/components/motion/MotionPrimitives";
@@ -42,6 +45,7 @@ export default function CtaBand() {
               href="mailto:hello@reveren.ai?subject=Pricing%20question"
               variant="outlined"
               size="large"
+              onClick={() => posthog.capture("cta_talk_to_sales_clicked")}
             >
               Talk to sales
             </Button>

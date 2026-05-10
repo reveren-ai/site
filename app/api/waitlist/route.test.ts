@@ -11,6 +11,21 @@ vi.mock("@/lib/prisma", () => ({
   },
 }));
 
+// Mock the server-side PostHog client. posthog-node's ESM resolution
+// chokes inside vitest's environment; the tests don't need real
+// observability anyway. Capture + identify both no-op.
+const captureMock = vi.fn();
+const identifyMock = vi.fn();
+vi.mock("@/lib/posthog-server", () => ({
+  getPostHogClient: () => ({
+    capture: captureMock,
+    identify: identifyMock,
+    shutdown: vi.fn().mockResolvedValue(undefined),
+    _shutdown: vi.fn().mockResolvedValue(undefined),
+    flush: vi.fn().mockResolvedValue(undefined),
+  }),
+}));
+
 import { POST } from "./route";
 
 function makeRequest(body: unknown, headers: Record<string, string> = {}) {

@@ -1,4 +1,7 @@
+'use client'
+
 import { Box, Stack, Typography, Button } from '@mui/material'
+import posthog from 'posthog-js'
 import Terminal from '@/components/Terminal/Terminal'
 import CopyButton from '@/components/CopyButton/CopyButton'
 import { INSTALL_COMMAND } from '@/lib/install'
@@ -96,6 +99,7 @@ export default function Hero() {
                     href='/manifesto'
                     variant='outlined'
                     size='large'
+                    onClick={() => posthog.capture('manifesto_cta_clicked', { source: 'hero' })}
                     sx={{
                       transition:
                         'transform 140ms cubic-bezier(0.22,1,0.36,1), box-shadow 140ms cubic-bezier(0.22,1,0.36,1)',

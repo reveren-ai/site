@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import posthog from "posthog-js";
 import Button from "@mui/material/Button";
 import type { ButtonProps } from "@mui/material/Button";
 import CheckIcon from "@mui/icons-material/CheckRounded";
@@ -55,6 +56,8 @@ export default function CopyButton({
         // to type, so swallowing is fine.
       }
     };
+
+    posthog.capture("install_command_copied", { command: text });
 
     if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
       // Fire and forget — the user has already seen "Copied"; if the modern

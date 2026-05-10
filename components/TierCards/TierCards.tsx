@@ -1,4 +1,7 @@
+"use client";
+
 import { Box, Card, CardContent, Stack, Typography, Button, Chip } from "@mui/material";
+import posthog from "posthog-js";
 import { tiers, pricingFootnote } from "@/lib/pricing";
 import {
   MotionStagger,
@@ -156,6 +159,12 @@ export default function TierCards() {
                     variant={t.cta.variant}
                     size="large"
                     fullWidth
+                    onClick={() =>
+                      posthog.capture("pricing_tier_cta_clicked", {
+                        tier: t.id,
+                        label: t.cta.label,
+                      })
+                    }
                   >
                     {t.cta.label}
                   </Button>
