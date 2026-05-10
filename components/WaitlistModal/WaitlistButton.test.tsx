@@ -26,4 +26,27 @@ describe("WaitlistButton", () => {
     renderWithTheme(<WaitlistButton label="Get notified" />);
     expect(screen.getByRole("button", { name: /get notified/i })).toBeInTheDocument();
   });
+
+  it("forwards tier='pro' to the modal", async () => {
+    renderWithTheme(<WaitlistButton tier="pro" label="Join Pro waitlist" />);
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: /join pro waitlist/i }));
+    expect(
+      screen.getByRole("dialog", { name: /join the pro waitlist/i }),
+    ).toBeInTheDocument();
+  });
+
+  it("forwards tier='enterprise' to the modal (extra fields appear)", async () => {
+    renderWithTheme(
+      <WaitlistButton tier="enterprise" label="Join Enterprise waitlist" />,
+    );
+    const user = userEvent.setup();
+    await user.click(
+      screen.getByRole("button", { name: /join enterprise waitlist/i }),
+    );
+    expect(
+      screen.getByRole("dialog", { name: /join the enterprise waitlist/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText("Company")).toBeInTheDocument();
+  });
 });

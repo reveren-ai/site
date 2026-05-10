@@ -80,4 +80,37 @@ describe("pricing data", () => {
     expect(pricingFootnote).toMatch(/USD/);
     expect(pricingFootnote).toMatch(/cloud/i);
   });
+
+  // Snapshot the per-tier CTA shape so accidental edits to label or kind get
+  // caught. Pro + Enterprise must route through the waitlist (the orchestrator
+  // doesn't exist yet); Team keeps its mailto; Free links to install.
+  it("locks the per-tier CTA shape", () => {
+    const ctas = Object.fromEntries(tiers.map((t) => [t.id, t.cta]));
+    expect(ctas).toEqual({
+      free: {
+        label: "Try free",
+        href: "#install",
+        variant: "outlined",
+        kind: "install",
+      },
+      pro: {
+        label: "Join Pro waitlist",
+        href: "#waitlist",
+        variant: "contained",
+        kind: "waitlist",
+      },
+      team: {
+        label: "Talk to sales",
+        href: "mailto:hello@reveren.ai?subject=Team%20pricing",
+        variant: "outlined",
+        kind: "mailto",
+      },
+      enterprise: {
+        label: "Join Enterprise waitlist",
+        href: "#waitlist",
+        variant: "outlined",
+        kind: "waitlist",
+      },
+    });
+  });
 });

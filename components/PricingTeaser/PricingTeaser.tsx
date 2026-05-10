@@ -5,6 +5,8 @@ import {
   MotionStagger,
   MotionItem,
 } from "@/components/motion/MotionPrimitives";
+import WaitlistButton from "@/components/WaitlistModal/WaitlistButton";
+import type { WaitlistTier } from "@/components/WaitlistModal/WaitlistModal";
 
 export default function PricingTeaser() {
   return (
@@ -161,15 +163,25 @@ export default function PricingTeaser() {
                     </Typography>
                   </Box>
 
-                  <Button
-                    component="a"
-                    href={t.cta.href}
-                    variant={t.cta.variant}
-                    size="large"
-                    fullWidth
-                  >
-                    {t.cta.label}
-                  </Button>
+                  {t.cta.kind === "waitlist" ? (
+                    <WaitlistButton
+                      tier={t.id as WaitlistTier}
+                      label={t.cta.label}
+                      variant={t.cta.variant}
+                      size="large"
+                      fullWidth
+                    />
+                  ) : (
+                    <Button
+                      component="a"
+                      href={t.cta.href}
+                      variant={t.cta.variant}
+                      size="large"
+                      fullWidth
+                    >
+                      {t.cta.label}
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             </MotionItem>

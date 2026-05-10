@@ -4,6 +4,8 @@ import {
   MotionStagger,
   MotionItem,
 } from "@/components/motion/MotionPrimitives";
+import WaitlistButton from "@/components/WaitlistModal/WaitlistButton";
+import type { WaitlistTier } from "@/components/WaitlistModal/WaitlistModal";
 
 export default function TierCards() {
   return (
@@ -139,22 +141,40 @@ export default function TierCards() {
                   </Typography>
                 </Box>
 
-                <Button
-                  component="a"
-                  href={t.cta.href}
-                  variant={t.cta.variant}
-                  size="large"
-                  fullWidth
-                >
-                  {t.cta.label}
-                </Button>
+                {t.cta.kind === "waitlist" ? (
+                  <WaitlistButton
+                    tier={t.id as WaitlistTier}
+                    label={t.cta.label}
+                    variant={t.cta.variant}
+                    fullWidth
+                    size="large"
+                  />
+                ) : (
+                  <Button
+                    component="a"
+                    href={t.cta.href}
+                    variant={t.cta.variant}
+                    size="large"
+                    fullWidth
+                  >
+                    {t.cta.label}
+                  </Button>
+                )}
               </CardContent>
             </Card>
             </MotionItem>
           ))}
         </MotionStagger>
 
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 4, maxWidth: 800 }}>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ mt: 4, maxWidth: 800, fontStyle: "italic" }}
+        >
+          Pro, Team, and Enterprise are pre-launch — sign up to be notified
+          when the platform opens.
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 2, maxWidth: 800 }}>
           {pricingFootnote}
         </Typography>
       </Box>
