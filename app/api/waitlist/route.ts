@@ -2,13 +2,35 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 // Pre-Go-Live: validates and returns 200 without persisting. Phase 1 wires
-// real persistence (Neon + email confirmation). Don't add a DB call here yet.
+// real persistence (Neon + email confirmation) and must capture every field
+// — email, tier, company, seats, useCase — not just email. Don't add a DB
+// call here yet.
 
-const schema = z.object({
-  email: z.string().trim().toLowerCase().email().max(254),
-});
+const schema = z
+  .object({
+    email: z.string().trim().toLowerCase().email().max(254),
+    tier: z.enum(["pro", "team", "enterprise", "general"]).default("general"),
+    company: z.string().trim().min(1).max(200).optional(),
+    seats: z.number().int().min(1).max(100000).optional(),
+    useCase: z
+      .enum(["banking", "healthcare", "government", "regulated", "other"])
+      .optional(),
+  })
+  .superRefine((val, ctx) => {
+    // Enterprise leads must include a company so sales can route the lead.
+    if (val.tier === "enterprise" && !val.company) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["company"],
+        message: "Company is required for the Enterprise waitlist.",
+      });
+    }
+  });
 
-const MAX_BODY_BYTES = 1024;
+// Cap raised from 1024 → 4096 to fit enterprise payloads (email + tier +
+// company + seats + useCase). Still small enough that a megabyte of garbage
+// is rejected before parsing.
+const MAX_BODY_BYTES = 4096;
 
 // Tiny in-memory rate limit. Best-effort only — replaced by real rate limiting
 // (Upstash) in Phase 1. Resets when the server restarts; fine for waitlist
@@ -97,13 +119,22 @@ export async function POST(req: Request) {
 
   const parsed = schema.safeParse(payload);
   if (!parsed.success) {
+    // Surface the first issue's message so enterprise callers see "Company
+    // is required" instead of a generic email error. Falls back to the
+    // generic message for plain email validation failures.
+    const firstIssue = parsed.error.issues[0];
+    const message = firstIssue?.message?.startsWith("Company")
+      ? firstIssue.message
+      : "Please enter a valid email.";
     return NextResponse.json(
-      { ok: false, error: "Please enter a valid email." },
+      { ok: false, error: message },
       { status: 400 },
     );
   }
 
-  // TODO(phase-1): persist to waitlist table; send confirmation email.
+  // TODO(phase-1): persist all captured fields (email, tier, company, seats,
+  // useCase) to the waitlist table; send tier-aware confirmation email.
+  // Today this validates and returns 200 without writing anywhere.
   return NextResponse.json(
     { ok: true, message: "You're on the list." },
     { status: 200 },

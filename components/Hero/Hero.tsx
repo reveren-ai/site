@@ -5,7 +5,7 @@ import { INSTALL_COMMAND } from '@/lib/install'
 import {
   MotionReveal,
   MotionStagger,
-  MotionItem,
+  MotionItem
 } from '@/components/motion/MotionPrimitives'
 
 export default function Hero() {
@@ -70,7 +70,7 @@ export default function Hero() {
                       fontWeight: 600
                     }}
                   >
-                    Author once. Sell on every agent.
+                    Author once. Sell to every agent.
                   </strong>
                 </Typography>
               </MotionItem>

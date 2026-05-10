@@ -83,7 +83,7 @@ describe("POST /api/waitlist", () => {
 
   it("rejects a body whose actual size exceeds the cap", async () => {
     // No content-length header — caught by the post-read length check instead.
-    const big = "x".repeat(1100);
+    const big = "x".repeat(8192);
     const req = new Request("http://localhost/api/waitlist", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-real-ip": "10.0.0.8" },
@@ -91,5 +91,82 @@ describe("POST /api/waitlist", () => {
     });
     const res = await POST(req);
     expect(res.status).toBe(413);
+  });
+
+  describe("tier-aware payloads", () => {
+    it("email-only still succeeds (tier defaults to general)", async () => {
+      const res = await POST(
+        makeRequest({ email: "legacy@example.com" }, { "x-real-ip": "10.0.1.1" }),
+      );
+      expect(res.status).toBe(200);
+      const body = (await res.json()) as { ok: boolean };
+      expect(body.ok).toBe(true);
+    });
+
+    it("accepts a Pro tier payload", async () => {
+      const res = await POST(
+        makeRequest(
+          { email: "pro@example.com", tier: "pro" },
+          { "x-real-ip": "10.0.1.2" },
+        ),
+      );
+      expect(res.status).toBe(200);
+    });
+
+    it("rejects an enterprise payload missing company with 400", async () => {
+      const res = await POST(
+        makeRequest(
+          { email: "boss@bigco.com", tier: "enterprise" },
+          { "x-real-ip": "10.0.1.3" },
+        ),
+      );
+      expect(res.status).toBe(400);
+      const body = (await res.json()) as { ok: boolean; error: string };
+      expect(body.ok).toBe(false);
+      expect(body.error).toMatch(/company/i);
+    });
+
+    it("accepts a full enterprise payload", async () => {
+      const res = await POST(
+        makeRequest(
+          {
+            email: "boss@bigco.com",
+            tier: "enterprise",
+            company: "BigCo",
+            seats: 250,
+            useCase: "banking",
+          },
+          { "x-real-ip": "10.0.1.4" },
+        ),
+      );
+      expect(res.status).toBe(200);
+      const body = (await res.json()) as { ok: boolean };
+      expect(body.ok).toBe(true);
+    });
+
+    it("rejects an unknown tier value with 400", async () => {
+      const res = await POST(
+        makeRequest(
+          { email: "x@example.com", tier: "platinum" },
+          { "x-real-ip": "10.0.1.5" },
+        ),
+      );
+      expect(res.status).toBe(400);
+    });
+
+    it("rejects an out-of-range seats value with 400", async () => {
+      const res = await POST(
+        makeRequest(
+          {
+            email: "boss@bigco.com",
+            tier: "enterprise",
+            company: "BigCo",
+            seats: 0,
+          },
+          { "x-real-ip": "10.0.1.6" },
+        ),
+      );
+      expect(res.status).toBe(400);
+    });
   });
 });

@@ -4,6 +4,8 @@
 
 export type TierId = "free" | "pro" | "team" | "enterprise";
 
+export type CtaKind = "mailto" | "waitlist" | "install";
+
 export type Tier = {
   id: TierId;
   label: string;
@@ -11,7 +13,17 @@ export type Tier = {
   priceSuffix?: string;
   cadence: string;
   audience: string;
-  cta: { label: string; href: string; variant: "contained" | "outlined" };
+  // `kind` discriminates how TierCards renders the CTA. Defaults to "mailto"
+  // for backward compatibility — leave it off for legacy mailto-only tiers.
+  // Pro / Enterprise route through WaitlistButton (kind: "waitlist") because
+  // the hosted orchestrator + Stripe checkout don't exist yet; we capture
+  // intent only. Free uses "install" (CLI install instructions).
+  cta: {
+    label: string;
+    href: string;
+    variant: "contained" | "outlined";
+    kind?: CtaKind;
+  };
   popular?: boolean;
   features: string[];
   // Pod Marketplace credits per DESIGN-REVISION-HANDOVER-PODS.md §5.
@@ -26,7 +38,7 @@ export const tiers: Tier[] = [
     price: "$0",
     cadence: "Forever",
     audience: "Solo learners, hobbyists, evaluators",
-    cta: { label: "Try free", href: "#install", variant: "outlined" },
+    cta: { label: "Try free", href: "#install", variant: "outlined", kind: "install" },
     features: [
       "Full base protocol library",
       "CLI: init / run / list / sync",
@@ -43,7 +55,10 @@ export const tiers: Tier[] = [
     priceSuffix: "/ month",
     cadence: "Solo developers",
     audience: "Indie hackers, freelancers, side projects",
-    cta: { label: "Start Pro trial", href: "#install", variant: "contained" },
+    // Pre-launch sentinel — the hosted orchestrator + Stripe checkout don't
+    // exist yet, so the CTA opens the tier-aware WaitlistModal instead of
+    // navigating. `href` is unused when `kind === "waitlist"`.
+    cta: { label: "Join Pro waitlist", href: "#waitlist", variant: "contained", kind: "waitlist" },
     popular: true,
     features: [
       "Everything in Free",
@@ -63,7 +78,12 @@ export const tiers: Tier[] = [
     priceSuffix: "/ seat / month",
     cadence: "2 – 500 seats",
     audience: "Engineering teams shipping production software",
-    cta: { label: "Talk to sales", href: "mailto:hello@reveren.ai?subject=Team%20pricing", variant: "outlined" },
+    cta: {
+      label: "Talk to sales",
+      href: "mailto:hello@reveren.ai?subject=Team%20pricing",
+      variant: "outlined",
+      kind: "mailto",
+    },
     features: [
       "Everything in Pro",
       "Hosted dashboard",
@@ -81,7 +101,10 @@ export const tiers: Tier[] = [
     price: "Custom",
     cadence: "500+ seats / regulated",
     audience: "Banks, healthcare, government, regulated platforms",
-    cta: { label: "Talk to sales", href: "mailto:hello@reveren.ai?subject=Enterprise", variant: "outlined" },
+    // Pre-launch — Enterprise routes through the tier-aware WaitlistModal,
+    // which collects company / seats / use-case in addition to the email.
+    // `href` is unused when `kind === "waitlist"`.
+    cta: { label: "Join Enterprise waitlist", href: "#waitlist", variant: "outlined", kind: "waitlist" },
     features: [
       "Everything in Team",
       "Self-host (Docker)",
