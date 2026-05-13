@@ -10,7 +10,7 @@ export type Stat = {
 
 export const proofStats: Stat[] = [
   {
-    value: '12',
+    value: '13',
     label: 'protocols shipped',
     hint: 'all MIT in the base library'
   },
@@ -24,5 +24,5 @@ export const proofStats: Stat[] = [
 export const proofStory = {
   eyebrow: 'Built with reveren',
   headline: 'mrktable runs on its own protocols.',
-  body: 'mrktable is a production newsletter platform shipping with Next.js 16, Prisma 7, Stripe, Auth.js, and twelve agents working from the same protocol library. We dogfood reveren before we ship it. The numbers below are real, not aspirational.'
+  body: 'mrktable is a production newsletter platform shipping with Next.js 16, Prisma 7, Stripe, Auth.js, and thirteen agents working from the same protocol library. We dogfood reveren before we ship it. The numbers below are real, not aspirational.'
 }

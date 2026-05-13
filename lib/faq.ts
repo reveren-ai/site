@@ -6,6 +6,12 @@ export type FaqItem = {
 
 export const faq: FaqItem[] = [
   {
+    id: "what-is-a-protocol",
+    question: "What is a protocol, exactly?",
+    answer:
+      "A short Markdown file in your repo that tells an AI coding agent how your team works — how you name things, test things, ship things. The agent reads the relevant protocol before doing the work, so it stops guessing your conventions. Authored once, reused by every agent you run.",
+  },
+  {
     id: "vs-cursorrules",
     question: "Why not just use .cursorrules / Copilot Instructions / Windsurf rules?",
     answer:

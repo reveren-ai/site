@@ -9,7 +9,7 @@ export const solution: SolutionPillar[] = [
     id: "protocols",
     label: "Protocols",
     description:
-      "Versioned, repo-aware instructions in plain Markdown. Author once. Run from any agent. The format is open — your work travels with you.",
+      "Short Markdown files in your repo that tell your AI agent how your team works — naming, testing, shipping, reviewing. Versioned, repo-aware, agent-agnostic. Author once. The format is open, so your work travels with you.",
   },
   {
     id: "pipelines",
