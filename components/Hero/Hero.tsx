@@ -64,9 +64,10 @@ export default function Hero() {
                   >
                     reveren
                   </strong>{' '}
-                  is structured, versioned, repo-aware guardrails for AI coding
-                  agents — protocols plus pipelines that make whichever agent
-                  you already pay for dramatically better.{' '}
+                  is the operating manual for your AI coding agent —
+                  protocols (short Markdown files that tell it how your team
+                  works) plus pipelines that chain them. Whichever agent you
+                  already pay for becomes dramatically better.{' '}
                   <strong
                     style={{
                       color: 'var(--mui-palette-text-primary)',
