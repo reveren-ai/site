@@ -103,6 +103,14 @@ each environment scope:
 | `DATABASE_URL` | Pooled (host has `-pooler` suffix) | App runtime — serverless function handlers via `@prisma/adapter-neon` |
 | `DIRECT_URL` | Direct (no `-pooler` suffix) | `prisma migrate` — pgbouncer doesn't support advisory locks Prisma uses |
 
+**On feature-branch previews**, the Neon Vercel integration auto-provisions
+`DATABASE_URL` + `DATABASE_URL_UNPOOLED` (Neon's name for the direct
+connection). `prisma.config.ts` reads `DIRECT_URL ?? DATABASE_URL_UNPOOLED
+?? DATABASE_URL` so both naming conventions work without per-branch fiddling.
+Long-lived branches (`develop`, `uat`, `main`) keep using the hand-set
+`DIRECT_URL` since their Vercel branch-scoped env vars win over the
+integration's generic Preview-scope vars.
+
 **Why both**: pgbouncer (the pooler) batches many client connections
 into a few real Postgres connections. It doesn't support session-level
 features like advisory locks, prepared statements (in some modes), or

@@ -10,17 +10,27 @@ import { defineConfig } from "prisma/config";
 
 // Prisma 7 wants the connection URL here, not in schema.prisma.
 //
-// We use DIRECT_URL (the unpooled Neon connection) because `prisma migrate`
-// needs advisory locks that pgbouncer doesn't expose. Runtime serverless
-// handlers create PrismaClient with `datasourceUrl: process.env.DATABASE_URL`
-// (the pooled connection) so the lambda doesn't exhaust the DB's connection
-// limit under load.
+// `prisma migrate` needs the unpooled connection because pgbouncer doesn't
+// expose advisory locks. Two names for the same thing depending on who
+// provisioned the env:
+//   - DIRECT_URL: our hand-set name on Production + Preview(develop|uat).
+//   - DATABASE_URL_UNPOOLED: what the Neon Vercel integration injects on
+//     auto-forked feature-branch previews.
+// Fall through to the pooled DATABASE_URL only as a last resort (will fail
+// on `migrate deploy`, but at least surfaces a clear error).
+//
+// Runtime serverless handlers always use the pooled DATABASE_URL via
+// `new PrismaClient({ datasourceUrl })` so the lambda doesn't exhaust the
+// DB's connection limit under load.
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
     path: "prisma/migrations",
   },
   datasource: {
-    url: process.env["DIRECT_URL"] ?? process.env["DATABASE_URL"],
+    url:
+      process.env["DIRECT_URL"] ??
+      process.env["DATABASE_URL_UNPOOLED"] ??
+      process.env["DATABASE_URL"],
   },
 });
