@@ -55,7 +55,7 @@ export const manifesto = {
     {
       heading: "If you've read this far.",
       body: [
-        `Run \`${INSTALL_COMMAND}\`. Watch it scaffold .protocols/ in your repo. Try \`reveren run plan-engineering\` on the next feature. Tell me whether the agent's output got better.`,
+        `Run \`${INSTALL_COMMAND}\`. Watch it scaffold .protocols/ in your repo. Try \`rvr run plan-engineering\` on the next feature. Tell me whether the agent's output got better.`,
         "If it didn't, email me. I'm always iterating."
       ]
     }

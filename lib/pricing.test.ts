@@ -67,7 +67,7 @@ describe("pricing data", () => {
     }
   });
 
-  it("declares local reveren run as unlimited on every tier", () => {
+  it("declares local rvr run as unlimited on every tier", () => {
     const pipeline = featureMatrix.find((g) => g.id === "pipeline");
     const localRow = pipeline?.rows.find((r) => r.label.includes("Local"));
     expect(localRow?.free).toBe("Unlimited");
