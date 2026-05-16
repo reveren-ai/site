@@ -99,6 +99,7 @@ export default function FeatureTeaser() {
 
                     <Typography
                       component='h3'
+                      variant='h4'
                       sx={{
                         fontFamily: fonts.serif,
                         fontSize: { xs: '1.5rem', md: '1.625rem' },

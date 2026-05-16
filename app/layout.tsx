@@ -4,15 +4,18 @@ import ThemeRegistry from "@/theme/ThemeRegistry";
 import { modeInitScript } from "@/lib/mode";
 import Nav from "@/components/Nav/Nav";
 import Footer from "@/components/Footer/Footer";
+import EnvBanner from "@/components/EnvBanner/EnvBanner";
 import JsonLd from "@/components/JsonLd";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/jsonLd";
+import { isProductionEnv as isProductionEnvCheck } from "@/lib/env";
 import "./globals.css";
 
-// Vercel sets VERCEL_ENV to "production" only on the production deployment.
-// Preview (uat / develop / PR) and local dev should noindex so we don't
-// fight the canonical reveren.ai for ranking and so unfinished copy on
-// non-prod hosts doesn't leak into search results.
-const isProductionEnv = process.env.VERCEL_ENV === "production";
+// Indexability is decided by lib/env.ts (NEXT_PUBLIC_APP_ENV override →
+// VERCEL_ENV → NODE_ENV). Only production indexes; preview / uat / dev all
+// emit noindex,follow so internal-link signal still flows when the team
+// shares a non-prod URL for review. <EnvBanner /> renders a visible stripe
+// on every non-prod page so misconfigured envs are caught on first paint.
+const isProductionEnv = isProductionEnvCheck();
 
 const inter = Inter({
   subsets: ["latin"],
@@ -83,8 +86,8 @@ export const metadata: Metadata = {
     ? { index: true, follow: true }
     : {
         index: false,
-        follow: false,
-        googleBot: { index: false, follow: false },
+        follow: true,
+        googleBot: { index: false, follow: true },
       },
 };
 
@@ -125,6 +128,7 @@ export default function RootLayout({
         <JsonLd data={websiteJsonLd()} />
       </head>
       <body>
+        <EnvBanner />
         <ThemeRegistry>
           <a href="#main" className="rv-skip-link">
             Skip to content
