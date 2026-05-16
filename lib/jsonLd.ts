@@ -9,7 +9,7 @@
 
 import { faq } from "@/lib/faq";
 
-const SITE_URL = "https://reveren.ai";
+export const SITE_URL = "https://reveren.ai";
 const ORG_NAME = "reveren";
 const ORG_LEGAL_NAME = "Reveren Pty Ltd";
 const LOGO_URL = `${SITE_URL}/logo/svg/reveren-favicon.svg`;
