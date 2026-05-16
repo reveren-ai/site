@@ -9,6 +9,8 @@ import {
 } from "@/lib/pods";
 import { fonts } from "@/theme/tokens";
 import WaitlistButton from "@/components/WaitlistModal/WaitlistButton";
+import JsonLd from "@/components/JsonLd";
+import { podsServiceJsonLd } from "@/lib/jsonLd";
 import {
   MotionReveal,
   MotionStagger,
@@ -36,6 +38,7 @@ export const metadata: Metadata = {
 export default function PodsPage() {
   return (
     <>
+      <JsonLd data={podsServiceJsonLd()} />
       {/* Hero */}
       <Box component="section" className="rv-section" sx={{ pt: { xs: 8, md: 12 } }}>
         <Box className="rv-container">
