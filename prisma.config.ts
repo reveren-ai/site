@@ -11,26 +11,41 @@ import { defineConfig } from "prisma/config";
 // Prisma 7 wants the connection URL here, not in schema.prisma.
 //
 // `prisma migrate` needs the unpooled connection because pgbouncer doesn't
-// expose advisory locks. Two names for the same thing depending on who
-// provisioned the env:
-//   - DIRECT_URL: our hand-set name on Production + Preview(develop|uat).
-//   - DATABASE_URL_UNPOOLED: what the Neon Vercel integration injects on
-//     auto-forked feature-branch previews.
-// Fall through to the pooled DATABASE_URL only as a last resort (will fail
-// on `migrate deploy`, but at least surfaces a clear error).
+// expose advisory locks. The URL can land under several names depending on
+// who provisioned the env — resolve in priority order:
+//
+//   1. PROD_DIRECT_URL on Vercel Production scope (the PROD_ prefix
+//      convention, see docs/PRE_PRODUCTION.md § "Credential separation").
+//   2. DIRECT_URL — hand-set name on Production + Preview(develop|uat)
+//      and local .env.local.
+//   3. DATABASE_URL_UNPOOLED — what the Neon Vercel integration injects on
+//      auto-forked feature-branch previews.
+//   4. DATABASE_URL — last resort (the pooled connection). `migrate deploy`
+//      will fail on advisory locks but the error is clear.
 //
 // Runtime serverless handlers always use the pooled DATABASE_URL via
 // `new PrismaClient({ datasourceUrl })` so the lambda doesn't exhaust the
 // DB's connection limit under load.
+function migrationUrl(): string | undefined {
+  if (
+    process.env["VERCEL_ENV"] === "production" &&
+    process.env["PROD_DIRECT_URL"]
+  ) {
+    return process.env["PROD_DIRECT_URL"];
+  }
+  return (
+    process.env["DIRECT_URL"] ??
+    process.env["DATABASE_URL_UNPOOLED"] ??
+    process.env["DATABASE_URL"]
+  );
+}
+
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
     path: "prisma/migrations",
   },
   datasource: {
-    url:
-      process.env["DIRECT_URL"] ??
-      process.env["DATABASE_URL_UNPOOLED"] ??
-      process.env["DATABASE_URL"],
+    url: migrationUrl(),
   },
 });
