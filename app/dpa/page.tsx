@@ -4,7 +4,10 @@ import Prose from "@/components/Prose/Prose";
 
 export const metadata: Metadata = {
   title: "DPA",
+  description:
+    "Data Processing Addendum for reveren customers. Covers GDPR Article 28 obligations, sub-processors, security measures, and cross-border data transfer mechanisms.",
   alternates: { canonical: "/dpa" },
+  openGraph: { title: "DPA · reveren", url: "/dpa" },
 };
 
 export default function DPAPage() {

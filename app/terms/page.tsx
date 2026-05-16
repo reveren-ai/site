@@ -5,7 +5,10 @@ import { GITHUB_URL } from "@/lib/install";
 
 export const metadata: Metadata = {
   title: "Terms",
+  description:
+    "Terms of service for the reveren CLI and hosted dashboard. Acceptable use, intellectual property of generated protocols, refund and termination rules.",
   alternates: { canonical: "/terms" },
+  openGraph: { title: "Terms · reveren", url: "/terms" },
 };
 
 export default function TermsPage() {

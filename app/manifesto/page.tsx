@@ -25,6 +25,19 @@ export const metadata: Metadata = {
   description:
     "The agent doesn't need a smarter model. It needs an operating manual. Why standards layers, not better models, are what comes next.",
   alternates: { canonical: "/manifesto" },
+  openGraph: {
+    type: "article",
+    title:
+      "The agent doesn't need a smarter model. It needs an operating manual.",
+    description:
+      "Standards layers — not better models — are what comes next for AI coding agents. A manifesto for repo-aware guardrails.",
+    url: "/manifesto",
+  },
+  twitter: {
+    title: "Manifesto · reveren",
+    description:
+      "The agent doesn't need a smarter model. It needs an operating manual.",
+  },
 };
 
 export default function ManifestoPage() {

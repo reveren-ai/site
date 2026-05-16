@@ -4,7 +4,10 @@ import Prose from "@/components/Prose/Prose";
 
 export const metadata: Metadata = {
   title: "Privacy",
+  description:
+    "How reveren collects, uses, and protects your data. What we store, why, how long, who can see it, and how to request deletion. Plain language, with the legal-precise version linked.",
   alternates: { canonical: "/privacy" },
+  openGraph: { title: "Privacy · reveren", url: "/privacy" },
 };
 
 export default function PrivacyPage() {

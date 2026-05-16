@@ -20,6 +20,17 @@ export const metadata: Metadata = {
   description:
     "The open Pod Marketplace for AI agents. Coming Mo 3. Author once. Sell on every agent. 70/30 creator split. $1 floor.",
   alternates: { canonical: "/pods" },
+  openGraph: {
+    title: "Pods Marketplace · reveren",
+    description:
+      "Author once. Sell on every agent. 70/30 creator split, $1 floor. The open Pod Marketplace for AI coding agents.",
+    url: "/pods",
+  },
+  twitter: {
+    title: "Pods Marketplace · reveren",
+    description:
+      "Author once. Sell on every agent. 70/30 creator split, $1 floor.",
+  },
 };
 
 export default function PodsPage() {

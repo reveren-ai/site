@@ -4,7 +4,10 @@ import Prose from "@/components/Prose/Prose";
 
 export const metadata: Metadata = {
   title: "Security",
+  description:
+    "How the reveren CLI handles your data: bring-your-own keys, local execution, no telemetry. What changes when the hosted dashboard ships, and the boundaries we keep regardless.",
   alternates: { canonical: "/security" },
+  openGraph: { title: "Security · reveren", url: "/security" },
 };
 
 export default function SecurityPage() {
