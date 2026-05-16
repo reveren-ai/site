@@ -1,25 +1,36 @@
-import { Box, Card, CardContent, Stack, Typography, Button } from "@mui/material";
-import { featureTeaser, featureTeaserIntro } from "@/lib/featureTeaser";
-import { fonts } from "@/theme/tokens";
+import {
+  Box,
+  Card,
+  CardContent,
+  Stack,
+  Typography,
+  Button
+} from '@mui/material'
+import { featureTeaser, featureTeaserIntro } from '@/lib/featureTeaser'
+import { fonts } from '@/theme/tokens'
 import {
   MotionReveal,
   MotionStagger,
-  MotionItem,
-} from "@/components/motion/MotionPrimitives";
+  MotionItem
+} from '@/components/motion/MotionPrimitives'
 
 export default function FeatureTeaser() {
   return (
-    <Box component="section" className="rv-section--tight" sx={{ py: { xs: 6, md: 10 } }}>
-      <Box className="rv-container">
+    <Box
+      component='section'
+      className='rv-section--tight'
+      sx={{ py: { xs: 6, md: 10 } }}
+    >
+      <Box className='rv-container'>
         <MotionReveal>
           <Stack spacing={2} sx={{ mb: { xs: 5, md: 7 }, maxWidth: 760 }}>
-            <Typography variant="eyebrow" component="div">
+            <Typography variant='eyebrow' component='div'>
               {featureTeaserIntro.eyebrow}
             </Typography>
-            <Typography variant="h2" component="h2">
+            <Typography variant='h2' component='h2'>
               {featureTeaserIntro.headline}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant='body1' color='text.secondary'>
               {featureTeaserIntro.body}
             </Typography>
           </Stack>
@@ -28,108 +39,110 @@ export default function FeatureTeaser() {
         <MotionStagger
           stagger={0.08}
           sx={{
-            display: "grid",
-            gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
             gap: 3,
-            alignItems: "stretch",
+            alignItems: 'stretch'
           }}
         >
           {featureTeaser.map((card) => {
-            const isAvailable = card.status === "available";
+            const isAvailable = card.status === 'available'
             return (
-              <MotionItem key={card.id} sx={{ height: "100%" }}>
+              <MotionItem key={card.id} sx={{ height: '100%' }}>
                 <Card
                   sx={{
-                    position: "relative",
-                    overflow: "hidden",
-                    height: "100%",
-                    bgcolor: isAvailable ? "background.paper" : "background.default",
+                    position: 'relative',
+                    overflow: 'hidden',
+                    height: '100%',
+                    bgcolor: isAvailable
+                      ? 'background.paper'
+                      : 'background.default',
                     transition:
-                      "transform 140ms cubic-bezier(0.22,1,0.36,1), box-shadow 140ms cubic-bezier(0.22,1,0.36,1)",
-                    "&:hover": {
-                      transform: "translateY(-2px)",
-                      boxShadow: "var(--rv-shadow-pop)",
+                      'transform 140ms cubic-bezier(0.22,1,0.36,1), box-shadow 140ms cubic-bezier(0.22,1,0.36,1)',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: 'var(--rv-shadow-pop)'
                     },
                     // Top accent stripe: iron accent for live, accentSoft for upcoming.
-                    "&::before": {
+                    '&::before': {
                       content: '""',
-                      position: "absolute",
+                      position: 'absolute',
                       top: 0,
                       left: 0,
                       right: 0,
                       height: 4,
                       bgcolor: isAvailable
-                        ? "primary.main"
-                        : "var(--mui-palette-action-selected)",
-                    },
+                        ? 'primary.main'
+                        : 'var(--mui-palette-action-selected)'
+                    }
                   }}
                 >
                   <CardContent
                     sx={{
                       p: 3.5,
                       pt: 4,
-                      height: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: 2.5,
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 2.5
                     }}
                   >
                     <Typography
-                      variant="eyebrow"
-                      component="div"
+                      variant='eyebrow'
+                      component='div'
                       sx={{
-                        color: isAvailable ? "primary.main" : "text.secondary",
+                        color: isAvailable ? 'primary.main' : 'text.secondary'
                       }}
                     >
                       {card.statusLabel}
                     </Typography>
 
                     <Typography
-                      component="h3"
+                      component='h3'
                       sx={{
                         fontFamily: fonts.serif,
-                        fontSize: { xs: "1.5rem", md: "1.625rem" },
+                        fontSize: { xs: '1.5rem', md: '1.625rem' },
                         lineHeight: 1.2,
-                        letterSpacing: "-0.01em",
-                        color: "text.primary",
+                        letterSpacing: '-0.01em',
+                        color: 'text.primary'
                       }}
                     >
                       {card.title}
                     </Typography>
 
                     <Typography
-                      variant="body2"
-                      color="text.secondary"
+                      variant='body2'
+                      color='text.secondary'
                       sx={{ lineHeight: 1.55 }}
                     >
                       {card.body}
                     </Typography>
 
                     <Stack
-                      component="ul"
+                      component='ul'
                       spacing={1}
-                      sx={{ listStyle: "none", p: 0, m: 0, flex: 1 }}
+                      sx={{ listStyle: 'none', p: 0, m: 0, flex: 1 }}
                     >
                       {card.bullets.map((b) => (
                         <Typography
                           key={b}
-                          component="li"
-                          variant="body2"
+                          component='li'
+                          variant='body2'
                           sx={{
-                            position: "relative",
+                            position: 'relative',
                             pl: 2.5,
-                            color: "text.secondary",
-                            "&::before": {
+                            color: 'text.secondary',
+                            '&::before': {
                               content: '""',
-                              position: "absolute",
+                              position: 'absolute',
                               left: 0,
-                              top: "0.65em",
+                              top: '0.65em',
                               width: 8,
                               height: 1.5,
                               backgroundColor: isAvailable
-                                ? "primary.main"
-                                : "text.disabled",
-                            },
+                                ? 'primary.main'
+                                : 'text.disabled'
+                            }
                           }}
                         >
                           {b}
@@ -138,17 +151,17 @@ export default function FeatureTeaser() {
                     </Stack>
 
                     <Button
-                      component="a"
+                      component='a'
                       href={card.cta.href}
                       variant={card.cta.variant}
-                      size="large"
+                      size='large'
                       fullWidth
                       sx={
-                        card.cta.variant === "contained"
+                        card.cta.variant === 'contained'
                           ? {
-                              bgcolor: "var(--rv-cta-bg)",
-                              color: "var(--rv-cta-fg)",
-                              "&:hover": { bgcolor: "var(--rv-cta-bg-hover)" },
+                              bgcolor: 'var(--rv-cta-bg)',
+                              color: 'var(--rv-cta-fg)',
+                              '&:hover': { bgcolor: 'var(--rv-cta-bg-hover)' }
                             }
                           : undefined
                       }
@@ -158,10 +171,10 @@ export default function FeatureTeaser() {
                   </CardContent>
                 </Card>
               </MotionItem>
-            );
+            )
           })}
         </MotionStagger>
       </Box>
     </Box>
-  );
+  )
 }
