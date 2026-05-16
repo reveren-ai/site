@@ -1,16 +1,28 @@
 import type { Metadata } from "next";
 import { Box, Stack, Typography } from "@mui/material";
 import Prose from "@/components/Prose/Prose";
+import JsonLd from "@/components/JsonLd";
+import { webPageJsonLd } from "@/lib/jsonLd";
 import { GITHUB_URL } from "@/lib/install";
 
 export const metadata: Metadata = {
   title: "Terms",
+  description:
+    "Terms of service for the reveren CLI and hosted dashboard. Acceptable use, intellectual property of generated protocols, refund and termination rules.",
   alternates: { canonical: "/terms" },
+  openGraph: { title: "Terms · reveren", url: "/terms" },
 };
 
 export default function TermsPage() {
   return (
     <Box sx={{ pt: { xs: 8, md: 12 }, pb: { xs: 6, md: 10 } }}>
+      <JsonLd
+        data={webPageJsonLd({
+          url: "/terms",
+          name: "Terms · reveren",
+          description: metadata.description as string,
+        })}
+      />
       <Box className="rv-container">
         <Stack spacing={2} sx={{ maxWidth: "65ch", mx: "auto", mb: 4 }}>
           <Typography variant="eyebrow" component="div">

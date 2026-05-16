@@ -21,7 +21,7 @@ export const faq: FaqItem[] = [
     id: "what-counts-as-cloud-run",
     question: "What counts as a cloud pipeline run?",
     answer:
-      "Anything dispatched to the hosted orchestrator (dashboard, registry, GitHub App, MCP write). Local `reveren run` against your own machine is free and unlimited on every tier — including Free.",
+      "Anything dispatched to the hosted orchestrator (dashboard, registry, GitHub App, MCP write). Local `rvr run` against your own machine is free and unlimited on every tier — including Free.",
   },
   {
     id: "self-host",

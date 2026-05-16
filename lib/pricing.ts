@@ -1,6 +1,6 @@
 // Pricing data — verbatim from MVP-SITE-ADJUSTMENTS.md §4.
 // All USD, no .99. Round numbers. Cloud runs only count when using the
-// hosted orchestrator; local `reveren run` is unlimited and free on every tier.
+// hosted orchestrator; local `rvr run` is unlimited and free on every tier.
 
 export type TierId = "free" | "pro" | "team" | "enterprise";
 
@@ -118,7 +118,7 @@ export const tiers: Tier[] = [
 ];
 
 export const pricingFootnote =
-  "All prices in USD. Local-only `reveren run` is unlimited and free on every tier. Cloud pipeline runs apply only when you use the hosted orchestrator (analytics, registry, GitHub App, MCP write). Pod credits entitle you to one paid Marketplace pod per month at no additional cost — creators are still paid. Beyond included credits, additional pods are purchased separately (self-host pods $1–$9 / mo; hosted pods $19+ / mo).";
+  "All prices in USD. Local-only `rvr run` is unlimited and free on every tier. Cloud pipeline runs apply only when you use the hosted orchestrator (analytics, registry, GitHub App, MCP write). Pod credits entitle you to one paid Marketplace pod per month at no additional cost — creators are still paid. Beyond included credits, additional pods are purchased separately (self-host pods $1–$9 / mo; hosted pods $19+ / mo).";
 
 // Feature matrix — five row groups per HANDOFF.md §5.3, with cell values
 // that can be boolean | string | number. Order matters: Pipeline first
@@ -168,7 +168,7 @@ export const featureMatrix: MatrixGroup[] = [
         enterprise: "Negotiated",
       },
       {
-        label: "Local `reveren run`",
+        label: "Local `rvr run`",
         hint: "Unlimited on every tier",
         free: "Unlimited",
         pro: "Unlimited",

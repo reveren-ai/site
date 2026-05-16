@@ -1,15 +1,27 @@
 import type { Metadata } from "next";
 import { Box, Stack, Typography } from "@mui/material";
 import Prose from "@/components/Prose/Prose";
+import JsonLd from "@/components/JsonLd";
+import { webPageJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
   title: "DPA",
+  description:
+    "Data Processing Addendum for reveren customers. Covers GDPR Article 28 obligations, sub-processors, security measures, and cross-border data transfer mechanisms.",
   alternates: { canonical: "/dpa" },
+  openGraph: { title: "DPA · reveren", url: "/dpa" },
 };
 
 export default function DPAPage() {
   return (
     <Box sx={{ pt: { xs: 8, md: 12 }, pb: { xs: 6, md: 10 } }}>
+      <JsonLd
+        data={webPageJsonLd({
+          url: "/dpa",
+          name: "DPA · reveren",
+          description: metadata.description as string,
+        })}
+      />
       <Box className="rv-container">
         <Stack spacing={2} sx={{ maxWidth: "65ch", mx: "auto", mb: 4 }}>
           <Typography variant="eyebrow" component="div">

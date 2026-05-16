@@ -1,15 +1,27 @@
 import type { Metadata } from "next";
 import { Box, Stack, Typography } from "@mui/material";
 import Prose from "@/components/Prose/Prose";
+import JsonLd from "@/components/JsonLd";
+import { webPageJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
   title: "Security",
+  description:
+    "How the reveren CLI handles your data: bring-your-own keys, local execution, no telemetry. What changes when the hosted dashboard ships, and the boundaries we keep regardless.",
   alternates: { canonical: "/security" },
+  openGraph: { title: "Security · reveren", url: "/security" },
 };
 
 export default function SecurityPage() {
   return (
     <Box sx={{ pt: { xs: 8, md: 12 }, pb: { xs: 6, md: 10 } }}>
+      <JsonLd
+        data={webPageJsonLd({
+          url: "/security",
+          name: "Security · reveren",
+          description: metadata.description as string,
+        })}
+      />
       <Box className="rv-container">
         <Stack spacing={2} sx={{ maxWidth: "65ch", mx: "auto", mb: 4 }}>
           <Typography variant="eyebrow" component="div">
