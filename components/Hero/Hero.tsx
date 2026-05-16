@@ -55,27 +55,18 @@ export default function Hero() {
                     fontSize: { xs: '1.0625rem', md: '1.1875rem' }
                   }}
                 >
-                  Stop correcting your AI. Start directing it.{' '}
+                  A CLI that scaffolds an open Markdown protocol library into
+                  your repo. Every AI coding agent — Claude, Cursor, Copilot,
+                  Windsurf, Lovable, Bolt, v0 — reads from the same rules.{' '}
                   <strong
                     style={{
                       color: 'var(--mui-palette-text-primary)',
                       fontWeight: 600
                     }}
                   >
-                    reveren
+                    Stop correcting your AI. Start directing it.
                   </strong>{' '}
-                  is the operating manual for your AI coding agent —
-                  protocols (short Markdown files that tell it how your team
-                  works) plus pipelines that chain them. Whichever agent you
-                  already pay for becomes dramatically better.{' '}
-                  <strong
-                    style={{
-                      color: 'var(--mui-palette-text-primary)',
-                      fontWeight: 600
-                    }}
-                  >
-                    Author once. Sell to every agent.
-                  </strong>
+                  Author once. Sell to every agent.
                 </Typography>
               </MotionItem>
 

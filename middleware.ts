@@ -38,8 +38,17 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Preserve the path the user originally requested in a search param so the
+  // /coming-soon holding page can show "you tried /pricing — sign up and we'll
+  // notify you when it's live". Without this, a Slack paste of
+  // https://reveren.ai/pricing loses every signal about the sender's intent;
+  // the recipient just sees a generic holding page.
   const url = request.nextUrl.clone();
+  const originalPath = pathname;
   url.pathname = "/coming-soon";
+  if (originalPath !== "/" && originalPath !== "/coming-soon") {
+    url.searchParams.set("from", originalPath);
+  }
   return NextResponse.rewrite(url);
 }
 
