@@ -4,6 +4,7 @@ import ManifestoHeader from "@/components/ManifestoHeader/ManifestoHeader";
 import Prose from "@/components/Prose/Prose";
 import PullQuote from "@/components/PullQuote/PullQuote";
 import TerminalButton from "@/components/TerminalButton/TerminalButton";
+import WaitlistButton from "@/components/WaitlistModal/WaitlistButton";
 import { MotionReveal } from "@/components/motion/MotionPrimitives";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd } from "@/lib/jsonLd";
@@ -99,8 +100,16 @@ export default function ManifestoPage() {
               <Typography variant="h3" component="h2">
                 Sixty seconds. One command.
               </Typography>
-              <Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: { xs: "column", sm: "row" },
+                  gap: 1.5,
+                  alignItems: { xs: "stretch", sm: "center" },
+                }}
+              >
                 <TerminalButton />
+                <WaitlistButton />
               </Box>
             </Stack>
           </MotionReveal>
