@@ -36,6 +36,10 @@ test.describe("motion-on smoke", () => {
         if (msg.type() !== "error") return;
         const text = msg.text();
         if (text.includes("Content Security Policy")) return;
+        // PostHog AbortError on navigation mid-test — disabled under
+        // WebDriver in instrumentation-client.ts; filter as defence-in-
+        // depth. See reduced-motion.spec.ts for the canonical comment.
+        if (text.includes("PostHog.js") && text.includes("AbortError")) return;
         consoleErrors.push(text);
       });
 

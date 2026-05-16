@@ -182,22 +182,24 @@ export async function POST(req: Request) {
   }
 
   const posthog = getPostHogClient();
-  posthog.identify({
-    distinctId: parsed.data.email,
-    properties: { waitlist_tier: parsed.data.tier },
-  });
-  posthog.capture({
-    distinctId: parsed.data.email,
-    event: "waitlist_signup_recorded",
-    properties: {
-      tier: parsed.data.tier,
-      source,
-      has_company: Boolean(parsed.data.company),
-      has_seats: Boolean(parsed.data.seats),
-      has_use_case: Boolean(parsed.data.useCase),
-    },
-  });
-  await posthog._shutdown();
+  if (posthog) {
+    posthog.identify({
+      distinctId: parsed.data.email,
+      properties: { waitlist_tier: parsed.data.tier },
+    });
+    posthog.capture({
+      distinctId: parsed.data.email,
+      event: "waitlist_signup_recorded",
+      properties: {
+        tier: parsed.data.tier,
+        source,
+        has_company: Boolean(parsed.data.company),
+        has_seats: Boolean(parsed.data.seats),
+        has_use_case: Boolean(parsed.data.useCase),
+      },
+    });
+    await posthog._shutdown();
+  }
 
   // Email confirmation comes in Phase 1 alongside Auth.js + Resend wiring.
   // Today the DB row is the system of record.
