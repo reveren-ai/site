@@ -33,7 +33,38 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ComingSoonPage() {
+// Friendly labels for paths a Slack-pasted link might have originally
+// targeted. Keep this list aligned with sitemap.ts post-launch routes — if
+// a path isn't listed, the holding page falls back to the generic eyebrow.
+const FROM_LABELS: Record<string, string> = {
+  "/pricing": "the pricing page",
+  "/manifesto": "the manifesto",
+  "/pods": "the Pod Marketplace",
+  "/security": "the security page",
+  "/privacy": "the privacy page",
+  "/terms": "the terms page",
+  "/dpa": "the data-processing addendum",
+};
+
+function resolveFromLabel(from: string | string[] | undefined): string | null {
+  const raw = Array.isArray(from) ? from[0] : from;
+  if (!raw) return null;
+  // Only accept site-relative paths to keep this safe from open-redirect-
+  // style abuse via the visible eyebrow text.
+  if (!raw.startsWith("/") || raw.includes("://")) return null;
+  return FROM_LABELS[raw] ?? null;
+}
+
+interface ComingSoonPageProps {
+  searchParams: Promise<{ from?: string | string[] }>;
+}
+
+export default async function ComingSoonPage({
+  searchParams,
+}: ComingSoonPageProps) {
+  const params = await searchParams;
+  const fromLabel = resolveFromLabel(params?.from);
+
   return (
     <>
       <JsonLd data={softwareApplicationJsonLd()} />
@@ -54,7 +85,9 @@ export default function ComingSoonPage() {
             </Box>
 
             <Typography variant="eyebrow" component="div">
-              Coming soon
+              {fromLabel
+                ? `You came for ${fromLabel} — coming soon`
+                : "Coming soon"}
             </Typography>
 
             <Typography

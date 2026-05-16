@@ -73,6 +73,7 @@ export default function Nav() {
 
           <Box sx={{ display: { xs: "flex", md: "none" }, alignItems: "center", gap: 1 }}>
             <ModeToggle />
+            <WaitlistButton />
             <MobileNav links={links} />
           </Box>
         </Stack>

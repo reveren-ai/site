@@ -9,6 +9,8 @@ import {
 } from "@/lib/pods";
 import { fonts } from "@/theme/tokens";
 import WaitlistButton from "@/components/WaitlistModal/WaitlistButton";
+import JsonLd from "@/components/JsonLd";
+import { podsServiceJsonLd } from "@/lib/jsonLd";
 import {
   MotionReveal,
   MotionStagger,
@@ -20,11 +22,23 @@ export const metadata: Metadata = {
   description:
     "The open Pod Marketplace for AI agents. Coming Mo 3. Author once. Sell on every agent. 70/30 creator split. $1 floor.",
   alternates: { canonical: "/pods" },
+  openGraph: {
+    title: "Pods Marketplace · reveren",
+    description:
+      "Author once. Sell on every agent. 70/30 creator split, $1 floor. The open Pod Marketplace for AI coding agents.",
+    url: "/pods",
+  },
+  twitter: {
+    title: "Pods Marketplace · reveren",
+    description:
+      "Author once. Sell on every agent. 70/30 creator split, $1 floor.",
+  },
 };
 
 export default function PodsPage() {
   return (
     <>
+      <JsonLd data={podsServiceJsonLd()} />
       {/* Hero */}
       <Box component="section" className="rv-section" sx={{ pt: { xs: 8, md: 12 } }}>
         <Box className="rv-container">

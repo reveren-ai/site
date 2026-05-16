@@ -9,7 +9,7 @@
 
 import { faq } from "@/lib/faq";
 
-const SITE_URL = "https://reveren.ai";
+export const SITE_URL = "https://reveren.ai";
 const ORG_NAME = "reveren";
 const ORG_LEGAL_NAME = "Reveren Pty Ltd";
 const LOGO_URL = `${SITE_URL}/logo/svg/reveren-favicon.svg`;
@@ -98,6 +98,65 @@ export function faqPageJsonLd() {
         text: item.answer,
       },
     })),
+  };
+}
+
+// WebPage schema for legal/policy surfaces. Less rich than Article but
+// gives answer engines a clear "this is a documentation page about X"
+// signal — useful when someone asks an LLM "what is reveren's privacy
+// posture?" or "show me reveren's DPA."
+export function webPageJsonLd(input: {
+  url: string;
+  name: string;
+  description: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: input.name,
+    description: input.description,
+    url: new URL(input.url, SITE_URL).toString(),
+    isPartOf: {
+      "@type": "WebSite",
+      name: ORG_NAME,
+      url: SITE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: ORG_NAME,
+      url: SITE_URL,
+    },
+  };
+}
+
+// Service schema for /pods. Pods is a marketplace offering — Google's
+// Service rich-result eligibility maps cleanly to "thing you can buy /
+// sign up for." The `potentialAction` deep-links to the waitlist anchor
+// so answer-engine citations can point at the actual conversion surface.
+export function podsServiceJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "reveren Pods Marketplace",
+    serviceType: "AI coding-agent skill marketplace",
+    provider: {
+      "@type": "Organization",
+      name: ORG_NAME,
+      url: SITE_URL,
+    },
+    description:
+      "Open Pod Marketplace for AI coding agents. Author once, sell on every agent. 70/30 creator split, $1 floor.",
+    url: `${SITE_URL}/pods`,
+    areaServed: "Global",
+    audience: {
+      "@type": "Audience",
+      audienceType: "Software developers using AI coding agents",
+    },
+    potentialAction: {
+      "@type": "JoinAction",
+      target: `${SITE_URL}/pods#waitlist`,
+      name: "Join the Pods Marketplace waitlist",
+    },
   };
 }
 

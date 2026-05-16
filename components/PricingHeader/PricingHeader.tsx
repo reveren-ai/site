@@ -14,7 +14,7 @@ export default function PricingHeader() {
               Round numbers. No tricks.
             </Typography>
             <Typography variant="subtitle1" component="p" color="text.secondary">
-              All prices in USD, billed monthly. Local <code>reveren run</code> is unlimited
+              All prices in USD, billed monthly. Local <code>rvr run</code> is unlimited
               and free on every tier. Cloud runs apply only when you use the hosted
               orchestrator (analytics, registry, GitHub App, MCP write).
             </Typography>

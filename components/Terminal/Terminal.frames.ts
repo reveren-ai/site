@@ -23,7 +23,7 @@ export const frames: TerminalFrame[] = [
   { text: "↳ Writing .reveren/config.ts", className: "info", delay: 3400 },
   { text: "↳ Wiring package.json scripts", className: "info", delay: 3800 },
   { text: "✓ Ready. 13 protocols installed.", className: "success", delay: 4400 },
-  { prompt: "$", text: "reveren run plan-engineering", className: "input", delay: 5500 },
+  { prompt: "$", text: "rvr run plan-engineering", className: "input", delay: 5500 },
   { text: "→ The agent now reads your repo before it touches it.", className: "muted", delay: 6300 },
 ];
 
