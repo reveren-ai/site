@@ -42,6 +42,40 @@ export function isProductionEnv(): boolean {
   return getAppEnv() === "production";
 }
 
+/**
+ * Read an env var with a production-scope override.
+ *
+ * On Vercel's production scope (`VERCEL_ENV=production`), prefers
+ * `PROD_<KEY>` when set — the real production credential. Falls back to
+ * the bare `<KEY>`, which typically holds the shared dev/test value.
+ *
+ * In Preview / Development scopes, only reads `<KEY>`, ignoring any
+ * stray `PROD_<KEY>` so production credentials can't leak by accident
+ * even if mis-scoped in Vercel.
+ *
+ * Uses `VERCEL_ENV` directly rather than `getAppEnv()` so a local
+ * `NEXT_PUBLIC_APP_ENV=production` override can't unlock prod
+ * credentials by mistake. To test PROD_* values locally, set
+ * `VERCEL_ENV=production` in `.env.local` explicitly.
+ *
+ * Use for credentials that NEED to differ between prod and preview:
+ * Stripe live vs test keys, prod DB vs dev DB, AUTH secrets, AI API
+ * keys with separate budgets, OAuth client IDs.
+ *
+ * Don't use for: `NEXT_PUBLIC_*` (build-time public values), values
+ * identical across all envs, or env vars that already have
+ * branch-scoped overrides in Vercel.
+ *
+ * See `docs/PRE_PRODUCTION.md` § "Credential separation".
+ */
+export function envProd(key: string): string | undefined {
+  if (process.env.VERCEL_ENV === "production") {
+    const prodValue = process.env[`PROD_${key}`];
+    if (prodValue) return prodValue;
+  }
+  return process.env[key];
+}
+
 export const ENV_BANNER_LABELS: Record<Exclude<AppEnv, "production">, string> =
   {
     development: "Local · noindex",

@@ -661,15 +661,86 @@ If any check fails, fix before moving on.
 
 ---
 
+## Credential separation — `PROD_` prefix convention
+
+Pre-launch, most env vars are shared across Vercel's Production and
+Preview scopes because the values are test/dev creds — sharing is fine,
+even desirable (one source of truth, less drift). Once real production
+credentials arrive (live billing keys, prod AI keys with their own
+budgets, prod OAuth apps), they need to be **isolated to the Production
+scope** so a preview deploy can't accidentally charge a real card, burn
+the prod AI budget, or send mail from the prod sender.
+
+### The convention
+
+For any credential that **needs a different value in Production**:
+
+- Add the prod-only value to Vercel as `PROD_<KEY>` scoped to
+  **Production only**.
+- Leave the existing `<KEY>` (shared or Preview-only) holding the
+  test/dev value.
+- App code reads via `envProd('<KEY>')` from `lib/env.ts`, which
+  prefers `PROD_<KEY>` on Vercel's production scope and falls back to
+  `<KEY>` everywhere else.
+
+This means the Vercel dashboard env list visually separates real prod
+secrets (`PROD_` prefix) from shared dev/test values (bare name) — no
+risk of editing the wrong row when both happen to be named the same.
+
+### Adding a prod-only credential
+
+```bash
+# 1. Set the prod-only value, Production scope only
+printf '%s' "$LIVE_KEY" | vercel env add PROD_SOME_API_KEY production --yes --force --sensitive
+
+# 2. (Optional) Constrain the existing shared value to Preview only,
+#    once you've confirmed the prod path uses PROD_SOME_API_KEY
+vercel env rm SOME_API_KEY preview --yes
+printf '%s' "$TEST_KEY" | vercel env add SOME_API_KEY preview --yes --force --sensitive
+```
+
+### Reading from app code
+
+```ts
+import { envProd } from "@/lib/env";
+
+const authSecret = envProd("AUTH_SECRET");       // PROD_AUTH_SECRET in prod, AUTH_SECRET elsewhere
+const billingKey = envProd("STRIPE_SECRET_KEY"); // separate live vs test
+const aiKey = envProd("ANTHROPIC_API_KEY");      // separate prod budget
+```
+
+### When NOT to use `PROD_`
+
+- **`NEXT_PUBLIC_*`** — build-time public values; bare names + Vercel
+  scope per env are enough.
+- **Values identical across all envs** — keep one entry on shared
+  scope.
+- **Vars with branch-scoped overrides already in Vercel** —
+  `DATABASE_URL` on `Preview (develop)` already overrides the shared
+  entry for develop deploys; the per-branch Vercel scope is doing the
+  job `PROD_` would.
+
+### Reveren applicability
+
+Reveren is pre-launch with only a `WaitlistSignup` table — no live
+credentials today need `PROD_*` separation. The convention is here
+for Phase 1 (Auth.js + Subscriptions per `docs/NEON.md`), at which
+point `AUTH_SECRET`, OAuth client secrets, and Stripe keys all become
+candidates for the prefix. `prisma.config.ts` already accepts
+`PROD_DIRECT_URL` ahead of the bare `DIRECT_URL` so the migration URL
+fits the same pattern when needed.
+
+---
+
 ## What goes in `.env.local` vs Vercel
 
-| Key | `.env.local` (local dev) | Vercel Production | Vercel Preview (uat) | Vercel Preview (develop) |
-|---|---|---|---|---|
-| `LAUNCH_MODE` | optional (test gate locally) | `coming-soon` until launch | unset | unset |
-| `DATABASE_URL` | DEV branch pooled | PROD branch pooled | UAT branch pooled | DEV branch pooled |
-| `DIRECT_URL` | DEV branch direct | PROD branch direct | UAT branch direct | DEV branch direct |
-| `NEXT_PUBLIC_POSTHOG_KEY` | DEV PostHog project key | PROD project key | UAT project key | DEV project key |
-| `NEXT_PUBLIC_POSTHOG_HOST` | `https://us.i.posthog.com` | same | same | same |
+| Key | `.env.local` (local dev) | Vercel Production | Vercel Preview (uat) | Vercel Preview (develop) | Generic Preview (feature branches) |
+|---|---|---|---|---|---|
+| `LAUNCH_MODE` | optional (test gate locally) | `coming-soon` until launch | unset | unset | unset |
+| `DATABASE_URL` | DEV branch pooled | PROD branch pooled | UAT branch pooled | DEV branch pooled | auto-injected by Neon integration (per-branch fork) |
+| `DIRECT_URL` | DEV branch direct | PROD branch direct (or `PROD_DIRECT_URL`) | UAT branch direct | DEV branch direct | — (integration uses `DATABASE_URL_UNPOOLED`) |
+| `NEXT_PUBLIC_POSTHOG_KEY` | DEV PostHog project key | PROD project key | UAT project key | DEV project key | DEV project key |
+| `NEXT_PUBLIC_POSTHOG_HOST` | `https://us.i.posthog.com` | same | same | same | same |
 
 `.env.local` is gitignored. Never paste production credentials in chat,
 issue trackers, or any third-party SaaS log; rotate immediately if you do.
