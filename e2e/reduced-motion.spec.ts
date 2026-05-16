@@ -45,6 +45,11 @@ test.describe("reduced-motion smoke", () => {
         // warnings, etc. Add specific filters here if they become
         // load-bearing — keep the list short and explain each.
         if (text.includes("Content Security Policy")) return;
+        // PostHog logs AbortError on its in-flight retry queue when the
+        // page navigates mid-test. We disable PostHog under WebDriver in
+        // instrumentation-client.ts, but keep the filter as defence-in-
+        // depth so an init-order regression can't quietly fail this suite.
+        if (text.includes("PostHog.js") && text.includes("AbortError")) return;
         consoleErrors.push(text);
       });
 
