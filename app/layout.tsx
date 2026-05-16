@@ -111,23 +111,25 @@ export default function RootLayout({
       className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
     >
       <head>
-        {/*
-          Sets data-mode on <html> before paint so MUI's CSS-vars resolve
-          to the right palette on the first frame. Inline so it runs
-          synchronously; CSP-safe (no eval). React 19 hoists this into
-          the rendered <head>; previous attempts via next/script with
-          strategy="beforeInteractive" got deferred in production.
-        */}
-        <script
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{ __html: modeInitScript }}
-        />
         {/* Sitewide structured data — rendered once per page so search engines
             can attach the reveren brand + sitelinks searchbox to every URL. */}
         <JsonLd data={organizationJsonLd()} />
         <JsonLd data={websiteJsonLd()} />
       </head>
       <body>
+        {/*
+          Sets data-mode on <html> before first paint so MUI's CSS vars
+          resolve to the right palette on the first frame. Lives at the
+          top of <body> (not <head>) because React 19's metadata Float
+          reorders <head> children by kind (ld+json resources vs inline
+          scripts), causing a hydration position-shift when this sat
+          alongside the <JsonLd> scripts. A parser-blocking sync script
+          at the start of <body> still runs before any body content paints.
+        */}
+        <script
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{ __html: modeInitScript }}
+        />
         <EnvBanner />
         <ThemeRegistry>
           <a href="#main" className="rv-skip-link">
