@@ -10,18 +10,18 @@ import { faqPageJsonLd } from "@/lib/jsonLd";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Free, Pro ($19/mo), Team ($39/seat/mo), Enterprise. All USD. Local rvr run is unlimited and free on every tier.",
+    "The reveren CLI and the full protocol library are free forever, with unlimited local use and no metering. The only paid surfaces are Pods and the Protocol Marketplace.",
   alternates: { canonical: "/pricing" },
   openGraph: {
     title: "Pricing · reveren",
     description:
-      "Free, Pro $19/mo, Team $39/seat/mo, Enterprise. Local rvr run unlimited on every tier — cloud runs metered only when you use the hosted orchestrator.",
+      "Free core: the rvr CLI, the full protocol library, and the open format spec, with unlimited local use. Pods and the Protocol Marketplace are the only paid surfaces.",
     url: "/pricing",
   },
   twitter: {
     title: "Pricing · reveren",
     description:
-      "Free, Pro $19/mo, Team $39/seat/mo, Enterprise. Local rvr run unlimited.",
+      "Free core forever. Pods and the Protocol Marketplace are the only paid surfaces.",
   },
 };
 

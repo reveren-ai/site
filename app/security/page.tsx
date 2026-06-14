@@ -132,16 +132,20 @@ export default function SecurityPage() {
               needed by the protocols you install on a given repository.
             </li>
             <li>
-              <strong>Audit log.</strong> Team and Enterprise tiers include an
-              auditable record of who ran what and when, exposed back to you.
-            </li>
-            <li>
-              <strong>SOC 2 Type II in progress.</strong> We expect to have a
-              report in hand before the dashboard exits private beta. This
-              page will be replaced by a Trust Center once reports are
-              available.
+              <strong>Activity records.</strong> The hosted surface keeps an
+              auditable record of subscription and install activity on your
+              account, exposed back to you.
             </li>
           </ul>
+
+          <p>
+            We do not currently operate a formal compliance programme: there is
+            no SOC 2 report, no self-hosted distribution, and no enterprise
+            tier. reveren is built for individuals, small teams, and vibe
+            coders, and the most important guarantee is the one at the top of
+            this page: the CLI runs locally and your code, prompts, and keys
+            stay on your machine.
+          </p>
 
           <h2>Subprocessors and supply chain</h2>
 

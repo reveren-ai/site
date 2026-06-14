@@ -94,20 +94,22 @@ describe("WaitlistModal", () => {
   });
 
   describe("tier-aware variants", () => {
-    it("tier='pro' uses Pro-specific title and copy", () => {
-      renderWithTheme(<WaitlistModal open={true} onClose={onClose} tier="pro" />);
+    it("tier='pods' uses Pods-specific title and copy", () => {
+      renderWithTheme(<WaitlistModal open={true} onClose={onClose} tier="pods" />);
       expect(
-        screen.getByRole("dialog", { name: /join the pro waitlist/i }),
+        screen.getByRole("dialog", { name: /join the pods waitlist/i }),
       ).toBeInTheDocument();
-      expect(screen.getByText(/pro launches when the hosted orchestrator opens/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/reveren's maintained specialist agents/i),
+      ).toBeInTheDocument();
     });
 
-    it("tier='pro' submits with tier in payload", async () => {
+    it("tier='pods' submits with tier in payload", async () => {
       fetchMock.mockResolvedValueOnce({ ok: true, json: async () => ({ ok: true }) });
       const user = userEvent.setup();
-      renderWithTheme(<WaitlistModal open={true} onClose={onClose} tier="pro" />);
+      renderWithTheme(<WaitlistModal open={true} onClose={onClose} tier="pods" />);
 
-      await user.type(screen.getByLabelText("Email address"), "pro@example.com");
+      await user.type(screen.getByLabelText("Email address"), "pods@example.com");
       await user.click(screen.getByRole("button", { name: /^join$/i }));
 
       await waitFor(() => {
@@ -116,39 +118,32 @@ describe("WaitlistModal", () => {
 
       const call = fetchMock.mock.calls[0];
       const body = JSON.parse(call[1].body as string);
-      expect(body).toEqual({ email: "pro@example.com", tier: "pro" });
+      expect(body).toEqual({ email: "pods@example.com", tier: "pods" });
     });
 
-    it("tier='enterprise' shows extra fields (company, seats, use case)", () => {
-      renderWithTheme(<WaitlistModal open={true} onClose={onClose} tier="enterprise" />);
+    it("tier='marketplace' uses Marketplace-specific title and copy", () => {
+      renderWithTheme(
+        <WaitlistModal open={true} onClose={onClose} tier="marketplace" />,
+      );
       expect(
-        screen.getByRole("dialog", { name: /join the enterprise waitlist/i }),
+        screen.getByRole("dialog", { name: /join the marketplace waitlist/i }),
       ).toBeInTheDocument();
-      expect(screen.getByLabelText("Company")).toBeInTheDocument();
-      expect(screen.getByLabelText("Estimated seats")).toBeInTheDocument();
-      expect(screen.getByLabelText("Use case")).toBeInTheDocument();
+      expect(
+        screen.getByText(/install community and reveren-published protocol packs/i),
+      ).toBeInTheDocument();
     });
 
-    it("tier='enterprise' disables submit until company is filled", async () => {
-      const user = userEvent.setup();
-      renderWithTheme(<WaitlistModal open={true} onClose={onClose} tier="enterprise" />);
-
-      await user.type(screen.getByLabelText("Email address"), "boss@bigco.com");
-      const submit = screen.getByRole("button", { name: /^join$/i });
-      expect(submit).toBeDisabled();
-
-      await user.type(screen.getByLabelText("Company"), "BigCo");
-      expect(submit).toBeEnabled();
-    });
-
-    it("tier='enterprise' submit body includes tier + extra fields", async () => {
+    it("tier='marketplace' submits with tier in payload", async () => {
       fetchMock.mockResolvedValueOnce({ ok: true, json: async () => ({ ok: true }) });
       const user = userEvent.setup();
-      renderWithTheme(<WaitlistModal open={true} onClose={onClose} tier="enterprise" />);
+      renderWithTheme(
+        <WaitlistModal open={true} onClose={onClose} tier="marketplace" />,
+      );
 
-      await user.type(screen.getByLabelText("Email address"), "boss@bigco.com");
-      await user.type(screen.getByLabelText("Company"), "BigCo");
-      await user.type(screen.getByLabelText("Estimated seats"), "250");
+      await user.type(
+        screen.getByLabelText("Email address"),
+        "market@example.com",
+      );
       await user.click(screen.getByRole("button", { name: /^join$/i }));
 
       await waitFor(() => {
@@ -157,20 +152,7 @@ describe("WaitlistModal", () => {
 
       const call = fetchMock.mock.calls[0];
       const body = JSON.parse(call[1].body as string);
-      expect(body).toMatchObject({
-        email: "boss@bigco.com",
-        tier: "enterprise",
-        company: "BigCo",
-        seats: 250,
-      });
-    });
-
-    it("tier='team' uses Team-specific copy", () => {
-      renderWithTheme(<WaitlistModal open={true} onClose={onClose} tier="team" />);
-      expect(
-        screen.getByRole("dialog", { name: /join the team waitlist/i }),
-      ).toBeInTheDocument();
-      expect(screen.getByText(/team-tier features/i)).toBeInTheDocument();
+      expect(body).toEqual({ email: "market@example.com", tier: "marketplace" });
     });
   });
 });

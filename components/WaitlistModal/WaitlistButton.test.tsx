@@ -27,26 +27,27 @@ describe("WaitlistButton", () => {
     expect(screen.getByRole("button", { name: /get notified/i })).toBeInTheDocument();
   });
 
-  it("forwards tier='pro' to the modal", async () => {
-    renderWithTheme(<WaitlistButton tier="pro" label="Join Pro waitlist" />);
+  it("forwards tier='pods' to the modal", async () => {
+    renderWithTheme(<WaitlistButton tier="pods" label="Join the Pods waitlist" />);
     const user = userEvent.setup();
-    await user.click(screen.getByRole("button", { name: /join pro waitlist/i }));
+    await user.click(
+      screen.getByRole("button", { name: /join the pods waitlist/i }),
+    );
     expect(
-      screen.getByRole("dialog", { name: /join the pro waitlist/i }),
+      screen.getByRole("dialog", { name: /join the pods waitlist/i }),
     ).toBeInTheDocument();
   });
 
-  it("forwards tier='enterprise' to the modal (extra fields appear)", async () => {
+  it("forwards tier='marketplace' to the modal", async () => {
     renderWithTheme(
-      <WaitlistButton tier="enterprise" label="Join Enterprise waitlist" />,
+      <WaitlistButton tier="marketplace" label="Join the Marketplace waitlist" />,
     );
     const user = userEvent.setup();
     await user.click(
-      screen.getByRole("button", { name: /join enterprise waitlist/i }),
+      screen.getByRole("button", { name: /join the marketplace waitlist/i }),
     );
     expect(
-      screen.getByRole("dialog", { name: /join the enterprise waitlist/i }),
+      screen.getByRole("dialog", { name: /join the marketplace waitlist/i }),
     ).toBeInTheDocument();
-    expect(screen.getByLabelText("Company")).toBeInTheDocument();
   });
 });

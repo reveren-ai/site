@@ -21,8 +21,9 @@ function ctaForTier(tierId: string): HTMLElement {
 }
 
 describe("TierCards", () => {
-  it("renders all four tiers", () => {
+  it("renders all three surfaces", () => {
     renderWithTheme(<TierCards />);
+    expect(tiers).toHaveLength(3);
     for (const t of tiers) {
       expect(screen.getByText(t.label)).toBeInTheDocument();
       expect(screen.getByText(t.audience)).toBeInTheDocument();
@@ -39,32 +40,25 @@ describe("TierCards", () => {
     expect(screen.getAllByText("Most popular")).toHaveLength(1);
   });
 
-  it("renders the pre-launch disclosure line", () => {
+  it("renders the pre-launch disclosure line for Pods + Marketplace", () => {
     renderWithTheme(<TierCards />);
     expect(
-      screen.getByText(/pro, team, and enterprise are pre-launch/i),
+      screen.getByText(/pods and the marketplace are pre-launch/i),
     ).toBeInTheDocument();
   });
 
-  it("Pro CTA renders as a WaitlistButton (button, not anchor)", () => {
+  it("Pods CTA renders as a WaitlistButton (button, not anchor)", () => {
     renderWithTheme(<TierCards />);
-    const cta = ctaForTier("pro");
+    const cta = ctaForTier("pods");
     expect(cta.tagName).toBe("BUTTON");
-    expect(cta).toHaveTextContent(/join pro waitlist/i);
+    expect(cta).toHaveTextContent(/join the pods waitlist/i);
   });
 
-  it("Enterprise CTA renders as a WaitlistButton (button, not anchor)", () => {
+  it("Marketplace CTA renders as a WaitlistButton (button, not anchor)", () => {
     renderWithTheme(<TierCards />);
-    const cta = ctaForTier("enterprise");
+    const cta = ctaForTier("marketplace");
     expect(cta.tagName).toBe("BUTTON");
-    expect(cta).toHaveTextContent(/join enterprise waitlist/i);
-  });
-
-  it("Team CTA still renders as an anchor (mailto)", () => {
-    renderWithTheme(<TierCards />);
-    const cta = ctaForTier("team");
-    expect(cta.tagName).toBe("A");
-    expect(cta).toHaveAttribute("href", expect.stringMatching(/^mailto:/));
+    expect(cta).toHaveTextContent(/join the marketplace waitlist/i);
   });
 
   it("Free CTA renders as an anchor (#install)", () => {
@@ -74,7 +68,7 @@ describe("TierCards", () => {
     expect(cta).toHaveAttribute("href", "#install");
   });
 
-  it("does not leak a stray anchor for the Pro tier", () => {
+  it("does not leak a stray anchor for the paid tiers", () => {
     renderWithTheme(<TierCards />);
     // Avoid relying on `name` matchers — be explicit: there should be exactly
     // zero <a href="#waitlist"> in the rendered tree.
@@ -83,5 +77,4 @@ describe("TierCards", () => {
       expect(link).not.toHaveAttribute("href", "#waitlist");
     }
   });
-
 });

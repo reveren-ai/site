@@ -56,8 +56,8 @@ export default function TermsPage() {
 
           <p>
             Pre-launch, the things you can do are: browse this site, read the
-            docs, install the open-source CLI, run protocols against your own
-            repositories, contribute protocols back to the open library, and
+            docs, install the source-available CLI, run protocols against your
+            own repositories, contribute protocols back to the open library, and
             join the waitlist. Joining the waitlist means you&apos;ll get one
             email when the CLI is generally available, plus occasional product
             updates that you can unsubscribe from.
@@ -81,7 +81,8 @@ export default function TermsPage() {
               operations — including paid commercial work — without negotiating
               a separate license. It does not allow repackaging reveren and
               offering it to third parties as a hosted or embedded service that
-              competes with our paid tiers. Each version converts to Apache 2.0
+              competes with our paid pods or the Protocol Marketplace. Each
+              version converts to Apache 2.0
               four years after its first public release. The full grant text
               ships in <code>LICENSE-ADDITIONAL-GRANT.txt</code> alongside the
               BSL <code>LICENSE</code> in that repository.
@@ -111,8 +112,8 @@ export default function TermsPage() {
 
           <p>
             The marketing site (this page, the manifesto, the design, the copy)
-            is © Reveren Pty Ltd. Quoting and linking is welcome. Lifting the
-            site wholesale is not.
+            is © Cadere Pty Ltd, trading as Reveren. Quoting and linking is
+            welcome. Lifting the site wholesale is not.
           </p>
 
           <h2>Bring-your-own keys and third-party services</h2>
@@ -129,12 +130,14 @@ export default function TermsPage() {
           <h2>Account, paid plans, and billing</h2>
 
           <p>
-            When the hosted dashboard launches, paid tiers (Pro, Team,
-            Enterprise) will be available with monthly or annual billing
-            through Stripe. This section will then expand to cover plans,
-            cancellation, refunds, prorations, taxes, and seat changes. Until
-            then, the only commitment we ask of waitlist subscribers is that
-            you give us an accurate email address.
+            The only paid surfaces are Pods (reveren&apos;s maintained
+            specialist agents) and the Protocol Marketplace, both offered on a
+            subscription. Pricing is still being finalised, and these
+            subscriptions are not yet open. When they launch, billing will run
+            through Stripe and this section will expand to cover plans,
+            cancellation, refunds, prorations, and taxes. Until then, the only
+            commitment we ask of waitlist subscribers is that you give us an
+            accurate email address.
           </p>
 
           <h2>Acceptable use</h2>
@@ -262,7 +265,7 @@ export default function TermsPage() {
           </p>
 
           <p>
-            Reveren Pty Ltd (ACN to be assigned on incorporation), Australia.
+            Cadere Pty Ltd, trading as Reveren, Australia.
           </p>
         </Prose>
       </Box>

@@ -66,7 +66,7 @@ export default function Hero() {
                   >
                     Stop correcting your AI. Start directing it.
                   </strong>{' '}
-                  Author once. Sell to every agent.
+                  Author once. Runs on every agent.
                 </Typography>
               </MotionItem>
 
@@ -109,7 +109,7 @@ export default function Hero() {
                   color='text.secondary'
                   sx={{ pt: 1 }}
                 >
-                  MIT-licensed CLI · agent-agnostic · open file format
+                  Source-available CLI · agent-agnostic · open file format
                 </Typography>
               </MotionItem>
             </Stack>

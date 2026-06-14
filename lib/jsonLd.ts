@@ -11,7 +11,7 @@ import { faq } from "@/lib/faq";
 
 export const SITE_URL = "https://reveren.ai";
 const ORG_NAME = "reveren";
-const ORG_LEGAL_NAME = "Reveren Pty Ltd";
+const ORG_LEGAL_NAME = "Cadere Pty Ltd (trading as Reveren)";
 const LOGO_URL = `${SITE_URL}/logo/svg/reveren-favicon.svg`;
 const SOCIAL_PROFILES = [
   "https://github.com/reveren-ai",
@@ -137,15 +137,15 @@ export function podsServiceJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: "reveren Pods Marketplace",
-    serviceType: "AI coding-agent skill marketplace",
+    name: "reveren Pods and Protocol Marketplace",
+    serviceType: "AI coding-agent protocol marketplace",
     provider: {
       "@type": "Organization",
       name: ORG_NAME,
       url: SITE_URL,
     },
     description:
-      "Open Pod Marketplace for AI coding agents. Author once, sell on every agent. 70/30 creator split, $1 floor.",
+      "Protocol Marketplace for AI coding agents. Install community and reveren-published packs; creators are paid a revenue share.",
     url: `${SITE_URL}/pods`,
     areaServed: "Global",
     audience: {
@@ -155,7 +155,7 @@ export function podsServiceJsonLd() {
     potentialAction: {
       "@type": "JoinAction",
       target: `${SITE_URL}/pods#waitlist`,
-      name: "Join the Pods Marketplace waitlist",
+      name: "Join the Pods and Marketplace waitlist",
     },
   };
 }

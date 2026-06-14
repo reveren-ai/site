@@ -49,7 +49,7 @@ export const manifesto = {
       heading: 'How we become the standard.',
       body: [
         'Standards layers compound. The first ten teams using reveren each authoring two private protocols adds twenty protocols of value. The hundredth team adds two hundred. The marketplace, once it opens, lets a vibe coder buy the protocol a staff engineer wrote on Tuesday and use it on Wednesday. The agent, whichever agent, gets better every time someone ships a protocol.',
-        'Reveren is the orchestrator: cloud runs, hosted dashboard, private registry, GitHub App, Enterprise self-host. The CLI is free forever because the CLI is the wedge. The orchestrator is the moat because the orchestrator is the network.'
+        "Reveren's paid surfaces are the maintained specialist agents (pods) and the Protocol Marketplace, with its private registry and `rvr sync`. The CLI is free forever because the CLI is the wedge. The pods and the marketplace are the moat because the library compounds with every protocol someone ships."
       ]
     },
     {

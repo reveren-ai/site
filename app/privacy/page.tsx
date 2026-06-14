@@ -37,10 +37,11 @@ export default function PrivacyPage() {
 
         <Prose>
           <p>
-            Reveren Pty Ltd (&quot;reveren&quot;, &quot;we&quot;, &quot;us&quot;)
-            is an Australian company building a developer tool that runs on your
-            machine. This page explains what we collect, what we don&apos;t, and
-            what changes when the hosted dashboard ships.
+            Cadere Pty Ltd, trading as Reveren (&quot;reveren&quot;,
+            &quot;we&quot;, &quot;us&quot;) is an Australian company building a
+            developer tool that runs on your machine. This page explains what we
+            collect, what we don&apos;t, and what changes when the hosted
+            dashboard ships.
           </p>
 
           <h2>What we collect today</h2>
@@ -104,16 +105,11 @@ export default function PrivacyPage() {
               your card number.
             </li>
             <li>
-              <strong>Usage metering.</strong> When the CLI is signed in to a
-              paid plan, we record which protocol ran, against which repository
-              identifier (a hash, not the source), how long it took, and which
-              model provider was invoked. We do not record your prompts, your
-              code, or model responses.
-            </li>
-            <li>
-              <strong>Audit log.</strong> Team and Enterprise tiers include an
-              audit log of who ran what and when. The audit log is yours; we
-              expose it to you and don&apos;t share it.
+              <strong>Subscription state.</strong> When you subscribe to Pods
+              or the Protocol Marketplace, we record which packs or pods you
+              have installed and your subscription status. Local `rvr run` is
+              not metered. We do not record your prompts, your code, or model
+              responses.
             </li>
           </ul>
 
@@ -251,7 +247,7 @@ export default function PrivacyPage() {
           </p>
 
           <p>
-            Reveren Pty Ltd (ACN to be assigned on incorporation), Australia.
+            Cadere Pty Ltd, trading as Reveren, Australia.
           </p>
         </Prose>
       </Box>

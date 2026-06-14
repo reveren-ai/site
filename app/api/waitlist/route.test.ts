@@ -132,40 +132,21 @@ describe("POST /api/waitlist", () => {
       expect(body.ok).toBe(true);
     });
 
-    it("accepts a Pro tier payload", async () => {
+    it("accepts a Pods tier payload", async () => {
       const res = await POST(
         makeRequest(
-          { email: "pro@example.com", tier: "pro" },
+          { email: "pods@example.com", tier: "pods" },
           { "x-real-ip": "10.0.1.2" },
         ),
       );
       expect(res.status).toBe(200);
     });
 
-    it("rejects an enterprise payload missing company with 400", async () => {
+    it("accepts a Marketplace tier payload", async () => {
       const res = await POST(
         makeRequest(
-          { email: "boss@bigco.com", tier: "enterprise" },
+          { email: "market@example.com", tier: "marketplace" },
           { "x-real-ip": "10.0.1.3" },
-        ),
-      );
-      expect(res.status).toBe(400);
-      const body = (await res.json()) as { ok: boolean; error: string };
-      expect(body.ok).toBe(false);
-      expect(body.error).toMatch(/company/i);
-    });
-
-    it("accepts a full enterprise payload", async () => {
-      const res = await POST(
-        makeRequest(
-          {
-            email: "boss@bigco.com",
-            tier: "enterprise",
-            company: "BigCo",
-            seats: 250,
-            useCase: "banking",
-          },
-          { "x-real-ip": "10.0.1.4" },
         ),
       );
       expect(res.status).toBe(200);
@@ -176,23 +157,8 @@ describe("POST /api/waitlist", () => {
     it("rejects an unknown tier value with 400", async () => {
       const res = await POST(
         makeRequest(
-          { email: "x@example.com", tier: "platinum" },
+          { email: "x@example.com", tier: "enterprise" },
           { "x-real-ip": "10.0.1.5" },
-        ),
-      );
-      expect(res.status).toBe(400);
-    });
-
-    it("rejects an out-of-range seats value with 400", async () => {
-      const res = await POST(
-        makeRequest(
-          {
-            email: "boss@bigco.com",
-            tier: "enterprise",
-            company: "BigCo",
-            seats: 0,
-          },
-          { "x-real-ip": "10.0.1.6" },
         ),
       );
       expect(res.status).toBe(400);
@@ -203,7 +169,7 @@ describe("POST /api/waitlist", () => {
     it("inserts the signup with hashed IP + source path", async () => {
       const res = await POST(
         makeRequest(
-          { email: "persist@example.com", tier: "pro" },
+          { email: "persist@example.com", tier: "pods" },
           { "x-real-ip": "10.0.2.1", referer: "https://reveren.ai/pricing" },
         ),
       );
@@ -213,7 +179,7 @@ describe("POST /api/waitlist", () => {
         data: Record<string, unknown>;
       };
       expect(arg.data.email).toBe("persist@example.com");
-      expect(arg.data.tier).toBe("pro");
+      expect(arg.data.tier).toBe("pods");
       expect(arg.data.source).toBe("/pricing");
       // ipHash should be SHA-256 hex (64 chars), not the raw IP.
       expect(arg.data.ipHash).toMatch(/^[0-9a-f]{64}$/);

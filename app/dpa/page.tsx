@@ -79,7 +79,7 @@ export default function DPAPage() {
 
           <p>
             When the hosted dashboard launches, the executed DPA between your
-            organisation and Reveren Pty Ltd will set out:
+            organisation and Cadere Pty Ltd (trading as Reveren) will set out:
           </p>
 
           <ul>
@@ -206,7 +206,7 @@ export default function DPAPage() {
           </p>
 
           <p>
-            Reveren Pty Ltd (ACN to be assigned on incorporation), Australia.
+            Cadere Pty Ltd, trading as Reveren, Australia.
           </p>
         </Prose>
       </Box>

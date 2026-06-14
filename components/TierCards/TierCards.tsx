@@ -18,7 +18,7 @@ export default function TierCards() {
           stagger={0.08}
           sx={{
             display: "grid",
-            gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" },
+            gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
             gap: 3,
             alignItems: "stretch",
           }}
@@ -64,11 +64,13 @@ export default function TierCards() {
                   ) : null}
                 </Stack>
 
-                <Stack direction="row" alignItems="baseline" spacing={1}>
+                <Stack spacing={0.5}>
                   <Typography
                     component="div"
                     sx={{
-                      fontSize: "2.5rem",
+                      // Numeric prices ($0) read as a hero figure; the word
+                      // "Subscription" is smaller so it doesn't shout.
+                      fontSize: t.price === "$0" ? "2.5rem" : "1.75rem",
                       fontWeight: 700,
                       letterSpacing: "-0.025em",
                       lineHeight: 1,
@@ -134,13 +136,13 @@ export default function TierCards() {
                     component="div"
                     color="text.secondary"
                   >
-                    Pod credits
+                    Included
                   </Typography>
                   <Typography
                     variant="body2"
                     sx={{ fontWeight: 600, textAlign: "right" }}
                   >
-                    {t.podCredits}
+                    {t.detail}
                   </Typography>
                 </Box>
 
@@ -180,8 +182,8 @@ export default function TierCards() {
           color="text.secondary"
           sx={{ mt: 4, maxWidth: 800, fontStyle: "italic" }}
         >
-          Pro, Team, and Enterprise are pre-launch — sign up to be notified
-          when the platform opens.
+          Pods and the Marketplace are pre-launch. Join the waitlist and we
+          will let you know when each subscription opens.
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mt: 2, maxWidth: 800 }}>
           {pricingFootnote}

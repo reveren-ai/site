@@ -12,48 +12,42 @@ import {
   Typography,
   Alert,
   Box,
-  MenuItem,
 } from "@mui/material";
 
-export type WaitlistTier = "pro" | "team" | "enterprise" | "general";
+export type WaitlistTier = "pods" | "marketplace" | "general";
 
 type WaitlistModalProps = {
   open: boolean;
   onClose: () => void;
   /**
    * Tier-aware variant. Defaults to "general" for the existing CLI waitlist
-   * flow. "pro" / "team" / "enterprise" adjust title + body copy and submit
-   * the tier in the POST body. "enterprise" additionally collects company,
-   * seat count, and use-case.
+   * flow. "pods" / "marketplace" adjust the title + body copy and submit the
+   * tier in the POST body. Both are email-only; there is no enterprise lead
+   * capture at this stage.
    */
   tier?: WaitlistTier;
 };
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-type UseCase = "banking" | "healthcare" | "government" | "regulated" | "other";
-
-const USE_CASE_OPTIONS: { value: UseCase; label: string }[] = [
-  { value: "banking", label: "Banking / Financial services" },
-  { value: "healthcare", label: "Healthcare / Life sciences" },
-  { value: "government", label: "Government / Public sector" },
-  { value: "regulated", label: "Regulated platform" },
-  { value: "other", label: "Other" },
-];
-
-function tierTitleCase(tier: WaitlistTier): string {
-  if (tier === "general") return "waitlist";
-  return tier.charAt(0).toUpperCase() + tier.slice(1);
+function tierTitle(tier: WaitlistTier): string {
+  switch (tier) {
+    case "pods":
+      return "Pods";
+    case "marketplace":
+      return "Marketplace";
+    case "general":
+    default:
+      return "waitlist";
+  }
 }
 
 function bodyCopy(tier: WaitlistTier): string {
   switch (tier) {
-    case "pro":
-      return "Pro launches when the hosted orchestrator opens. Drop your email and we'll send a single message when it's live.";
-    case "team":
-      return "Team launches when the hosted orchestrator opens — including team-tier features like shared dashboards, private registries, and SSO. Drop your email and we'll send a single message when it's live.";
-    case "enterprise":
-      return "Enterprise covers self-hosted Docker, dedicated CSM, custom SLA, and security review. Tell us a bit about your environment and we'll be in touch.";
+    case "pods":
+      return "Pods are reveren's maintained specialist agents that run inside the core, kept current as models and practice move. Drop your email and we'll send a single message when the subscription opens.";
+    case "marketplace":
+      return "The Protocol Marketplace lets you install community and reveren-published protocol packs, with a private registry and `rvr sync`. Drop your email and we'll send a single message when the subscription opens.";
     case "general":
     default:
       return "Today the CLI is a placeholder; the real one ships when the public beta opens. Drop your email and we'll send a single message when it's live.";
@@ -66,34 +60,22 @@ export default function WaitlistModal({
   tier = "general",
 }: WaitlistModalProps) {
   const [email, setEmail] = useState("");
-  const [company, setCompany] = useState("");
-  const [seats, setSeats] = useState("");
-  const [useCase, setUseCase] = useState<UseCase | "">("");
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
 
-  const isEnterprise = tier === "enterprise";
   const title =
     tier === "general"
       ? "Join the waitlist"
-      : `Join the ${tierTitleCase(tier)} waitlist`;
+      : `Join the ${tierTitle(tier)} waitlist`;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("submitting");
     setError(null);
-    posthog.capture("waitlist_form_submitted", { tier, is_enterprise: isEnterprise });
+    posthog.capture("waitlist_form_submitted", { tier });
     try {
       const body: Record<string, unknown> = { email };
       if (tier !== "general") body.tier = tier;
-      if (isEnterprise) {
-        if (company.trim()) body.company = company.trim();
-        if (seats.trim()) {
-          const n = Number(seats);
-          if (Number.isFinite(n) && n >= 1) body.seats = Math.floor(n);
-        }
-        if (useCase) body.useCase = useCase;
-      }
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -108,20 +90,15 @@ export default function WaitlistModal({
       }
       setStatus("success");
       posthog.identify(email, { waitlist_tier: tier });
-      // Funnel attribution: which tier converted, from which surface.
-      // PostHog autocapture also records the form submit as a generic
-      // event, but the explicit capture lets us aggregate "Pro waitlist
-      // signups this week" without having to filter autocapture noise.
-      posthog.capture("waitlist_signup_succeeded", {
-        tier,
-        is_enterprise: isEnterprise,
-      });
+      // Funnel attribution: which surface converted. PostHog autocapture also
+      // records the form submit, but the explicit capture lets us aggregate
+      // "Pods waitlist signups this week" without filtering autocapture noise.
+      posthog.capture("waitlist_signup_succeeded", { tier });
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Network error.");
       posthog.capture("waitlist_signup_failed", {
         tier,
-        is_enterprise: isEnterprise,
         error_message: err instanceof Error ? err.message : "Network error.",
       });
     }
@@ -133,9 +110,6 @@ export default function WaitlistModal({
     // Reset for next open.
     setTimeout(() => {
       setEmail("");
-      setCompany("");
-      setSeats("");
-      setUseCase("");
       setStatus("idle");
       setError(null);
     }, 200);
@@ -144,12 +118,9 @@ export default function WaitlistModal({
   const successMessage =
     tier === "general"
       ? "We'll email you the day the CLI is generally available. No drips, no \"we're growing fast\" updates."
-      : `We'll email you the day the ${tierTitleCase(tier)} waitlist opens. No drips, no "we're growing fast" updates.`;
+      : `We'll email you the day the ${tierTitle(tier)} subscription opens. No drips, no "we're growing fast" updates.`;
 
-  const submitDisabled =
-    status === "submitting" ||
-    !email ||
-    (isEnterprise && !company.trim());
+  const submitDisabled = status === "submitting" || !email;
 
   return (
     <Dialog
@@ -196,54 +167,6 @@ export default function WaitlistModal({
               error={status === "error"}
               inputProps={{ "aria-label": "Email address" }}
             />
-            {isEnterprise ? (
-              <>
-                <TextField
-                  required
-                  fullWidth
-                  label="Company"
-                  autoComplete="organization"
-                  value={company}
-                  onChange={(e) => setCompany(e.target.value)}
-                  disabled={status === "submitting"}
-                  inputProps={{ "aria-label": "Company" }}
-                  sx={{ mt: 2 }}
-                />
-                <TextField
-                  fullWidth
-                  type="number"
-                  label="Estimated seats (optional)"
-                  value={seats}
-                  onChange={(e) => setSeats(e.target.value)}
-                  disabled={status === "submitting"}
-                  inputProps={{
-                    "aria-label": "Estimated seats",
-                    min: 1,
-                    step: 1,
-                  }}
-                  sx={{ mt: 2 }}
-                />
-                <TextField
-                  select
-                  fullWidth
-                  label="Use case (optional)"
-                  value={useCase}
-                  onChange={(e) => setUseCase(e.target.value as UseCase | "")}
-                  disabled={status === "submitting"}
-                  inputProps={{ "aria-label": "Use case" }}
-                  sx={{ mt: 2 }}
-                >
-                  <MenuItem value="">
-                    <em>Not specified</em>
-                  </MenuItem>
-                  {USE_CASE_OPTIONS.map((opt) => (
-                    <MenuItem key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </>
-            ) : null}
             {error ? (
               <Alert severity="error" sx={{ mt: 2 }}>
                 {error}

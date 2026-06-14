@@ -114,10 +114,20 @@ export default function Footer() {
           }}
         >
           <Typography variant="caption" color="text.secondary">
-            © {year} reveren · all rights reserved
+            © {year} Cadere Pty Ltd, trading as Reveren · all rights reserved
           </Typography>
           <Typography variant="caption" color="text.secondary">
-            reveren.ai
+            Reveren, a{" "}
+            <Box
+              component="a"
+              href="https://www.cadere.com.au"
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{ color: "inherit", textDecoration: "underline" }}
+            >
+              Cadere
+            </Box>{" "}
+            company
           </Typography>
         </Stack>
       </Box>
