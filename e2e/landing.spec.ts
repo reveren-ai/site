@@ -47,7 +47,7 @@ test.describe("landing page", () => {
       "mrktable runs on its own protocols.",                    // ProofPoint
       "Six things we deliberately don't do.",                   // NotThis
       "Single-file rules vs. a real standards layer.",          // Comparison
-      "Round numbers. No .99.",                                  // PricingTeaser
+      "Free core. Two paid surfaces.",                           // PricingTeaser
       "The .protocols/ format is yours.",                       // OpenFormat
       "Innocent Muisha",                                         // FounderBio
     ];
