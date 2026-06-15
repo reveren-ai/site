@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Stack, Typography } from "@mui/material";
+import posthog from "posthog-js";
 import { faq } from "@/lib/faq";
 import {
   MotionReveal,
@@ -78,7 +79,15 @@ export default function FAQ() {
                 },
               }}
             >
-              <Box component="summary">{item.question}</Box>
+              <Box
+                component="summary"
+                onClick={(e) => {
+                  const details = (e.currentTarget as HTMLElement).closest("details") as HTMLDetailsElement | null;
+                  if (!details?.open) {
+                    posthog.capture("faq_question_expanded", { question: item.question, question_id: item.id });
+                  }
+                }}
+              >{item.question}</Box>
               <p>{item.answer}</p>
             </Box>
             </MotionItem>
