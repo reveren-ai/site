@@ -19,7 +19,7 @@ export type FeatureTeaserCard = {
 export const featureTeaserIntro = {
   eyebrow: 'Roadmap',
   headline: 'What ships, when.',
-  body: 'The CLI and protocols are live today. Protocol generation and the Pods Marketplace are next.'
+  body: 'The CLI and protocols are live today. Protocol generation, the pods, and the Protocol Marketplace are next.'
 }
 
 export const featureTeaser: FeatureTeaserCard[] = [
@@ -32,7 +32,7 @@ export const featureTeaser: FeatureTeaserCard[] = [
     bullets: [
       'Plain-Markdown .protocols/ format',
       'Multi-step pipelines',
-      'MIT-licensed CLI',
+      'Source-available CLI, MIT protocols',
       'Bring your own model'
     ],
     cta: { label: 'Try the CLI →', href: '#install', variant: 'contained' }
@@ -40,7 +40,7 @@ export const featureTeaser: FeatureTeaserCard[] = [
   {
     id: 'release-1',
     status: 'release-1',
-    statusLabel: 'Release 1 · Jul 2026',
+    statusLabel: 'Release 1 · Aug 2026',
     title: 'Protocol generator',
     body: 'Describe what you are building. Reveren scaffolds the core protocols for the job — versioned, repo-aware, ready to run.',
     bullets: [
@@ -54,10 +54,14 @@ export const featureTeaser: FeatureTeaserCard[] = [
   {
     id: 'release-2',
     status: 'release-2',
-    statusLabel: 'Release 2 · Dec 2026',
+    statusLabel: 'Release 2 · Jan 2027',
     title: 'Pods + Marketplace',
-    body: 'Bundle protocols into agent-bound pods. List on the Pods Marketplace. 70/30 creator split.',
-    bullets: ['Author once', 'Sell to every agent', '$1 floor · 70/30 split'],
+    body: 'reveren-authored specialist agents (pods) plus the Protocol Marketplace for community and reveren-published packs. Creators are paid a revenue share.',
+    bullets: [
+      'Author once',
+      'Runs on every agent',
+      'Creators paid a revenue share'
+    ],
     cta: { label: 'Get on the waitlist', href: '/pods', variant: 'outlined' }
   }
   // Kept for a later release — hosted runtimes + knowledge graphs.

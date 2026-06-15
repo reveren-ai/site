@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 const FROM_LABELS: Record<string, string> = {
   "/pricing": "the pricing page",
   "/manifesto": "the manifesto",
-  "/pods": "the Pod Marketplace",
+  "/pods": "Pods and the Marketplace",
   "/security": "the security page",
   "/privacy": "the privacy page",
   "/terms": "the terms page",
@@ -128,7 +128,7 @@ export default async function ComingSoonPage({
             </Stack>
 
             <Typography variant="caption" color="text.secondary" sx={{ pt: 2 }}>
-              MIT-licensed CLI · agent-agnostic · open file format
+              Source-available CLI · agent-agnostic · open file format
             </Typography>
           </Stack>
         </Box>

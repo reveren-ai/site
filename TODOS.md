@@ -13,22 +13,20 @@
 
 ## Release 1 — Launch-day site (the marketing site goes live)
 
-The marketing site is a **waitlist play** for Release 1 — the platform behind the pricing page (orchestrator, Stripe, MCP) doesn't exist yet, so every paid tier CTA must route to a tier-aware waitlist, not a Stripe checkout.
+The marketing site is a **waitlist play** for Release 1. The pricing model is the three-surface commercialisation decision (9 June 2026): **Free core ($0), Pods (subscription, pricing finalising), and the Protocol Marketplace (subscription, pricing finalising)**, with no Pro/Team/Enterprise tiers, no cloud-run metering, and no enterprise sales motion. The subscriptions don't exist yet, so each paid surface CTA routes to a tier-aware waitlist, not a Stripe checkout.
 
 ### CTAs and waitlist plumbing
 
-- [x] **Enterprise waitlist CTA** — Enterprise tier card opens tier-aware WaitlistModal with required company + optional seats + use-case dropdown (banking / healthcare / government / regulated / other). _Shipped 2026-05-10._
-- [x] **Pro waitlist CTA** — converted "Start Pro trial" to "Join Pro waitlist" with the same tier-aware modal. _Shipped 2026-05-10._
-- [x] **`/api/waitlist` schema accepts tier + extras** — backward-compatible email-only payload; `tier === 'enterprise'` requires `company` (validated via Zod superRefine). Body cap raised 1024 → 4096. _Shipped 2026-05-10._
-- [x] **Pricing disclosure line** — "Pro, Team, and Enterprise are pre-launch — sign up to be notified when the platform opens." Protects against AU ACCC misleading-conduct exposure. _Shipped 2026-05-10._
-- [ ] **Team CTA** — currently a `mailto:hello@reveren.ai` (intentionally; manual sales is fine at launch volume). Future: route through the waitlist modal so the tier signal is captured in the same place as Pro/Enterprise.
+- [x] **Pods + Marketplace waitlist CTAs.** Pods and Marketplace cards open the tier-aware WaitlistModal (email-only capture; no enterprise lead fields). _Swept to the three-surface model 2026-06-14._
+- [x] **`/api/waitlist` schema accepts tier.** Backward-compatible email-only payload; `tier` is one of `pods | marketplace | general`. _Swept 2026-06-14 (dropped the enterprise company/seats/useCase fields)._
+- [x] **Pricing disclosure line.** "Pods and the Marketplace are pre-launch. Join the waitlist and we will let you know when each subscription opens." Protects against AU ACCC misleading-conduct exposure. _Swept 2026-06-14._
 - [ ] **Waitlist persistence** — currently in-memory only; signups vanish on redeploy. Wire to Neon table OR Loops/Tally before the launch announcement. (Cross-listed in `PRE_GO_LIVE_CHECKLIST.md` §🟡.)
 
 ### Polish before launch
 
 - [ ] **OG cards + Twitter share cards + favicon set** generated and hooked into `app/layout.tsx`. (Cross-listed in `PRE_GO_LIVE_CHECKLIST.md`.)
-- [ ] **Pricing footnote audit** — make sure footnote no longer references unbuilt features as if they exist (e.g. "cloud pipeline runs" — clarify "available when the hosted orchestrator launches").
-- [x] **Pricing page disclosure** — "Pro, Team, and Enterprise are pre-launch — sign up to be notified when the platform opens." _Shipped 2026-05-10 in `PricingTeaser`._
+- [x] **Pricing footnote audit.** Footnote now states local CLI use is always free with no metering; the only paid surfaces are the Pods and Marketplace subscriptions (indicative, finalising); no enterprise motion. No cloud-run / overage language remains. _Swept 2026-06-14._
+- [x] **Pricing page disclosure.** "Pods and the Marketplace are pre-launch. Join the waitlist and we will let you know when each subscription opens." _Swept 2026-06-14._
 - [ ] **JSON-LD structured data** — Organization + WebSite (root layout), Article (`/manifesto`), FAQPage (`/pricing`), SoftwareApplication (`/`). [Next.js guide](https://nextjs.org/docs/app/guides/json-ld).
 - [ ] **Robots `noindex` on non-production hosts** — gate `metadata.robots` on `NEXT_PUBLIC_VERCEL_ENV !== 'production'` so `uat.reveren.ai`, `dev.reveren.ai`, and PR previews don't index.
 - [ ] **Analytics keys provisioned** — PostHog env vars set per Vercel environment; CTA click events instrumented.
@@ -47,16 +45,16 @@ Release 1 ships **no** subscription enforcement — only the surface that signal
 - [ ] **Auth.js v5** — GitHub + Google providers (separate prod credentials per `PRE_GO_LIVE_CHECKLIST.md`).
 - [ ] **`Subscription` Prisma model** — `userId / orgId / tier / status / currentPeriodEnd / stripeCustomerId / stripeSubscriptionId`.
 - [ ] **Stripe webhook** at `/api/stripe/webhook` handling `customer.subscription.{created,updated,deleted}` + `invoice.{paid,payment_failed}`. Webhook signature verified with `STRIPE_WEBHOOK_SECRET`.
-- [ ] **Pricing page CTAs flip from waitlist → Stripe Checkout** once the SKU + webhook are live in production.
+- [ ] **Pods + Marketplace CTAs flip from waitlist → Stripe Checkout** once the subscription SKUs + webhook are live in production.
 - [ ] **`requireTier(tier)` middleware** for hosted API routes. Returns 402 (over quota) / 403 (wrong tier) with structured error body.
 - [ ] **`rv_live_xxx` token issuance** — device-code flow for `rvr login`. Token stored server-side as hashed; client stores raw in `~/.reveren/credentials.json`.
 - [ ] **Account / billing page** — minimal port from mrktable patterns.
-- [ ] **Usage meter UI** — show cloud runs used / quota for the current period.
+- [ ] **Subscription state UI.** Show which Pods and Marketplace packs are active for the current period. (Local `rvr run` is unlimited and not metered, so there is no run-quota meter.)
 
 ## Phase 2+ — Pod marketplace + private registry surface (downstream)
 
 - [ ] **Pod marketplace listing pages** (browsing UI; transactions still routed through Phase 1 Stripe).
-- [ ] **Private protocol registry browse UI** for Team/Enterprise org admins.
+- [ ] **Private protocol registry browse UI** for Marketplace subscribers.
 - [ ] **GitHub App marketplace listing** + install flow surface.
 
 ---
@@ -70,7 +68,7 @@ Release 1 ships **no** subscription enforcement — only the surface that signal
 - [x] **Manifesto copy validated** — zero `skill`/`playbook` references post-rename — _2026-05-08; refreshed 2026-05-10._
 - [x] **263 unit-test files passing; `pnpm build` green; lint clean** — _verified 2026-05-10 against `ca7fae6`._
 - [x] **Motion choreography pass** — landing + pricing + manifesto + pods all use `MotionReveal` / `MotionStagger` / `MotionDrawLine` / `useReducedMotion` primitives. CSS keyframes (`rv-mark-bar-in`, `rv-wordmark-word-in`, `rv-photo-settle`, `rv-popular-pulse`) for one-shot brand moments. _Shipped 2026-05-09–10._
-- [x] **Pro CTA contrast fix** — dropped the `--rv-cta-bg` mode-invariant override on the popular-tier CTA so it picks up MUI's primary contained palette and pops against the dark-mode card border. _Shipped 2026-05-10._
+- [x] **Popular-card CTA contrast fix** — dropped the `--rv-cta-bg` mode-invariant override on the popular-tier (Pods) CTA so it picks up MUI's primary contained palette and pops against the dark-mode card border. _Shipped 2026-05-10._
 - [x] **Comparison first-row spacing** — first body row gets extra top padding to breathe under the heading row's bottom border. _Shipped 2026-05-10._
 - [x] **MotionDrawLine react-hooks/set-state-in-effect lint fix** — switched to `useReducedMotion` from `motion/react` + derived `drawn || reduced` rendered state. _Shipped 2026-05-10._
 - [x] **GitHub repo + Vercel project linked** — `reveren-ai/site` (public) auto-deploys `main` → production, PRs → preview.
