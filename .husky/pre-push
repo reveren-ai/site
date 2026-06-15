@@ -1,9 +1,13 @@
-# Pre-push parity gate. Runs the same checks GitHub Actions runs so CI
-# failures get caught locally before they hit origin. Skips the slow
-# `pnpm build` + Playwright steps — those stay in CI but are unlikely to
-# fail if typecheck + lint + unit tests all pass.
+# Branch-aware pre-push parity gate.
 #
-# To bypass in an emergency: `git push --no-verify` (use sparingly; the
-# whole point is that we *don't* push something CI will reject).
+# Pushes to main run the FULL gate (typecheck + lint + test:run + test:e2e) —
+# the same checks GitHub Actions runs on push/PR to main, e2e included — so
+# CI failures get caught locally first. Pushes to other branches run a
+# scoped gate: full typecheck, lint on changed files only, vitest --changed
+# against the diff base. CI still runs the full suite when the branch reaches
+# a PR to main.
+#
+# Explicit skip: `PRE_PUSH_SKIP=1 git push` (logged intent, preferred).
+# Emergency bypass: `git push --no-verify` (use sparingly).
 
-pnpm pre-push
+bash scripts/pre-push.sh
