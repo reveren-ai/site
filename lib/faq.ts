@@ -18,16 +18,16 @@ export const faq: FaqItem[] = [
       "Those are vendor-specific single files. Your investment doesn't move when you switch agents, and they don't compose into multi-step pipelines. reveren's protocols are an open format that runs across every major coding agent and chains into deterministic workflows.",
   },
   {
-    id: "what-counts-as-cloud-run",
-    question: "What counts as a cloud pipeline run?",
+    id: "what-do-i-pay-for",
+    question: "What do I actually pay for?",
     answer:
-      "Anything dispatched to the hosted orchestrator (dashboard, registry, GitHub App, MCP write). Local `rvr run` against your own machine is free and unlimited on every tier — including Free.",
+      "Two things, and only two: Pods (reveren's maintained specialist agents that run inside the core) and the Protocol Marketplace (community and reveren-published protocol packs, with a private registry and `rvr sync`). The CLI, the full base protocol library, and the open format spec are free, and local use is unlimited with no metering.",
   },
   {
     id: "self-host",
-    question: "Can I self-host?",
+    question: "Can I self-host, or buy an enterprise tier?",
     answer:
-      "Self-hosting is on Enterprise only — Docker images for the orchestrator, registry, and dashboard. The CLI itself is MIT-licensed and runs anywhere.",
+      "Not at this stage. There is no enterprise sales motion, no self-host distribution, and no SSO or dedicated-infrastructure tier. reveren is built for individuals, small teams, and vibe coders. The CLI already runs entirely on your own machine, so your code and keys never leave it.",
   },
   {
     id: "byo-keys",
@@ -42,15 +42,15 @@ export const faq: FaqItem[] = [
       "Your protocols come with you. The .protocols/ format is open-spec and version-controlled in your repo. Switching agents is a config change, not a migration.",
   },
   {
-    id: "discount",
-    question: "Are there startup / OSS discounts?",
+    id: "is-the-core-open-source",
+    question: "Is reveren open source?",
     answer:
-      "Yes — open-source maintainers and pre-seed startups get Pro free for 12 months. Email hello@reveren.ai with a link to your project or GitHub.",
+      "The core CLI is source-available under the Business Source License 1.1: the source is published, it is free to use for your own work, and it converts to Apache-2.0 on its Change Date. The protocol library is MIT-licensed and the `.protocols/` format spec is published as an open standard. The Pods and the Protocol Marketplace are the proprietary, paid surfaces.",
   },
   {
     id: "regulated",
-    question: "We're regulated. SOC2, audit logs, DPA?",
+    question: "Do you offer SOC 2, a signed DPA, or self-hosting?",
     answer:
-      "Enterprise tier only. SOC2 Type II is in-progress; DPA is available on request. Self-host removes data-residency questions entirely.",
+      "Not at this stage. There is no enterprise compliance programme, no formal SOC 2 report, and no self-hosted distribution. Because the CLI runs locally and calls your model provider directly, your code, prompts, and keys stay on your own machine. See the Security page for the current posture.",
   },
 ];

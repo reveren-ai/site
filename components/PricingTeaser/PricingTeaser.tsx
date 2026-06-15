@@ -18,11 +18,12 @@ export default function PricingTeaser() {
               Pricing
             </Typography>
             <Typography variant="h2" component="h2">
-              Round numbers. No .99.
+              Free core. Two paid surfaces.
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Free is genuinely free. Pro is what an indie developer pays. Team is what
-              an engineering org pays. Enterprise is for the regulated and the very large.
+              The CLI and the full protocol library are free forever, with no
+              metering on local use. The only paid surfaces are Pods (reveren's
+              maintained specialist agents) and the Protocol Marketplace.
             </Typography>
           </Stack>
         </MotionReveal>
@@ -87,11 +88,11 @@ export default function PricingTeaser() {
                     ) : null}
                   </Stack>
 
-                  <Stack direction="row" alignItems="baseline" spacing={1}>
+                  <Stack spacing={0.5}>
                     <Typography
                       component="div"
                       sx={{
-                        fontSize: "2.5rem",
+                        fontSize: t.price === "$0" ? "2.5rem" : "1.75rem",
                         fontWeight: 700,
                         letterSpacing: "-0.025em",
                         lineHeight: 1,
@@ -153,13 +154,13 @@ export default function PricingTeaser() {
                       component="div"
                       color="text.secondary"
                     >
-                      Pod credits
+                      Included
                     </Typography>
                     <Typography
                       variant="body2"
                       sx={{ fontWeight: 600, textAlign: "right" }}
                     >
-                      {t.podCredits}
+                      {t.detail}
                     </Typography>
                   </Box>
 

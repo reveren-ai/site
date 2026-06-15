@@ -10,7 +10,7 @@ import { MotionReveal } from '@/components/motion/MotionPrimitives'
 // freedom to overlay a popular-column wash and stick the head correctly.
 
 export default function PricingMatrix() {
-  const tierColumns = tiers // 4 columns
+  const tierColumns = tiers // 3 columns
 
   return (
     <Box id='matrix' component='section' className='rv-section'>
@@ -61,7 +61,7 @@ export default function PricingMatrix() {
                   zIndex: 2,
                   display: 'grid',
                   gridTemplateColumns:
-                    'minmax(220px, 2fr) repeat(4, minmax(160px, 1fr))',
+                    'minmax(220px, 2fr) repeat(3, minmax(160px, 1fr))',
                   bgcolor: 'background.paper',
                   boxShadow: 'inset 0 -2px 0 currentColor'
                 }}
@@ -140,7 +140,7 @@ export default function PricingMatrix() {
                     sx={{
                       display: 'grid',
                       gridTemplateColumns:
-                        'minmax(220px, 2fr) repeat(4, minmax(160px, 1fr))',
+                        'minmax(220px, 2fr) repeat(3, minmax(160px, 1fr))',
                       bgcolor: 'text.primary',
                       color: 'background.paper',
                       py: 1.5
@@ -169,7 +169,7 @@ export default function PricingMatrix() {
                       sx={{
                         display: 'grid',
                         gridTemplateColumns:
-                          'minmax(220px, 2fr) repeat(4, minmax(160px, 1fr))',
+                          'minmax(220px, 2fr) repeat(3, minmax(160px, 1fr))',
                         borderTop: '1px solid',
                         borderColor: 'divider',
                         '&:hover': { bgcolor: 'action.hover' }

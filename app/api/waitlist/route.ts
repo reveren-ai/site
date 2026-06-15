@@ -6,35 +6,19 @@ import { getPostHogClient } from "@/lib/posthog-server";
 
 // Persists tier-aware waitlist signups to the Neon-backed waitlist_signups
 // table (Prisma model: WaitlistSignup). Inserts are intentionally
-// non-idempotent — a given email may sign up at multiple tiers over time
+// non-idempotent — a given email may sign up for multiple surfaces over time
 // and each event matters for funnel analysis. The in-memory rate limit
-// below caps abuse before it reaches the DB.
+// below caps abuse before it reaches the DB. The only paid surfaces are Pods
+// and the Marketplace, so the schema is email + tier only.
 
-const schema = z
-  .object({
-    email: z.string().trim().toLowerCase().email().max(254),
-    tier: z.enum(["pro", "team", "enterprise", "general"]).default("general"),
-    company: z.string().trim().min(1).max(200).optional(),
-    seats: z.number().int().min(1).max(100000).optional(),
-    useCase: z
-      .enum(["banking", "healthcare", "government", "regulated", "other"])
-      .optional(),
-  })
-  .superRefine((val, ctx) => {
-    // Enterprise leads must include a company so sales can route the lead.
-    if (val.tier === "enterprise" && !val.company) {
-      ctx.addIssue({
-        code: "custom",
-        path: ["company"],
-        message: "Company is required for the Enterprise waitlist.",
-      });
-    }
-  });
+const schema = z.object({
+  email: z.string().trim().toLowerCase().email().max(254),
+  tier: z.enum(["pods", "marketplace", "general"]).default("general"),
+});
 
-// Cap raised from 1024 → 4096 to fit enterprise payloads (email + tier +
-// company + seats + useCase). Still small enough that a megabyte of garbage
-// is rejected before parsing.
-const MAX_BODY_BYTES = 4096;
+// Email + tier is a small payload; 1024 bytes is plenty and rejects a
+// megabyte of garbage before parsing.
+const MAX_BODY_BYTES = 1024;
 
 // Tiny in-memory rate limit. Best-effort only — replaced by real rate limiting
 // (Upstash) in Phase 1. Resets when the server restarts; fine for waitlist
@@ -144,15 +128,8 @@ export async function POST(req: Request) {
 
   const parsed = schema.safeParse(payload);
   if (!parsed.success) {
-    // Surface the first issue's message so enterprise callers see "Company
-    // is required" instead of a generic email error. Falls back to the
-    // generic message for plain email validation failures.
-    const firstIssue = parsed.error.issues[0];
-    const message = firstIssue?.message?.startsWith("Company")
-      ? firstIssue.message
-      : "Please enter a valid email.";
     return NextResponse.json(
-      { ok: false, error: message },
+      { ok: false, error: "Please enter a valid email." },
       { status: 400 },
     );
   }
@@ -164,9 +141,6 @@ export async function POST(req: Request) {
       data: {
         email: parsed.data.email,
         tier: parsed.data.tier,
-        company: parsed.data.company,
-        seats: parsed.data.seats,
-        useCase: parsed.data.useCase,
         source,
         ipHash: hashIp(key),
       },
@@ -193,9 +167,6 @@ export async function POST(req: Request) {
       properties: {
         tier: parsed.data.tier,
         source,
-        has_company: Boolean(parsed.data.company),
-        has_seats: Boolean(parsed.data.seats),
-        has_use_case: Boolean(parsed.data.useCase),
       },
     });
     await posthog._shutdown();

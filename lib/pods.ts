@@ -3,9 +3,9 @@
 // ships the actual marketplace UI.
 
 export const podsHero = {
-  eyebrow: "The open Pod Marketplace for AI agents",
-  headline: "The App Store for agents — without the lock-in.",
-  subline: "Coming Mo 3. Author once. Sell on every agent.",
+  eyebrow: "Pods and the Protocol Marketplace",
+  headline: "Specialist agents and protocol packs, without the lock-in.",
+  subline: "Coming soon. Author once. Runs on every agent.",
 };
 
 export type PodsHowItWorksStep = {
@@ -23,12 +23,12 @@ export const podsHowItWorks: PodsHowItWorksStep[] = [
   {
     id: "list",
     step: "List",
-    body: "Set a price, choose between self-host and hosted pods, write a description. We handle billing, payouts, and sales tax.",
+    body: "Publish your pack to the Protocol Marketplace with a description. We handle billing, payouts, and sales tax so you don't have to.",
   },
   {
     id: "earn",
     step: "Earn",
-    body: "70/30 creator split. $1 floor. Top creators (50+ pods or $100K+ revenue) move to an 80/20 split.",
+    body: "Creators are paid a revenue share on what they publish. Pricing and terms are being finalised ahead of launch.",
   },
 ];
 
@@ -60,16 +60,16 @@ export const podsCompareRows: PodsCompareRow[] = [
     reveren: "4 launch verticals",
   },
   {
-    feature: "Hosted always-on runtime",
+    feature: "Runs inside your own CLI",
     anthropicSkills: "—",
     gptStore: "—",
-    reveren: "Yes (Release 2)",
+    reveren: "Yes",
   },
   {
     feature: "Creator revenue share",
     anthropicSkills: "N/A",
     gptStore: "Variable",
-    reveren: "70/30 (80/20 top tier)",
+    reveren: "Yes",
   },
   {
     feature: "Open file format",

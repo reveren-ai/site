@@ -8,10 +8,17 @@ import {
 } from "./pods";
 
 describe("pods (marketplace coming-soon copy)", () => {
-  it("hero declares the open-marketplace eyebrow + the App Store comparison hook", () => {
-    expect(podsHero.eyebrow).toMatch(/Pod Marketplace/);
-    expect(podsHero.headline).toMatch(/App Store/);
-    expect(podsHero.subline).toMatch(/Mo 3/);
+  it("hero names the Protocol Marketplace and avoids invented prices", () => {
+    expect(podsHero.eyebrow).toMatch(/Marketplace/);
+    expect(podsHero.headline.length).toBeGreaterThan(0);
+    // No invented revenue-share figure or price floor anywhere in the hero.
+    const heroText = [
+      podsHero.eyebrow,
+      podsHero.headline,
+      podsHero.subline,
+    ].join(" ");
+    expect(heroText).not.toMatch(/\d+\s*\/\s*\d+/);
+    expect(heroText).not.toMatch(/\$\d/);
   });
 
   it("how-it-works has three canonical steps: Author → List → Earn", () => {

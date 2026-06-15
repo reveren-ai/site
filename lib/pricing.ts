@@ -1,8 +1,11 @@
-// Pricing data — verbatim from MVP-SITE-ADJUSTMENTS.md §4.
-// All USD, no .99. Round numbers. Cloud runs only count when using the
-// hosted orchestrator; local `rvr run` is unlimited and free on every tier.
+// Pricing data: three surfaces only (Free core, Pods, and the Protocol
+// Marketplace). Local `rvr run` is unlimited and free; the only paid surfaces
+// are the Pods subscription and the Marketplace subscription. Prices for the
+// paid surfaces are indicative and finalising, so we never print a dollar
+// figure for them, just a "Subscription" label with a "Pricing finalising"
+// sub-line. There is no enterprise sales motion at this stage.
 
-export type TierId = "free" | "pro" | "team" | "enterprise";
+export type TierId = "free" | "pods" | "marketplace";
 
 export type CtaKind = "mailto" | "waitlist" | "install";
 
@@ -13,11 +16,10 @@ export type Tier = {
   priceSuffix?: string;
   cadence: string;
   audience: string;
-  // `kind` discriminates how TierCards renders the CTA. Defaults to "mailto"
-  // for backward compatibility — leave it off for legacy mailto-only tiers.
-  // Pro / Enterprise route through WaitlistButton (kind: "waitlist") because
-  // the hosted orchestrator + Stripe checkout don't exist yet; we capture
-  // intent only. Free uses "install" (CLI install instructions).
+  // `kind` discriminates how TierCards renders the CTA. Free uses "install"
+  // (CLI install instructions). Pods + Marketplace route through the
+  // tier-aware WaitlistModal (kind: "waitlist") because the subscriptions
+  // don't exist yet; we capture intent only.
   cta: {
     label: string;
     href: string;
@@ -26,9 +28,9 @@ export type Tier = {
   };
   popular?: boolean;
   features: string[];
-  // Pod Marketplace credits per DESIGN-REVISION-HANDOVER-PODS.md §5.
-  // One credit = one paid pod / month at no additional cost (creators still paid).
-  podCredits: string;
+  // Non-pricing per-card detail row: what the surface includes, not a metered
+  // credit count. Keeps the card layout consistent across all three tiers.
+  detail: string;
 };
 
 export const tiers: Tier[] = [
@@ -37,92 +39,63 @@ export const tiers: Tier[] = [
     label: "Free",
     price: "$0",
     cadence: "Forever",
-    audience: "Solo learners, hobbyists, evaluators",
-    cta: { label: "Try free", href: "#install", variant: "outlined", kind: "install" },
+    audience: "Individuals, small teams, and vibe coders",
+    cta: { label: "Install the CLI", href: "#install", variant: "outlined", kind: "install" },
     features: [
+      "The `rvr` CLI: init / run / list / sync",
       "Full base protocol library",
-      "CLI: init / run / list / sync",
-      "Single repo",
-      "200 cloud pipeline runs / month",
-      "Community support",
+      "Open `.protocols/` format spec",
+      "Author your own protocols and agents",
+      "Unlimited local use on any number of repos",
     ],
-    podCredits: "Free pods only",
+    detail: "Local use, always free",
   },
   {
-    id: "pro",
-    label: "Pro",
-    price: "$19",
-    priceSuffix: "/ month",
-    cadence: "Solo developers",
-    audience: "Indie hackers, freelancers, side projects",
-    // Pre-launch sentinel — the hosted orchestrator + Stripe checkout don't
-    // exist yet, so the CTA opens the tier-aware WaitlistModal instead of
-    // navigating. `href` is unused when `kind === "waitlist"`.
-    cta: { label: "Join Pro waitlist", href: "#waitlist", variant: "contained", kind: "waitlist" },
+    id: "pods",
+    label: "Pods",
+    price: "Subscription",
+    priceSuffix: "Pricing finalising",
+    cadence: "reveren's maintained specialist agents",
+    audience: "Teams that want expert agents kept current for them",
+    // Pre-launch sentinel: the subscription and checkout don't exist yet, so
+    // the CTA opens the tier-aware WaitlistModal instead of navigating.
+    // `href` is unused when `kind === "waitlist"`.
+    cta: { label: "Join the Pods waitlist", href: "#waitlist", variant: "contained", kind: "waitlist" },
     popular: true,
     features: [
-      "Everything in Free",
-      "Custom protocols",
-      "Multi-step pipelines",
-      "Unlimited repos",
-      "CI/CD integration",
-      "MCP server (read)",
-      "2,000 cloud runs / mo · overage $0.015 / run",
+      "reveren-authored specialist agents in the core",
+      "Review, QA, security, and planning pods",
+      "Kept current as models and practice move",
+      "Runs inside the CLI you already use",
+      "More pods added over time",
     ],
-    podCredits: "1 paid pod / month",
+    detail: "Maintained by reveren",
   },
   {
-    id: "team",
-    label: "Team",
-    price: "$39",
-    priceSuffix: "/ seat / month",
-    cadence: "2 – 500 seats",
-    audience: "Engineering teams shipping production software",
-    cta: {
-      label: "Talk to sales",
-      href: "mailto:hello@reveren.ai?subject=Team%20pricing",
-      variant: "outlined",
-      kind: "mailto",
-    },
+    id: "marketplace",
+    label: "Marketplace",
+    price: "Subscription",
+    priceSuffix: "Pricing finalising",
+    cadence: "The Protocol Marketplace",
+    audience: "Anyone who wants community and reveren protocol packs",
+    // Pre-launch sentinel: same WaitlistModal flow as Pods.
+    cta: { label: "Join the Marketplace waitlist", href: "#waitlist", variant: "outlined", kind: "waitlist" },
     features: [
-      "Everything in Pro",
-      "Hosted dashboard",
-      "Private protocol registry",
-      "Team sync + analytics",
-      "GitHub App / SSO",
-      "MCP server (write)",
-      "6,000 cloud runs / seat · overage $0.012 / run",
+      "Install community and reveren-published packs",
+      "Private registry for your own packs",
+      "`rvr sync` against the registry",
+      "Versioned protocol releases",
+      "Creators are paid a revenue share",
     ],
-    podCredits: "3 paid pods / org / month",
-  },
-  {
-    id: "enterprise",
-    label: "Enterprise",
-    price: "Custom",
-    cadence: "500+ seats / regulated",
-    audience: "Banks, healthcare, government, regulated platforms",
-    // Pre-launch — Enterprise routes through the tier-aware WaitlistModal,
-    // which collects company / seats / use-case in addition to the email.
-    // `href` is unused when `kind === "waitlist"`.
-    cta: { label: "Join Enterprise waitlist", href: "#waitlist", variant: "outlined", kind: "waitlist" },
-    features: [
-      "Everything in Team",
-      "Self-host (Docker)",
-      "Dedicated CSM",
-      "Custom SLA",
-      "Security review",
-      "Optional professional services engagement",
-    ],
-    podCredits: "Unlimited",
+    detail: "Community and reveren packs",
   },
 ];
 
 export const pricingFootnote =
-  "All prices in USD. Local-only `rvr run` is unlimited and free on every tier. Cloud pipeline runs apply only when you use the hosted orchestrator (analytics, registry, GitHub App, MCP write). Pod credits entitle you to one paid Marketplace pod per month at no additional cost — creators are still paid. Beyond included credits, additional pods are purchased separately (self-host pods $1–$9 / mo; hosted pods $19+ / mo).";
+  "Local CLI use is always free: author and run your own protocols and agents on any number of repos, with no metering. The only paid surfaces are the Pods subscription and the Protocol Marketplace subscription; both are indicative and finalising, which is why no figure is shown yet. There is no enterprise sales motion at this stage.";
 
-// Feature matrix — five row groups per HANDOFF.md §5.3, with cell values
-// that can be boolean | string | number. Order matters: Pipeline first
-// (most differentiating), Support last (table-stakes).
+// Feature matrix: three columns (Free, Pods, Marketplace) grouped by surface.
+// Order matters: the free CLI and protocols first, then the two paid surfaces.
 
 export type CellValue = boolean | string | number;
 
@@ -130,9 +103,8 @@ export type MatrixRow = {
   label: string;
   hint?: string;
   free: CellValue;
-  pro: CellValue;
-  team: CellValue;
-  enterprise: CellValue;
+  pods: CellValue;
+  marketplace: CellValue;
 };
 
 export type MatrixGroup = {
@@ -143,37 +115,63 @@ export type MatrixGroup = {
 
 export const featureMatrix: MatrixGroup[] = [
   {
-    id: "pipeline",
-    label: "Pipeline",
+    id: "cli",
+    label: "CLI & protocols",
     rows: [
       {
-        label: "Multi-step protocol chains",
-        free: false,
-        pro: true,
-        team: true,
-        enterprise: true,
+        label: "`rvr` CLI: init / run / list / sync",
+        free: true,
+        pods: true,
+        marketplace: true,
       },
       {
-        label: "Cloud pipeline runs / month",
-        free: 200,
-        pro: 2000,
-        team: "6,000 / seat",
-        enterprise: "Custom",
+        label: "Full base protocol library",
+        free: true,
+        pods: true,
+        marketplace: true,
       },
       {
-        label: "Overage rate",
-        free: "—",
-        pro: "$0.015 / run",
-        team: "$0.012 / run",
-        enterprise: "Negotiated",
+        label: "Open `.protocols/` format spec",
+        free: true,
+        pods: true,
+        marketplace: true,
+      },
+      {
+        label: "Author your own protocols and agents",
+        free: true,
+        pods: true,
+        marketplace: true,
       },
       {
         label: "Local `rvr run`",
-        hint: "Unlimited on every tier",
+        hint: "Unlimited, no metering",
         free: "Unlimited",
-        pro: "Unlimited",
-        team: "Unlimited",
-        enterprise: "Unlimited",
+        pods: "Unlimited",
+        marketplace: "Unlimited",
+      },
+    ],
+  },
+  {
+    id: "pods",
+    label: "Pods",
+    rows: [
+      {
+        label: "reveren-authored specialist agents",
+        free: false,
+        pods: true,
+        marketplace: false,
+      },
+      {
+        label: "Review, QA, security, planning pods",
+        free: false,
+        pods: true,
+        marketplace: false,
+      },
+      {
+        label: "Kept current as models move",
+        free: false,
+        pods: true,
+        marketplace: false,
       },
     ],
   },
@@ -182,76 +180,29 @@ export const featureMatrix: MatrixGroup[] = [
     label: "Marketplace",
     rows: [
       {
-        label: "Pod credits / month",
-        hint: "One paid Marketplace pod, no extra charge",
-        free: "Free pods only",
-        pro: 1,
-        team: "3 / org",
-        enterprise: "Unlimited",
+        label: "Install community + reveren packs",
+        free: false,
+        pods: false,
+        marketplace: true,
       },
       {
-        label: "Author + sell pods",
+        label: "Private registry",
         free: false,
-        pro: true,
-        team: true,
-        enterprise: true,
+        pods: false,
+        marketplace: true,
+      },
+      {
+        label: "`rvr sync` against the registry",
+        free: false,
+        pods: false,
+        marketplace: true,
       },
       {
         label: "Creator revenue share",
-        free: "—",
-        pro: "70 / 30",
-        team: "70 / 30",
-        enterprise: "Negotiated",
-      },
-      {
-        label: "Private org pod registry",
         free: false,
-        pro: false,
-        team: true,
-        enterprise: true,
+        pods: false,
+        marketplace: "Creators paid a share",
       },
-    ],
-  },
-  {
-    id: "protocols",
-    label: "Protocols",
-    rows: [
-      { label: "Base protocol library (12)", free: true, pro: true, team: true, enterprise: true },
-      { label: "Author custom protocols", free: false, pro: true, team: true, enterprise: true },
-      { label: "Private protocol registry", free: false, pro: false, team: true, enterprise: true },
-      { label: "Versioned changesets", free: false, pro: true, team: true, enterprise: true },
-    ],
-  },
-  {
-    id: "agents",
-    label: "Agents",
-    rows: [
-      { label: "Claude · Cursor · Copilot · Windsurf · GPT", free: true, pro: true, team: true, enterprise: true },
-      { label: "MCP server (read)", free: false, pro: true, team: true, enterprise: true },
-      { label: "MCP server (write)", free: false, pro: false, team: true, enterprise: true },
-      { label: "Bring your own model", free: true, pro: true, team: true, enterprise: true },
-    ],
-  },
-  {
-    id: "cloud",
-    label: "Cloud",
-    rows: [
-      { label: "Hosted dashboard", free: false, pro: false, team: true, enterprise: true },
-      { label: "GitHub App on PRs", free: false, pro: true, team: true, enterprise: true },
-      { label: "SSO / SAML", free: false, pro: false, team: true, enterprise: true },
-      { label: "Self-host (Docker)", free: false, pro: false, team: false, enterprise: true },
-      { label: "Audit log", free: false, pro: false, team: true, enterprise: true },
-    ],
-  },
-  {
-    id: "support",
-    label: "Support",
-    rows: [
-      { label: "Community", free: true, pro: true, team: true, enterprise: true },
-      { label: "Email support", free: false, pro: true, team: true, enterprise: true },
-      { label: "Dedicated CSM", free: false, pro: false, team: false, enterprise: true },
-      { label: "Custom SLA", free: false, pro: false, team: false, enterprise: true },
-      { label: "Security review", free: false, pro: false, team: false, enterprise: true },
     ],
   },
 ];

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import posthog from "posthog-js";
 import IconButton from "@mui/material/IconButton";
 import Drawer from "@mui/material/Drawer";
 import Stack from "@mui/material/Stack";
@@ -20,7 +21,7 @@ export default function MobileNav({ links }: { links: NavLink[] }) {
       <IconButton
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
-        onClick={() => setOpen(true)}
+        onClick={() => { posthog.capture("mobile_nav_opened"); setOpen(true); }}
         sx={{
           color: "text.primary",
           border: "1px solid",

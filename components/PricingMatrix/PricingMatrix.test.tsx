@@ -26,11 +26,11 @@ describe("PricingMatrix", () => {
     }
   });
 
-  it("renders four tier columns in the head", () => {
+  it("renders three tier columns in the head", () => {
     renderWithTheme(<PricingMatrix />);
     const table = screen.getByRole("table");
     const colHeaders = within(table).getAllByRole("columnheader");
-    // 1 feature column header + 4 tier headers
-    expect(colHeaders).toHaveLength(5);
+    // 1 feature column header + 3 tier headers
+    expect(colHeaders).toHaveLength(4);
   });
 });

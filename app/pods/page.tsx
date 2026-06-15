@@ -18,20 +18,20 @@ import {
 } from "@/components/motion/MotionPrimitives";
 
 export const metadata: Metadata = {
-  title: "Pods Marketplace",
+  title: "Pods & Marketplace",
   description:
-    "The open Pod Marketplace for AI agents. Coming Mo 3. Author once. Sell on every agent. 70/30 creator split. $1 floor.",
+    "reveren's maintained specialist agents (pods) and the Protocol Marketplace for AI coding agents. Author once, run on every agent. Creators are paid a revenue share.",
   alternates: { canonical: "/pods" },
   openGraph: {
-    title: "Pods Marketplace · reveren",
+    title: "Pods & Marketplace · reveren",
     description:
-      "Author once. Sell on every agent. 70/30 creator split, $1 floor. The open Pod Marketplace for AI coding agents.",
+      "Maintained specialist agents and the Protocol Marketplace for AI coding agents. Author once, run on every agent. Creators are paid a revenue share.",
     url: "/pods",
   },
   twitter: {
-    title: "Pods Marketplace · reveren",
+    title: "Pods & Marketplace · reveren",
     description:
-      "Author once. Sell on every agent. 70/30 creator split, $1 floor.",
+      "Maintained specialist agents and the Protocol Marketplace. Author once, run on every agent.",
   },
 };
 
@@ -61,7 +61,7 @@ export default function PodsPage() {
               <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ pt: 1 }}>
                 <WaitlistButton variant="contained" size="large" label="Get on the creator waitlist" />
                 <Button component="a" href="/pricing" variant="outlined" size="large">
-                  See pod credits in pricing
+                  See pricing
                 </Button>
               </Stack>
             </Stack>
@@ -157,7 +157,7 @@ export default function PodsPage() {
 
           <Box
             tabIndex={0}
-            aria-label="Pod marketplace comparison table (scrollable)"
+            aria-label="Protocol Marketplace comparison table (scrollable)"
             sx={{
               overflowX: { xs: "auto", lg: "visible" },
               "&:focus-visible": {

@@ -38,6 +38,6 @@ export const notThis: NotThisItem[] = [
   {
     id: "not-a-locked-marketplace",
     rule: "Not a vendor-locked marketplace.",
-    body: "Anthropic Skills runs on Claude. ChatGPT GPT Store runs on ChatGPT. The reveren Pod Marketplace runs on every agent your team already pays for. Author once. Sell on every agent.",
+    body: "Anthropic Skills runs on Claude. ChatGPT GPT Store runs on ChatGPT. reveren's pods and the Protocol Marketplace run on every agent your team already pays for. Author once. Run on every agent.",
   },
 ];

@@ -9,9 +9,9 @@ function renderWithTheme(ui: React.ReactElement) {
 }
 
 describe("PricingHeader", () => {
-  it("renders the H1 + the local-runs disclaimer", () => {
+  it("renders the H1 + the free-core, no-metering disclaimer", () => {
     renderWithTheme(<PricingHeader />);
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Round numbers");
-    expect(screen.getByText(/USD/)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Free core");
+    expect(screen.getByText(/free forever, with unlimited local use and no metering/i)).toBeInTheDocument();
   });
 });
