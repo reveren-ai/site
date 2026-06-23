@@ -2,11 +2,11 @@ import { describe, it, expect } from "vitest";
 import { audiences } from "./audiences";
 
 describe("audiences", () => {
-  it("lists exactly the three canonical audiences", () => {
+  it("lists exactly the three canonical audiences, vibe coders first", () => {
     expect(audiences.map((a) => a.id)).toEqual([
-      "engineering-teams",
       "vibe-coders",
-      "engineering-leaders",
+      "engineering-teams",
+      "solo-founders",
     ]);
   });
 

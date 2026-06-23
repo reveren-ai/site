@@ -31,8 +31,8 @@ export default function CtaBand() {
             Sixty seconds. One command.
           </Typography>
           <Typography variant="body1" color="text.secondary">
-            No credit card. No signup. The CLI scaffolds .protocols/ in your repo and
-            wires the agent you're already using.
+            No credit card. No signup. One command sets reveren up in your repo and
+            wires the agent you're already using — your agent does the rest.
           </Typography>
           <Stack
             direction={{ xs: "column", sm: "row" }}
@@ -42,12 +42,12 @@ export default function CtaBand() {
             <CopyButton text={INSTALL_COMMAND} variant="contained" size="large" />
             <Button
               component="a"
-              href="mailto:hello@reveren.ai?subject=Pricing%20question"
+              href="/pricing"
               variant="outlined"
               size="large"
-              onClick={() => posthog.capture("cta_talk_to_sales_clicked")}
+              onClick={() => posthog.capture("cta_see_pricing_clicked")}
             >
-              Talk to sales
+              See pricing
             </Button>
           </Stack>
         </Stack>

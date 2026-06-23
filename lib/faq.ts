@@ -21,7 +21,7 @@ export const faq: FaqItem[] = [
     id: "what-do-i-pay-for",
     question: "What do I actually pay for?",
     answer:
-      "Two things, and only two: Pods (reveren's maintained specialist agents that run inside the core) and the Protocol Marketplace (community and reveren-published protocol packs, with a private registry and `rvr sync`). The CLI, the full base protocol library, and the open format spec are free, and local use is unlimited with no metering.",
+      "One paid tier at launch: Pro ($12/mo). It's the maintained Engineering Pod — kept current as models move — plus the vibe-coder layer we're rolling out: a cross-agent project brain, a one-tap pre-ship gate, auto-fix, deploy/secret/cost guardrails, and a supervised Autopilot that runs on your machine and your keys (reveren never holds your credentials). The Protocol Marketplace follows. Everything else is free — the CLI, the full base protocol library, every specialist agent at its baseline, and the self-improvement loop — unlimited and bring-your-own-model. Pro is pre-launch today; join the waitlist and we'll tell you when it opens.",
   },
   {
     id: "self-host",
@@ -45,7 +45,7 @@ export const faq: FaqItem[] = [
     id: "is-the-core-open-source",
     question: "Is reveren open source?",
     answer:
-      "The core CLI is source-available under the Business Source License 1.1: the source is published, it is free to use for your own work, and it converts to Apache-2.0 on its Change Date. The protocol library is MIT-licensed and the `.protocols/` format spec is published as an open standard. The Pods and the Protocol Marketplace are the proprietary, paid surfaces.",
+      "The core CLI is source-available under the Business Source License 1.1: the source is published, it is free to use for your own work, and it converts to Apache-2.0 on its Change Date. The protocol library is MIT-licensed and the `.protocols/` format spec is published as an open standard. Pro (the maintained Engineering Pod plus the vibe-coder layer) and the Protocol Marketplace are the proprietary, paid surfaces.",
   },
   {
     id: "regulated",

@@ -15,9 +15,9 @@ describe("CtaBand", () => {
     expect(screen.getByRole("button", { name: INSTALL_COMMAND })).toBeInTheDocument();
   });
 
-  it("renders the sales mailto link", () => {
+  it("renders the see-pricing link", () => {
     renderWithTheme(<CtaBand />);
-    const link = screen.getByRole("link", { name: /talk to sales/i });
-    expect(link).toHaveAttribute("href", expect.stringContaining("mailto:hello@reveren.ai"));
+    const link = screen.getByRole("link", { name: /see pricing/i });
+    expect(link).toHaveAttribute("href", "/pricing");
   });
 });

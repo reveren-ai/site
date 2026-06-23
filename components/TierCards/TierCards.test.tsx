@@ -40,25 +40,25 @@ describe("TierCards", () => {
     expect(screen.getAllByText("Most popular")).toHaveLength(1);
   });
 
-  it("renders the pre-launch disclosure line for Pods + Marketplace", () => {
+  it("renders the pre-launch disclosure line for Pro + Marketplace", () => {
     renderWithTheme(<TierCards />);
     expect(
-      screen.getByText(/pods and the marketplace are pre-launch/i),
+      screen.getByText(/pro and the marketplace are pre-launch/i),
     ).toBeInTheDocument();
   });
 
-  it("Pods CTA renders as a WaitlistButton (button, not anchor)", () => {
+  it("Pro CTA renders as a WaitlistButton (button, not anchor)", () => {
     renderWithTheme(<TierCards />);
     const cta = ctaForTier("pods");
     expect(cta.tagName).toBe("BUTTON");
-    expect(cta).toHaveTextContent(/join the pods waitlist/i);
+    expect(cta).toHaveTextContent(/join the pro waitlist/i);
   });
 
   it("Marketplace CTA renders as a WaitlistButton (button, not anchor)", () => {
     renderWithTheme(<TierCards />);
     const cta = ctaForTier("marketplace");
     expect(cta.tagName).toBe("BUTTON");
-    expect(cta).toHaveTextContent(/join the marketplace waitlist/i);
+    expect(cta).toHaveTextContent(/join the waitlist/i);
   });
 
   it("Free CTA renders as an anchor (#install)", () => {

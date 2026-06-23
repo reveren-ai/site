@@ -35,7 +35,7 @@ export default function Hero() {
             <Stack spacing={4}>
               <MotionItem>
                 <Typography variant='eyebrow' component='div'>
-                  The standards layer for AI agents.
+                  Built for vibe coders. Works with every AI agent.
                 </Typography>
               </MotionItem>
 
@@ -55,9 +55,10 @@ export default function Hero() {
                     fontSize: { xs: '1.0625rem', md: '1.1875rem' }
                   }}
                 >
-                  A CLI that scaffolds an open Markdown protocol library into
-                  your repo. Every AI coding agent — Claude, Cursor, Copilot,
-                  Windsurf, Lovable, Bolt, v0 — reads from the same rules.{' '}
+                  reveren gives your AI agent the rules of your project — so it
+                  stops re-breaking things, ships fewer bugs, and you stop
+                  babysitting it. Works with Claude, Cursor, Copilot, Windsurf,
+                  Lovable, Bolt, and v0.{' '}
                   <strong
                     style={{
                       color: 'var(--mui-palette-text-primary)',
@@ -66,7 +67,7 @@ export default function Hero() {
                   >
                     Stop correcting your AI. Start directing it.
                   </strong>{' '}
-                  Author once. Runs on every agent.
+                  One command sets it up — your agent does the rest.
                 </Typography>
               </MotionItem>
 
@@ -109,7 +110,7 @@ export default function Hero() {
                   color='text.secondary'
                   sx={{ pt: 1 }}
                 >
-                  Source-available CLI · agent-agnostic · open file format
+                  Free to start · no terminal required · bring your own model
                 </Typography>
               </MotionItem>
             </Stack>

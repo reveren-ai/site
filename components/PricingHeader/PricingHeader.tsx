@@ -14,10 +14,12 @@ export default function PricingHeader() {
               Free core. No tricks.
             </Typography>
             <Typography variant="subtitle1" component="p" color="text.secondary">
-              The <code>rvr</code> CLI and the full protocol library are free
-              forever, with unlimited local use and no metering. The only paid
-              surfaces are Pods and the Protocol Marketplace, both on a
-              subscription whose pricing is still being finalised.
+              The <code>rvr</code> CLI, the full protocol library, and every
+              agent at its baseline are free forever, with unlimited local use
+              and no metering. <strong>Pro</strong> ($12/mo) is the one paid
+              tier — the maintained Engineering Pod plus the vibe-coder layer —
+              and the Protocol Marketplace follows. Pro is pre-launch; join the
+              waitlist below.
             </Typography>
           </Stack>
         </MotionReveal>

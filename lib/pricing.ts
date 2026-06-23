@@ -1,9 +1,11 @@
-// Pricing data: three surfaces only (Free core, Pods, and the Protocol
-// Marketplace). Local `rvr run` is unlimited and free; the only paid surfaces
-// are the Pods subscription and the Marketplace subscription. Prices for the
-// paid surfaces are indicative and finalising, so we never print a dollar
-// figure for them, just a "Subscription" label with a "Pricing finalising"
-// sub-line. There is no enterprise sales motion at this stage.
+// Pricing data: three tiers — Free core, Pro (the vibe-coder paid tier), and the
+// Protocol Marketplace (coming soon). Local `rvr run` and every baseline agent
+// are unlimited and free; Pro is the one paid tier at launch. Pro is priced at
+// $12/mo ($120/yr) — an easy add-on on top of whatever builder a vibe coder
+// already pays for. Checkout doesn't exist yet (pre-launch), so the Pro CTA
+// still captures intent via the waitlist. There is no enterprise sales motion
+// at this stage. See reveren_monetization_model.md (workspace root) for the
+// artifact-vs-upkeep rationale behind the free/paid line.
 
 export type TierId = "free" | "pods" | "marketplace";
 
@@ -17,9 +19,9 @@ export type Tier = {
   cadence: string;
   audience: string;
   // `kind` discriminates how TierCards renders the CTA. Free uses "install"
-  // (CLI install instructions). Pods + Marketplace route through the
-  // tier-aware WaitlistModal (kind: "waitlist") because the subscriptions
-  // don't exist yet; we capture intent only.
+  // (CLI install instructions). Pro + Marketplace route through the
+  // tier-aware WaitlistModal (kind: "waitlist") because checkout doesn't
+  // exist yet (pre-launch); we capture intent only.
   cta: {
     label: string;
     href: string;
@@ -39,47 +41,48 @@ export const tiers: Tier[] = [
     label: "Free",
     price: "$0",
     cadence: "Forever",
-    audience: "Individuals, small teams, and vibe coders",
+    audience: "Vibe coders, individuals, and small teams",
     cta: { label: "Install the CLI", href: "#install", variant: "outlined", kind: "install" },
     features: [
-      "The `rvr` CLI: init / run / list / sync",
-      "Full base protocol library",
-      "Open `.protocols/` format spec",
-      "Author your own protocols and agents",
-      "Unlimited local use on any number of repos",
+      "The `rvr` CLI: init / run / list / check / sync",
+      "No-terminal onboarding — your agent runs one command",
+      "Full base protocol library + open `.protocols/` spec",
+      "Every specialist agent at its free baseline",
+      "The self-improvement loop",
+      "Bring your own model and key — unlimited, any repo",
     ],
-    detail: "Local use, always free",
+    detail: "Everything you need to adopt reveren, free",
   },
   {
     id: "pods",
-    label: "Pods",
-    price: "Subscription",
-    priceSuffix: "Pricing finalising",
-    cadence: "reveren's maintained specialist agents",
-    audience: "Teams that want expert agents kept current for them",
-    // Pre-launch sentinel: the subscription and checkout don't exist yet, so
+    label: "Pro",
+    price: "$12",
+    priceSuffix: "per month · $120/yr billed yearly",
+    cadence: "For vibe coders shipping with AI",
+    audience: "Ship with confidence — it won't let you ship something broken",
+    // Pre-launch sentinel: the price is set but checkout doesn't exist yet, so
     // the CTA opens the tier-aware WaitlistModal instead of navigating.
     // `href` is unused when `kind === "waitlist"`.
-    cta: { label: "Join the Pods waitlist", href: "#waitlist", variant: "contained", kind: "waitlist" },
+    cta: { label: "Join the Pro waitlist", href: "#waitlist", variant: "contained", kind: "waitlist" },
     popular: true,
     features: [
-      "reveren-authored specialist agents in the core",
-      "Review, QA, security, and planning pods",
-      "Kept current as models and practice move",
-      "Runs inside the CLI you already use",
-      "More pods added over time",
+      "The maintained Engineering Pod — kept current as models move",
+      "Project brain — cross-agent memory so your agent stops re-breaking things",
+      "Pre-ship gate — one-tap go/no-go before you deploy",
+      "Auto-fix — turns review findings into applied fixes, in plain language",
+      "Deploy, secret & cost guardrails — catch disasters before they ship",
+      "Supervised Autopilot — runs on your machine, your keys; we never hold credentials",
     ],
-    detail: "Maintained by reveren",
+    detail: "Maintained by reveren · bring your own model",
   },
   {
     id: "marketplace",
     label: "Marketplace",
-    price: "Subscription",
-    priceSuffix: "Pricing finalising",
+    price: "Coming soon",
     cadence: "The Protocol Marketplace",
-    audience: "Anyone who wants community and reveren protocol packs",
-    // Pre-launch sentinel: same WaitlistModal flow as Pods.
-    cta: { label: "Join the Marketplace waitlist", href: "#waitlist", variant: "outlined", kind: "waitlist" },
+    audience: "Community and reveren-published protocol packs",
+    // Pre-launch sentinel: same WaitlistModal flow as Pro.
+    cta: { label: "Join the waitlist", href: "#waitlist", variant: "outlined", kind: "waitlist" },
     features: [
       "Install community and reveren-published packs",
       "Private registry for your own packs",
@@ -92,9 +95,9 @@ export const tiers: Tier[] = [
 ];
 
 export const pricingFootnote =
-  "Local CLI use is always free: author and run your own protocols and agents on any number of repos, with no metering. The only paid surfaces are the Pods subscription and the Protocol Marketplace subscription; both are indicative and finalising, which is why no figure is shown yet. There is no enterprise sales motion at this stage.";
+  "The free core is everything you need to adopt reveren — the CLI, the full protocol library, the open format spec, every specialist agent at its baseline, and the self-improvement loop — unlimited and bring-your-own-model throughout. Pro ($12/mo) is the one paid tier at launch: the maintained Engineering Pod plus the vibe-coder layer (project brain, pre-ship gate, auto-fix, guardrails, supervised Autopilot) — all running on your machine and your keys; reveren never holds your credentials. The Marketplace follows. There is no enterprise sales motion at this stage.";
 
-// Feature matrix: three columns (Free, Pods, Marketplace) grouped by surface.
+// Feature matrix: three columns (Free, Pro, Marketplace) grouped by surface.
 // Order matters: the free CLI and protocols first, then the two paid surfaces.
 
 export type CellValue = boolean | string | number;
@@ -143,6 +146,12 @@ export const featureMatrix: MatrixGroup[] = [
         marketplace: true,
       },
       {
+        label: "Every specialist agent at its baseline",
+        free: true,
+        pods: true,
+        marketplace: true,
+      },
+      {
         label: "Local `rvr run`",
         hint: "Unlimited, no metering",
         free: "Unlimited",
@@ -153,22 +162,42 @@ export const featureMatrix: MatrixGroup[] = [
   },
   {
     id: "pods",
-    label: "Pods",
+    label: "Pro",
     rows: [
       {
-        label: "reveren-authored specialist agents",
+        label: "Maintained Engineering Pod — current as models move",
         free: false,
         pods: true,
         marketplace: false,
       },
       {
-        label: "Review, QA, security, planning pods",
+        label: "Project brain — cross-agent memory",
+        hint: "Your agent stops re-breaking the same things",
         free: false,
         pods: true,
         marketplace: false,
       },
       {
-        label: "Kept current as models move",
+        label: "Pre-ship gate — one-tap go/no-go",
+        free: false,
+        pods: true,
+        marketplace: false,
+      },
+      {
+        label: "Auto-fix — findings turned into applied fixes",
+        free: false,
+        pods: true,
+        marketplace: false,
+      },
+      {
+        label: "Deploy, secret & cost guardrails",
+        free: false,
+        pods: true,
+        marketplace: false,
+      },
+      {
+        label: "Supervised Autopilot — your machine, your keys",
+        hint: "reveren never holds your credentials",
         free: false,
         pods: true,
         marketplace: false,
