@@ -24,7 +24,17 @@ export default function TierCards() {
           }}
         >
           {tiers.map((t) => (
-            <MotionItem key={t.id} sx={{ height: "100%" }}>
+            <MotionItem
+              key={t.id}
+              sx={{
+                height: "100%",
+                // Single-column mobile leads with the converting tier: the
+                // "Most popular" Pro card sits first (order -1), Free and
+                // Marketplace keep source order below it. On md+ the grid is
+                // 3-up and source order (Free · Pro · Marketplace) holds.
+                order: { xs: t.popular ? -1 : 0, md: 0 },
+              }}
+            >
             <Card
               className={t.popular ? "rv-popular-pulse" : undefined}
               sx={{
@@ -95,7 +105,7 @@ export default function TierCards() {
                 </Typography>
 
                 <Stack component="ul" spacing={1} sx={{ listStyle: "none", p: 0, m: 0, flex: 1 }}>
-                  {t.features.map((f) => (
+                  {t.cardFeatures.map((f) => (
                     <Typography
                       key={f}
                       component="li"

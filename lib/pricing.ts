@@ -31,7 +31,15 @@ export type Tier = {
     kind?: CtaKind;
   };
   popular?: boolean;
+  // Full per-surface list — feeds the home `PricingTeaser`. The exhaustive
+  // side-by-side comparison lives in `featureMatrix`, so the pricing cards do
+  // NOT render this; they render the lean `cardFeatures` below.
   features: string[];
+  // Lean 3-bullet differentiators shown on the pricing cards (the scan layer).
+  // Kept short on purpose: three tall 6-bullet cards overflowed the desktop
+  // viewport and made an excessive mobile scroll. Depth is one section down in
+  // the matrix — cards orient, the matrix proves. Keep this to the top 3.
+  cardFeatures: string[];
   // Non-pricing per-card detail row: what the surface includes, not a metered
   // credit count. Keeps the card layout consistent across all three tiers.
   detail: string;
@@ -52,6 +60,11 @@ export const tiers: Tier[] = [
       "Every specialist agent at its free baseline",
       "The self-improvement loop",
       "Bring your own model and key — unlimited, any repo",
+    ],
+    cardFeatures: [
+      "The `rvr` CLI + full base protocol library",
+      "Every specialist agent at its baseline",
+      "Bring your own model — unlimited, any repo",
     ],
     detail: "Everything you need to adopt reveren, free",
   },
@@ -74,6 +87,11 @@ export const tiers: Tier[] = [
       "Project brain — cross-agent memory so your agent stops re-breaking things (rolling out)",
       "Deploy, secret & cost guardrails — catch disasters before they ship (rolling out)",
     ],
+    cardFeatures: [
+      "The maintained Engineering Pod — current as models move",
+      "Pre-ship gate — review + QA + security as one go/no-go",
+      "Auto-fix + a supervised pipeline on your machine, your keys",
+    ],
     detail: "Maintained by reveren · bring your own model",
   },
   {
@@ -89,6 +107,11 @@ export const tiers: Tier[] = [
       "Private registry for your own packs",
       "`rvr sync` against the registry",
       "Versioned protocol releases",
+      "Creators are paid a revenue share",
+    ],
+    cardFeatures: [
+      "Install community + reveren-published packs",
+      "Private registry for your own packs",
       "Creators are paid a revenue share",
     ],
     detail: "Community and reveren packs",

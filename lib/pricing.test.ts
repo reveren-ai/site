@@ -51,6 +51,18 @@ describe("pricing data", () => {
     expect(joined).toMatch(/we never hold credentials/i);
   });
 
+  it("keeps the pricing cards lean — every tier has exactly 3 card features", () => {
+    // Cards are the scan layer; the exhaustive list lives in featureMatrix.
+    // Three keeps the cards inside the desktop viewport and the mobile scroll
+    // short. If this needs to grow, revisit the card layout, don't just bump it.
+    for (const t of tiers) {
+      expect(t.cardFeatures).toHaveLength(3);
+      for (const f of t.cardFeatures) {
+        expect(f.length).toBeGreaterThan(0);
+      }
+    }
+  });
+
   it("matrix is grouped into CLI & protocols, Pro, Marketplace, in that order", () => {
     expect(featureMatrix.map((g) => g.id)).toEqual([
       "cli",
