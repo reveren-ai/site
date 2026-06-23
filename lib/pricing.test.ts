@@ -97,8 +97,8 @@ describe("pricing data", () => {
   });
 
   // Snapshot the per-tier CTA shape so accidental edits to label or kind get
-  // caught. Pro + Marketplace route through the waitlist (checkout doesn't
-  // exist yet, pre-launch); Free links to install.
+  // caught. Pro is purchasable (kind: "checkout" -> Stripe route); Marketplace
+  // is still pre-launch (waitlist); Free links to install.
   it("locks the per-tier CTA shape", () => {
     const ctas = Object.fromEntries(tiers.map((t) => [t.id, t.cta]));
     expect(ctas).toEqual({
@@ -109,10 +109,10 @@ describe("pricing data", () => {
         kind: "install",
       },
       pods: {
-        label: "Join the Pro waitlist",
-        href: "#waitlist",
+        label: "Get Pro — $12/mo",
+        href: "/api/checkout/pro",
         variant: "contained",
-        kind: "waitlist",
+        kind: "checkout",
       },
       marketplace: {
         label: "Join the waitlist",

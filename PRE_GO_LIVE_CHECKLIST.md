@@ -76,6 +76,16 @@ The accent/typography/wordmark "owner pick" decisions in `docs/_archive/MVP_SITE
 - [x] **Production env vars (analytics)** — PostHog production keys set in Vercel; redeploy verified (commit `5c239ae`); `PROD_` prefix convention introduced for prod-only credentials (commit `52a8498`).
 - [ ] **Production env vars (rate-limit secret)** — only required once the in-memory rate-limit in `app/api/waitlist/route.ts` is replaced by Upstash Redis (currently noted as Phase 1 / post-launch). Not blocking go-live for the waitlist volume during pre-launch — confirm acceptable risk before flipping the lever.
 
+### 🔴 Reveren Pro billing (Stripe)
+
+> The pricing page now ships **Pro ($12/mo)** as a **purchasable** tier — its CTA ("Get Pro — $12/mo") links to `/api/checkout/pro`, which does not exist yet. Wiring this is a hard go-live gate: the button 404s until it's built.
+
+- [ ] **Create the Pro product + $12/mo price in Stripe** (live mode; mirror in test mode for previews). Enable Stripe Tax for AU/GST. _Contracting party: Cadere Pty Ltd trading as Reveren — confirm with the same legal pass as the privacy/terms/DPA pages._
+- [ ] **Implement `app/api/checkout/pro/route.ts`** — creates a Stripe Checkout Session for the Pro price and redirects to it. This is what the pricing CTA points at.
+- [ ] **Implement the Stripe webhook** at `/api/webhooks/stripe` — subscribe to `checkout.session.completed`, `customer.subscription.updated`, `customer.subscription.deleted`; grant/revoke the Pro entitlement (the `registry.token` the CLI checks for the maintained-pod `current` channel).
+- [ ] **Stripe live keys in Vercel production env** (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`) — never commit to repo.
+- [ ] **End-to-end purchase smoke** — buy Pro in test mode, confirm the entitlement/token is issued and `rvr sync` unlocks the maintained Engineering Pod's `current` channel.
+
 ### Environment topology (decided 2026-05-10)
 
 | Vercel env | Git branch | Public host | Neon branch | Robots |

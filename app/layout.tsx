@@ -110,12 +110,6 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
     >
-      <head>
-        {/* Sitewide structured data — rendered once per page so search engines
-            can attach the reveren brand + sitelinks searchbox to every URL. */}
-        <JsonLd data={organizationJsonLd()} />
-        <JsonLd data={websiteJsonLd()} />
-      </head>
       <body>
         {/*
           Sets data-mode on <html> before first paint so MUI's CSS vars
@@ -130,6 +124,14 @@ export default function RootLayout({
           suppressHydrationWarning
           dangerouslySetInnerHTML={{ __html: modeInitScript }}
         />
+        {/* Sitewide structured data. Rendered at the top of <body> (not
+            <head>) for the same reason as the mode-init script above:
+            React 19's <head> Float — and head-injecting browser extensions —
+            shift the position of inline/ld+json <script>s in <head> and trip
+            hydration. JSON-LD is valid anywhere in the document and search
+            engines read it from <body>. Per-page JSON-LD already renders here. */}
+        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={websiteJsonLd()} />
         <EnvBanner />
         <ThemeRegistry>
           <a href="#main" className="rv-skip-link">

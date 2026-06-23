@@ -14,9 +14,11 @@ function ctaForTier(tierId: string): HTMLElement {
   if (!tier) throw new Error(`unknown tier: ${tierId}`);
   // Each card renders its label only once at the top, so we look up the
   // closest card and find the CTA element by its label inside that card.
+  // Escape regex metachars — labels can contain "$" (e.g. "Get Pro — $12/mo").
+  const escaped = tier.cta.label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   return screen.getByRole(
     tier.cta.kind === "waitlist" ? "button" : "link",
-    { name: new RegExp(tier.cta.label, "i") },
+    { name: new RegExp(escaped, "i") },
   );
 }
 
@@ -40,18 +42,19 @@ describe("TierCards", () => {
     expect(screen.getAllByText("Most popular")).toHaveLength(1);
   });
 
-  it("renders the pre-launch disclosure line for Pro + Marketplace", () => {
+  it("renders the pre-launch disclosure line for the Marketplace", () => {
     renderWithTheme(<TierCards />);
     expect(
-      screen.getByText(/pro and the marketplace are pre-launch/i),
+      screen.getByText(/the marketplace is pre-launch/i),
     ).toBeInTheDocument();
   });
 
-  it("Pro CTA renders as a WaitlistButton (button, not anchor)", () => {
+  it("Pro CTA renders as a checkout link to the Stripe route", () => {
     renderWithTheme(<TierCards />);
     const cta = ctaForTier("pods");
-    expect(cta.tagName).toBe("BUTTON");
-    expect(cta).toHaveTextContent(/join the pro waitlist/i);
+    expect(cta.tagName).toBe("A");
+    expect(cta).toHaveAttribute("href", "/api/checkout/pro");
+    expect(cta).toHaveTextContent(/get pro/i);
   });
 
   it("Marketplace CTA renders as a WaitlistButton (button, not anchor)", () => {

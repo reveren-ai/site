@@ -9,7 +9,7 @@
 
 export type TierId = "free" | "pods" | "marketplace";
 
-export type CtaKind = "mailto" | "waitlist" | "install";
+export type CtaKind = "mailto" | "waitlist" | "install" | "checkout";
 
 export type Tier = {
   id: TierId;
@@ -19,9 +19,10 @@ export type Tier = {
   cadence: string;
   audience: string;
   // `kind` discriminates how TierCards renders the CTA. Free uses "install"
-  // (CLI install instructions). Pro + Marketplace route through the
-  // tier-aware WaitlistModal (kind: "waitlist") because checkout doesn't
-  // exist yet (pre-launch); we capture intent only.
+  // (CLI install instructions). Pro is purchasable — kind: "checkout" links to
+  // the Stripe checkout route (`/api/checkout/pro`), which is wired pre-go-live
+  // (see PRE_GO_LIVE_CHECKLIST.md). Marketplace is still pre-launch, so it
+  // routes through the tier-aware WaitlistModal (kind: "waitlist").
   cta: {
     label: string;
     href: string;
@@ -60,10 +61,9 @@ export const tiers: Tier[] = [
     priceSuffix: "per month · $120/yr billed yearly",
     cadence: "For vibe coders shipping with AI",
     audience: "Ship with confidence — it won't let you ship something broken",
-    // Pre-launch sentinel: the price is set but checkout doesn't exist yet, so
-    // the CTA opens the tier-aware WaitlistModal instead of navigating.
-    // `href` is unused when `kind === "waitlist"`.
-    cta: { label: "Join the Pro waitlist", href: "#waitlist", variant: "contained", kind: "waitlist" },
+    // Pro is purchasable. The CTA links to the Stripe checkout route; wiring
+    // Stripe is a pre-go-live action (PRE_GO_LIVE_CHECKLIST.md).
+    cta: { label: "Get Pro — $12/mo", href: "/api/checkout/pro", variant: "contained", kind: "checkout" },
     popular: true,
     features: [
       "The maintained Engineering Pod — kept current as models move",
