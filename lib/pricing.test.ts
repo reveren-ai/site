@@ -109,7 +109,7 @@ describe("pricing data", () => {
         kind: "install",
       },
       pods: {
-        label: "Get Pro — $12/mo",
+        label: "Go pro",
         href: "/api/checkout/pro",
         variant: "contained",
         kind: "checkout",

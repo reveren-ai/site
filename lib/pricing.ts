@@ -63,7 +63,7 @@ export const tiers: Tier[] = [
     audience: "Ship with confidence — it won't let you ship something broken",
     // Pro is purchasable. The CTA links to the Stripe checkout route; wiring
     // Stripe is a pre-go-live action (PRE_GO_LIVE_CHECKLIST.md).
-    cta: { label: "Get Pro — $12/mo", href: "/api/checkout/pro", variant: "contained", kind: "checkout" },
+    cta: { label: "Go pro", href: "/api/checkout/pro", variant: "contained", kind: "checkout" },
     popular: true,
     features: [
       "The maintained Engineering Pod — kept current as models move",
