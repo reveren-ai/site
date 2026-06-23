@@ -54,7 +54,7 @@ describe("TierCards", () => {
     const cta = ctaForTier("pods");
     expect(cta.tagName).toBe("A");
     expect(cta).toHaveAttribute("href", "/api/checkout/pro");
-    expect(cta).toHaveTextContent(/go pro/i);
+    expect(cta).toHaveTextContent(/get pro/i);
   });
 
   it("Marketplace CTA renders as a WaitlistButton (button, not anchor)", () => {

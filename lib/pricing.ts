@@ -2,10 +2,11 @@
 // Protocol Marketplace (coming soon). Local `rvr run` and every baseline agent
 // are unlimited and free; Pro is the one paid tier at launch. Pro is priced at
 // $12/mo ($120/yr) — an easy add-on on top of whatever builder a vibe coder
-// already pays for. Checkout doesn't exist yet (pre-launch), so the Pro CTA
-// still captures intent via the waitlist. There is no enterprise sales motion
-// at this stage. See reveren_monetization_model.md (workspace root) for the
-// artifact-vs-upkeep rationale behind the free/paid line.
+// already pays for. Pro is purchasable via Stripe checkout (the route is wired
+// pre-go-live; see PRE_GO_LIVE_CHECKLIST.md); the Marketplace stays on the
+// waitlist. There is no enterprise sales motion at this stage. See
+// reveren_monetization_model.md (workspace root) for the artifact-vs-upkeep
+// rationale behind the free/paid line.
 
 export type TierId = "free" | "pods" | "marketplace";
 
@@ -63,7 +64,7 @@ export const tiers: Tier[] = [
     audience: "Ship with confidence — it won't let you ship something broken",
     // Pro is purchasable. The CTA links to the Stripe checkout route; wiring
     // Stripe is a pre-go-live action (PRE_GO_LIVE_CHECKLIST.md).
-    cta: { label: "Go pro", href: "/api/checkout/pro", variant: "contained", kind: "checkout" },
+    cta: { label: "Get Pro — $12/mo", href: "/api/checkout/pro", variant: "contained", kind: "checkout" },
     popular: true,
     features: [
       "The maintained Engineering Pod — kept current as models move",
