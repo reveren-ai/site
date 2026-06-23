@@ -18,6 +18,7 @@ const abs = (path: string): string => new URL(path, SITE_URL).toString();
 const POST_LAUNCH_ROUTES: MetadataRoute.Sitemap = [
   { url: abs("/"), changeFrequency: "daily", priority: 1.0 },
   { url: abs("/manifesto"), changeFrequency: "monthly", priority: 0.9 },
+  { url: abs("/changelog"), changeFrequency: "monthly", priority: 0.6 },
   { url: abs("/pricing"), changeFrequency: "monthly", priority: 0.9 },
   { url: abs("/pods"), changeFrequency: "weekly", priority: 0.8 },
   { url: abs("/security"), changeFrequency: "yearly", priority: 0.5 },

@@ -18,6 +18,7 @@ const columns: Column[] = [
     heading: "Resources",
     links: [
       { href: "/manifesto", label: "Manifesto" },
+      { href: "/changelog", label: "Changelog" },
       { href: GITHUB_DISCUSSIONS_URL, label: "Discussions", external: true },
       { href: GITHUB_SPEC_URL, label: "Open spec", external: true },
     ],
