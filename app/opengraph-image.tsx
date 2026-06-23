@@ -95,7 +95,7 @@ export default function Image() {
               display: "flex",
             }}
           >
-            The standards layer for AI coding agents.
+            Keep your AI agent on the rails of your project.
           </div>
         </div>
 

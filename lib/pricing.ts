@@ -67,11 +67,11 @@ export const tiers: Tier[] = [
     popular: true,
     features: [
       "The maintained Engineering Pod — kept current as models move",
-      "Project brain — cross-agent memory so your agent stops re-breaking things",
-      "Pre-ship gate — one-tap go/no-go before you deploy",
+      "Pre-ship gate — review + QA + security as one go/no-go, built on shipped protocols",
       "Auto-fix — turns review findings into applied fixes, in plain language",
-      "Deploy, secret & cost guardrails — catch disasters before they ship",
-      "Supervised Autopilot — runs on your machine, your keys; we never hold credentials",
+      "Supervised Autopilot — runs the pipeline on your machine and your keys; we never hold credentials",
+      "Project brain — cross-agent memory so your agent stops re-breaking things (rolling out)",
+      "Deploy, secret & cost guardrails — catch disasters before they ship (rolling out)",
     ],
     detail: "Maintained by reveren · bring your own model",
   },
@@ -95,7 +95,7 @@ export const tiers: Tier[] = [
 ];
 
 export const pricingFootnote =
-  "The free core is everything you need to adopt reveren — the CLI, the full protocol library, the open format spec, every specialist agent at its baseline, and the self-improvement loop — unlimited and bring-your-own-model throughout. Pro ($12/mo) is the one paid tier at launch: the maintained Engineering Pod plus the vibe-coder layer (project brain, pre-ship gate, auto-fix, guardrails, supervised Autopilot) — all running on your machine and your keys; reveren never holds your credentials. The Marketplace follows. There is no enterprise sales motion at this stage.";
+  "The free core is everything you need to adopt reveren — the CLI, the full protocol library, the open format spec, every specialist agent at its baseline, and the self-improvement loop — unlimited and bring-your-own-model throughout. Pro ($12/mo) is the one paid tier at launch: the maintained Engineering Pod, plus a pre-ship gate, auto-fix, and a supervised pipeline — all powered by the open protocols and coordinator reveren already ships, running on your machine and your keys; reveren never holds your credentials. The cross-agent project brain and deeper guardrails are rolling out. The Marketplace follows. There is no enterprise sales motion at this stage.";
 
 // Feature matrix: three columns (Free, Pro, Marketplace) grouped by surface.
 // Order matters: the free CLI and protocols first, then the two paid surfaces.
@@ -171,14 +171,8 @@ export const featureMatrix: MatrixGroup[] = [
         marketplace: false,
       },
       {
-        label: "Project brain — cross-agent memory",
-        hint: "Your agent stops re-breaking the same things",
-        free: false,
-        pods: true,
-        marketplace: false,
-      },
-      {
-        label: "Pre-ship gate — one-tap go/no-go",
+        label: "Pre-ship gate — review + QA + security as one go/no-go",
+        hint: "Built on shipped protocols + the coordinator",
         free: false,
         pods: true,
         marketplace: false,
@@ -190,14 +184,22 @@ export const featureMatrix: MatrixGroup[] = [
         marketplace: false,
       },
       {
-        label: "Deploy, secret & cost guardrails",
+        label: "Supervised Autopilot — your machine, your keys",
+        hint: "reveren never holds your credentials",
         free: false,
         pods: true,
         marketplace: false,
       },
       {
-        label: "Supervised Autopilot — your machine, your keys",
-        hint: "reveren never holds your credentials",
+        label: "Project brain — cross-agent memory",
+        hint: "Rolling out",
+        free: false,
+        pods: true,
+        marketplace: false,
+      },
+      {
+        label: "Deploy, secret & cost guardrails",
+        hint: "Rolling out",
         free: false,
         pods: true,
         marketplace: false,

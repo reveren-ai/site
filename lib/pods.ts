@@ -1,7 +1,9 @@
 // /pods coming-soon copy — based on DESIGN-REVISION-HANDOVER-PODS.md §7.1,
-// with the pre-pivot "launch verticals" comparison row removed (the narrow-
-// commercial pivot scoped verticals to Year 2+; pods + marketplace are the
-// only paid surfaces). Holds the route until Release 1 ships the marketplace UI.
+// with the pre-pivot "launch verticals" comparison row removed. This page is
+// the Marketplace *creator* surface (author / list / earn). Note the post-pivot
+// split: the maintained Engineering Pod is the paid Pro tier (launching first),
+// while creator packs are the Protocol Marketplace described here (deferred
+// until Release 1 ships the marketplace UI). Pro is the one paid tier at launch.
 
 export const podsHero = {
   eyebrow: "Pods and the Protocol Marketplace",

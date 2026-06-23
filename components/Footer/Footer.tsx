@@ -62,7 +62,7 @@ export default function Footer() {
           <Stack spacing={2} sx={{ maxWidth: 360 }}>
             <Wordmark height={28} />
             <Typography variant="body2" color="text.secondary">
-              The standards layer between your codebase and whichever coding agent you already pay for.
+              Keep your AI agent on the rails of your project — across every agent you use. The standards layer between your codebase and any AI coding agent.
             </Typography>
           </Stack>
 
