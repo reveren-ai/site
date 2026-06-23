@@ -1,6 +1,7 @@
-// /pods coming-soon copy — verbatim from
-// DESIGN-REVISION-HANDOVER-PODS.md §7.1. Holds the route until Release 1
-// ships the actual marketplace UI.
+// /pods coming-soon copy — based on DESIGN-REVISION-HANDOVER-PODS.md §7.1,
+// with the pre-pivot "launch verticals" comparison row removed (the narrow-
+// commercial pivot scoped verticals to Year 2+; pods + marketplace are the
+// only paid surfaces). Holds the route until Release 1 ships the marketplace UI.
 
 export const podsHero = {
   eyebrow: "Pods and the Protocol Marketplace",
@@ -52,12 +53,6 @@ export const podsCompareRows: PodsCompareRow[] = [
     anthropicSkills: "Claude only",
     gptStore: "ChatGPT only",
     reveren: "Every agent",
-  },
-  {
-    feature: "Workplace verticals",
-    anthropicSkills: "Limited",
-    gptStore: "Consumer-leaning",
-    reveren: "4 launch verticals",
   },
   {
     feature: "Runs inside your own CLI",
