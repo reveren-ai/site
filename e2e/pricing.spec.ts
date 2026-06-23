@@ -3,26 +3,28 @@ import { test, expect } from "@playwright/test";
 test.describe("pricing page", () => {
   test("renders all three surfaces", async ({ page }) => {
     await page.goto("/pricing");
-    for (const label of ["Free", "Pods", "Marketplace"]) {
+    for (const label of ["Free", "Pro", "Marketplace"]) {
       await expect(page.getByText(label, { exact: true }).first()).toBeVisible();
     }
   });
 
-  test("free is genuinely free and never invents a paid price", async ({ page }) => {
+  test("free is genuinely free, Pro is the one real paid price", async ({ page }) => {
     await page.goto("/pricing");
     const text = await page.locator("body").innerText();
-    // Free is $0; the paid surfaces never print a dollar figure.
+    // Free is $0; Pro is the single real paid tier at $12. No fabricated prices.
     expect(text).toContain("$0");
+    expect(text).toContain("$12");
     expect(text).not.toMatch(/\$\d+\.99/);
+    // Guard against legacy mrktable pricing copy creeping back in.
     expect(text).not.toContain("$19");
     expect(text).not.toContain("$39");
-    expect(text).toContain("Subscription");
-    expect(text).toContain("Pricing finalising");
+    // Marketplace is pre-launch, not priced.
+    expect(text).toContain("Coming soon");
   });
 
   test("matrix renders the three row groups in order", async ({ page }) => {
     await page.goto("/pricing");
-    const groups = ["CLI & protocols", "Pods", "Marketplace"];
+    const groups = ["CLI & protocols", "Pro", "Marketplace"];
     const table = page.getByRole("table", { name: /pricing feature matrix/i });
     await expect(table).toBeVisible();
     const positions: number[] = [];
