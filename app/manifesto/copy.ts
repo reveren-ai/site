@@ -28,7 +28,7 @@ export const manifesto = {
       body: [
         'An operating manual is the set of instructions that lets a competent person do good work in your specific context. It is not a tutorial. It is not training material. It is the thing the senior engineer would say to the new hire on day one: how we do things here, why, and what to do when reality deviates.',
         'We call this a protocol. A protocol is a versioned Markdown file with typed front-matter that tells the agent: here is the role you are playing, here are the inputs you receive, here is the work you do, here is what you produce, here is what success looks like. It is repo-aware because it lives in your repo. It is agent-agnostic because it is plain Markdown that any agent can read. It composes into pipelines because the format is structured.',
-        'Thirteen protocols is enough to run a real engineering team. Plan-product. Plan-ux. Plan-engineering. Review. QA. Cyber. Ship. Document. Pre-production. Capture-learnings. Learn-from-users. Audit-protocols. Improve. Each one is replaceable. Each one is forkable. Each one travels with you across agents.'
+        'Fifteen protocols is enough to run a real engineering team. Plan-product. Plan-ux. Plan-engineering. Review. QA. Cyber. Ship. Document. Copywriter. SEO. Pre-production. Capture-learnings. Learn-from-users. Audit-protocols. Improve. Each one is replaceable. Each one is forkable. Each one travels with you across agents.'
       ]
     },
     {
