@@ -47,7 +47,7 @@ describe("FounderBio (with photo)", () => {
 
     renderWithTheme(<FounderBio />);
 
-    const img = screen.getByRole("img", { name: /Innocent Muisha — Founder, reveren/i });
+    const img = screen.getByRole("img", { name: /Innocent Muisha, Founder, reveren/i });
     expect(img).toHaveAttribute("src", "/founder/innocent.jpg");
     vi.doUnmock("@/lib/founder");
   });
