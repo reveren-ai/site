@@ -8,6 +8,8 @@ import EnvBanner from "@/components/EnvBanner/EnvBanner";
 import JsonLd from "@/components/JsonLd";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/jsonLd";
 import { isProductionEnv as isProductionEnvCheck } from "@/lib/env";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 // Indexability is decided by lib/env.ts (NEXT_PUBLIC_APP_ENV override →
@@ -141,6 +143,8 @@ export default function RootLayout({
           <main id="main">{children}</main>
           <Footer />
         </ThemeRegistry>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
