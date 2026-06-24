@@ -55,16 +55,16 @@ export const tiers: Tier[] = [
     cta: { label: "Install the CLI", href: "#install", variant: "outlined", kind: "install" },
     features: [
       "The `rvr` CLI: init / run / list / check / sync",
-      "No-terminal onboarding — your agent runs one command",
+      "No-terminal onboarding: your agent runs one command",
       "Full base protocol library + open `.protocols/` spec",
       "Every specialist agent at its free baseline",
       "The self-improvement loop",
-      "Bring your own model and key — unlimited, any repo",
+      "Bring your own model and key: unlimited, any repo",
     ],
     cardFeatures: [
       "The `rvr` CLI + full base protocol library",
       "Every specialist agent at its baseline",
-      "Bring your own model — unlimited, any repo",
+      "Bring your own model: unlimited, any repo",
     ],
     detail: "Everything you need to adopt reveren, free",
   },
@@ -74,22 +74,22 @@ export const tiers: Tier[] = [
     price: "$12",
     priceSuffix: "per month · $120/yr billed yearly",
     cadence: "For vibe coders shipping with AI",
-    audience: "Ship with confidence — it won't let you ship something broken",
+    audience: "Ship with confidence. It won't let you ship something broken",
     // Pro is purchasable. The CTA links to the Stripe checkout route; wiring
     // Stripe is a pre-go-live action (PRE_GO_LIVE_CHECKLIST.md).
-    cta: { label: "Get Pro — $12/mo", href: "/api/checkout/pro", variant: "contained", kind: "checkout" },
+    cta: { label: "Get Pro · $12/mo", href: "/api/checkout/pro", variant: "contained", kind: "checkout" },
     popular: true,
     features: [
-      "The maintained Engineering Pod — kept current as models move",
-      "Pre-ship gate — review + QA + security as one go/no-go, built on shipped protocols",
-      "Auto-fix — turns review findings into applied fixes, in plain language",
-      "Supervised Autopilot — runs the pipeline on your machine and your keys; we never hold credentials",
-      "Project brain — cross-agent memory so your agent stops re-breaking things (rolling out)",
-      "Deploy, secret & cost guardrails — catch disasters before they ship (rolling out)",
+      "The maintained Engineering Pod: kept current as models move",
+      "Pre-ship gate: review + QA + security as one go/no-go, built on shipped protocols",
+      "Auto-fix: turns review findings into applied fixes, in plain language",
+      "Supervised Autopilot: runs the pipeline on your machine and your keys; we never hold credentials",
+      "Project brain: cross-agent memory so your agent stops re-breaking things (rolling out)",
+      "Deploy, secret & cost guardrails: catch disasters before they ship (rolling out)",
     ],
     cardFeatures: [
-      "The maintained Engineering Pod — current as models move",
-      "Pre-ship gate — review + QA + security as one go/no-go",
+      "The maintained Engineering Pod: current as models move",
+      "Pre-ship gate: review + QA + security as one go/no-go",
       "Auto-fix + a supervised pipeline on your machine, your keys",
     ],
     detail: "Maintained by reveren · bring your own model",
@@ -119,7 +119,7 @@ export const tiers: Tier[] = [
 ];
 
 export const pricingFootnote =
-  "The free core is everything you need to adopt reveren — the CLI, the full protocol library, the open format spec, every specialist agent at its baseline, and the self-improvement loop — unlimited and bring-your-own-model throughout. Pro ($12/mo) is the one paid tier at launch: the maintained Engineering Pod, plus a pre-ship gate, auto-fix, and a supervised pipeline — all powered by the open protocols and coordinator reveren already ships, running on your machine and your keys; reveren never holds your credentials. The cross-agent project brain and deeper guardrails are rolling out. The Marketplace follows. There is no enterprise sales motion at this stage.";
+  "The free core is everything you need to adopt reveren (the CLI, the full protocol library, the open format spec, every specialist agent at its baseline, and the self-improvement loop), unlimited and bring-your-own-model throughout. Pro ($12/mo) is the one paid tier at launch: the maintained Engineering Pod, plus a pre-ship gate, auto-fix, and a supervised pipeline, all powered by the open protocols and coordinator reveren already ships, running on your machine and your keys; reveren never holds your credentials. The cross-agent project brain and deeper guardrails are rolling out. The Marketplace follows. There is no enterprise sales motion at this stage.";
 
 // Feature matrix: three columns (Free, Pro, Marketplace) grouped by surface.
 // Order matters: the free CLI and protocols first, then the two paid surfaces.
@@ -189,33 +189,33 @@ export const featureMatrix: MatrixGroup[] = [
     label: "Pro",
     rows: [
       {
-        label: "Maintained Engineering Pod — current as models move",
+        label: "Maintained Engineering Pod: current as models move",
         free: false,
         pods: true,
         marketplace: false,
       },
       {
-        label: "Pre-ship gate — review + QA + security as one go/no-go",
+        label: "Pre-ship gate: review + QA + security as one go/no-go",
         hint: "Built on shipped protocols + the coordinator",
         free: false,
         pods: true,
         marketplace: false,
       },
       {
-        label: "Auto-fix — findings turned into applied fixes",
+        label: "Auto-fix: findings turned into applied fixes",
         free: false,
         pods: true,
         marketplace: false,
       },
       {
-        label: "Supervised Autopilot — your machine, your keys",
+        label: "Supervised Autopilot: your machine, your keys",
         hint: "reveren never holds your credentials",
         free: false,
         pods: true,
         marketplace: false,
       },
       {
-        label: "Project brain — cross-agent memory",
+        label: "Project brain: cross-agent memory",
         hint: "Rolling out",
         free: false,
         pods: true,

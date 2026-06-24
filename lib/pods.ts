@@ -21,7 +21,7 @@ export const podsHowItWorks: PodsHowItWorksStep[] = [
   {
     id: "author",
     step: "Author",
-    body: "Bundle your protocols into a pod. Pin it to your preferred agents — Claude, Cursor, Copilot, anything that supports .protocols/.",
+    body: "Bundle your protocols into a pod. Pin it to your preferred agents: Claude, Cursor, Copilot, anything that supports .protocols/.",
   },
   {
     id: "list",

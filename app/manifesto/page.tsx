@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     title:
       "The agent doesn't need a smarter model. It needs an operating manual.",
     description:
-      "Standards layers — not better models — are what comes next for AI coding agents. A manifesto for repo-aware guardrails.",
+      "Standards layers, not better models, are what comes next for AI coding agents. A manifesto for repo-aware guardrails.",
     url: "/manifesto",
   },
   twitter: {

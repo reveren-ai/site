@@ -9,7 +9,7 @@ export const solution: SolutionPillar[] = [
     id: "protocols",
     label: "Protocols",
     description:
-      "Short Markdown files in your repo that tell your AI agent how your team works — naming, testing, shipping, reviewing. Versioned, repo-aware, agent-agnostic. Author once. The format is open, so your work travels with you.",
+      "Short Markdown files in your repo that tell your AI agent how your team works: naming, testing, shipping, reviewing. Versioned, repo-aware, agent-agnostic. Author once. The format is open, so your work travels with you.",
   },
   {
     id: "pipelines",
@@ -21,7 +21,7 @@ export const solution: SolutionPillar[] = [
     id: "standards",
     label: "Standards",
     description:
-      "One source of truth for naming, testing, coverage thresholds, deploying, reviewing — applied identically by every agent on every PR. Coverage drift becomes a CI failure, not an oversight.",
+      "One source of truth for naming, testing, coverage thresholds, deploying, reviewing, applied identically by every agent on every PR. Coverage drift becomes a CI failure, not an oversight.",
   },
   {
     id: "audit",

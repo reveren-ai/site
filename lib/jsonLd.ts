@@ -182,7 +182,7 @@ export function softwareApplicationJsonLd() {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
-      description: "Free tier — full base protocol library, CLI, unlimited local runs.",
+      description: "Free tier: full base protocol library, CLI, unlimited local runs.",
     },
   };
 }

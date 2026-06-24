@@ -67,7 +67,7 @@ export default function TermsPage() {
 
           <p>
             Reveren ships three layers, each licensed differently. Use of each
-            layer is governed by its own license — these Terms do not override
+            layer is governed by its own license; these Terms do not override
             them.
           </p>
 
@@ -78,7 +78,7 @@ export default function TermsPage() {
               <a href={GITHUB_URL}>GitHub</a> under the Business Source License
               1.1 with an Additional Use Grant. The grant allows any team or
               company to use the CLI in their own internal business
-              operations — including paid commercial work — without negotiating
+              operations (including paid commercial work) without negotiating
               a separate license. It does not allow repackaging reveren and
               offering it to third parties as a hosted or embedded service that
               competes with our paid pods or the Protocol Marketplace. Each
@@ -106,7 +106,7 @@ export default function TermsPage() {
               samples under MIT. Reveren grants a non-exclusive, royalty-free,
               worldwide patent license to all patents necessary to implement
               the format. Any vendor may build a compatible reader, writer, or
-              runner — that is the point.
+              runner. That is the point.
             </li>
           </ul>
 
@@ -143,8 +143,8 @@ export default function TermsPage() {
           <h2>Acceptable use</h2>
 
           <p>
-            You agree not to use reveren — the site, the CLI, or the dashboard
-            when it ships — to:
+            You agree not to use reveren (the site, the CLI, or the dashboard
+            when it ships) to:
           </p>
 
           <ul>
@@ -189,7 +189,7 @@ export default function TermsPage() {
             every prompt you give the CLI, and every protocol you author. By
             running the CLI, you grant us no license to your code. By
             submitting a protocol to the open MIT-licensed library, you license
-            it under that library&apos;s MIT terms — and you retain the right
+            it under that library&apos;s MIT terms, and you retain the right
             to use it however else you want.
           </p>
 
@@ -247,7 +247,7 @@ export default function TermsPage() {
           <h2>Changes to these Terms</h2>
 
           <p>
-            We&apos;ll update this page when the product surface changes —
+            We&apos;ll update this page when the product surface changes,
             most notably when the dashboard, paid plans, and account features
             launch. Material changes will be flagged in the &quot;Last
             updated&quot; line above; if you have an account at the time, we

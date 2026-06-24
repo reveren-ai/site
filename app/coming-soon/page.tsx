@@ -23,12 +23,12 @@ export const metadata: Metadata = {
     "reveren is the standards layer between your codebase and whichever AI coding agent you already pay for. Sign up to be notified when it's live.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "reveren — coming soon",
+    title: "reveren · coming soon",
     description:
-      "Stop correcting your AI. Start directing it. reveren is launching soon — sign up to be notified.",
+      "Stop correcting your AI. Start directing it. reveren is launching soon. Sign up to be notified.",
   },
   twitter: {
-    title: "reveren — coming soon",
+    title: "reveren · coming soon",
     description: "Stop correcting your AI. Start directing it.",
   },
 };
@@ -86,7 +86,7 @@ export default async function ComingSoonPage({
 
             <Typography variant="eyebrow" component="div">
               {fromLabel
-                ? `You came for ${fromLabel} — coming soon`
+                ? `You came for ${fromLabel} · coming soon`
                 : "Coming soon"}
             </Typography>
 

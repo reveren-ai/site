@@ -28,9 +28,9 @@ export const releases: Release[] = [
       "The first real CLI. One command drops a versioned protocol library into any repo so every coding agent works from the same rules.",
     highlights: [
       "`rvr init` scaffolds protocols.config.ts, the .protocols/ library, and the host package.json wiring.",
-      "`rvr run <protocol>` prints any protocol — or the bundled coordinator agent — for the active agent to ingest.",
+      "`rvr run <protocol>` prints any protocol (or the bundled coordinator agent) for the active agent to ingest.",
       "`rvr list` and `rvr check` round out the surface; `rvr sync` is stubbed for the Phase 2 registry.",
-      "15 bundled protocols plus the coordinator agent — the pipeline orchestrator that chains protocols into design → implement → review → QA → document → ship.",
+      "15 bundled protocols plus the coordinator agent: the pipeline orchestrator that chains protocols into design → implement → review → QA → document → ship.",
       "Open .protocols/ format spec published; CLI is source-available under BUSL-1.1.",
     ],
   },

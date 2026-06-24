@@ -194,7 +194,7 @@ export default function TierCards() {
         >
           The maintained pod, pre-ship gate, auto-fix, and supervised pipeline
           are built on protocols reveren already ships; the project brain and
-          deeper guardrails are rolling out. The Marketplace is pre-launch — join
+          deeper guardrails are rolling out. The Marketplace is pre-launch: join
           the waitlist and we will let you know when it opens.
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mt: 2, maxWidth: 800 }}>

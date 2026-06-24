@@ -13,12 +13,12 @@ export const manifesto = {
   author: 'Innocent Muisha',
   date: 'May 2026',
   intro:
-    "The state of AI coding is this: every team is paying for an agent. Every team's agent does some things brilliantly and some things badly. The badly part is the same across teams — the agent doesn't know how this codebase prefers to do things, doesn't know what the team has already decided, doesn't know what good looks like here. So engineers spend the second hour of every day correcting the agent. Renaming, rewriting, re-aligning. We are paying for the agent and then paying again to clean up after it. There is no way for the agent to iteratively engage in the product design, and development process. It is unable to recognise if it should ask questions after the first implementation of a feature, if the implementation uncovers gaps in our product and design decisions, let alone who and how to ask that question.",
+    "The state of AI coding is this: every team is paying for an agent. Every team's agent does some things brilliantly and some things badly. The badly part is the same across teams: the agent doesn't know how this codebase prefers to do things, doesn't know what the team has already decided, doesn't know what good looks like here. So engineers spend the second hour of every day correcting the agent. Renaming, rewriting, re-aligning. We are paying for the agent and then paying again to clean up after it. There is no way for the agent to iteratively engage in the product design, and development process. It is unable to recognise if it should ask questions after the first implementation of a feature, if the implementation uncovers gaps in our product and design decisions, let alone who and how to ask that question.",
   sections: [
     {
       heading: "What's actually broken.",
       body: [
-        "The model isn't broken. The model is improving every quarter, and the improvement is real — Claude 4.7, GPT-5, the next thing. But model improvement does not solve the problem we have. The problem we have is that the model does not know what we know.",
+        "The model isn't broken. The model is improving every quarter, and the improvement is real: Claude 4.7, GPT-5, the next thing. But model improvement does not solve the problem we have. The problem we have is that the model does not know what we know.",
         "Every team has decisions: how we name things, how we test things, how we ship things. Every team has constraints: regulated, legacy, on-call. Every team has a roadmap, an architecture, a set of agreements. None of that is in the model's weights. None of that is in a one-page .cursorrules file. And none of that survives when someone switches editors next week.",
         "What's broken is the layer between the model and the team. There isn't one. So the team becomes the layer, manually, in real time, on every interaction."
       ]

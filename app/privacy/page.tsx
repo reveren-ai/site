@@ -80,8 +80,8 @@ export default function PrivacyPage() {
           </p>
 
           <p>
-            If a future opt-in telemetry feature is added — for example, to help
-            us understand which protocols people actually run — it will be
+            If a future opt-in telemetry feature is added (for example, to help
+            us understand which protocols people actually run), it will be
             disabled by default, prompted on first run, and documented inline in
             the CLI&apos;s output before any data leaves your machine.
           </p>
@@ -126,22 +126,22 @@ export default function PrivacyPage() {
 
           <ul>
             <li>
-              <strong>Vercel</strong> — site hosting and edge delivery (today).
+              <strong>Vercel</strong>: site hosting and edge delivery (today).
             </li>
             <li>
-              <strong>Neon</strong> — managed Postgres for the waitlist and, at
+              <strong>Neon</strong>: managed Postgres for the waitlist and, at
               launch, application data (encrypted at rest, TLS in transit).
             </li>
             <li>
-              <strong>Auth.js providers</strong> — GitHub and Google OAuth (at
+              <strong>Auth.js providers</strong>: GitHub and Google OAuth (at
               launch).
             </li>
             <li>
-              <strong>Stripe</strong> — payment processing (at launch).
+              <strong>Stripe</strong>: payment processing (at launch).
             </li>
             <li>
-              <strong>Resend</strong> or equivalent transactional email provider
-              — magic links and account email (at launch).
+              <strong>Resend</strong> or equivalent transactional email provider:
+              magic links and account email (at launch).
             </li>
           </ul>
 
@@ -203,7 +203,7 @@ export default function PrivacyPage() {
 
           <p>
             Reveren is incorporated in Australia, and our subprocessors operate
-            globally — Vercel and Neon serve from infrastructure in the United
+            globally. Vercel and Neon serve from infrastructure in the United
             States and other regions. Where we transfer personal data out of a
             jurisdiction that requires safeguards, we rely on the standard
             contractual mechanisms our subprocessors offer (UK IDTA, EU SCCs)
@@ -233,7 +233,7 @@ export default function PrivacyPage() {
           <h2>Changes to this policy</h2>
 
           <p>
-            We&apos;ll update this page when our practices change — most
+            We&apos;ll update this page when our practices change, most
             notably when the hosted dashboard launches. Material changes will
             be flagged in the &quot;Last updated&quot; line above; if you have
             an account, we&apos;ll also email you.

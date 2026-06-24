@@ -149,7 +149,7 @@ export default function PodsPage() {
               </Typography>
               <Typography variant="body1" color="text.secondary">
                 Single-agent stores trap creators inside one vendor's reach.
-                reveren ships across every agent your team already pays for —
+                reveren ships across every agent your team already pays for,
                 and the file format stays yours.
               </Typography>
             </Stack>

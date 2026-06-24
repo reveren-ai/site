@@ -49,7 +49,7 @@ export default function DPAPage() {
           <p>
             Pre-launch, the only personal data reveren handles is the email
             address you give us when you join the waitlist. The reveren CLI
-            runs locally — your code, prompts, and model API keys do not flow
+            runs locally. Your code, prompts, and model API keys do not flow
             through us. There is no hosted product yet, and we are not acting
             as a processor of your customers&apos; data.
           </p>
@@ -71,7 +71,7 @@ export default function DPAPage() {
               hello@reveren.ai
             </a>{" "}
             with your company name and use case, and we will send the latest
-            version. We&apos;re a small team — expect a real human reply
+            version. We&apos;re a small team, so expect a real human reply
             within a few business days, not a generic auto-response.
           </p>
 
@@ -106,7 +106,7 @@ export default function DPAPage() {
             </li>
             <li>
               <strong>Security measures.</strong> Mirroring the controls
-              described on the <a href="/security">Security</a> page —
+              described on the <a href="/security">Security</a> page:
               encryption in transit and at rest, OAuth-based authentication,
               per-tenant isolation, audit logging.
             </li>
@@ -125,7 +125,7 @@ export default function DPAPage() {
             </li>
             <li>
               <strong>Breach notification.</strong> We&apos;ll notify you
-              without undue delay — and within 72 hours where feasible — of a
+              without undue delay (and within 72 hours where feasible) of a
               personal data breach affecting your data, with the information
               you need to meet your own notification obligations.
             </li>
@@ -145,33 +145,33 @@ export default function DPAPage() {
 
           <p>
             The vendors we rely on, and what they do for us. This list is the
-            authoritative reference for subprocessor notices — bookmark it.
+            authoritative reference for subprocessor notices. Bookmark it.
           </p>
 
           <ul>
             <li>
-              <strong>Vercel Inc.</strong> (United States) — site and
+              <strong>Vercel Inc.</strong> (United States): site and
               dashboard hosting, edge delivery, request logs.
             </li>
             <li>
-              <strong>Neon Inc.</strong> (United States) — managed Postgres
+              <strong>Neon Inc.</strong> (United States): managed Postgres
               (waitlist today; application data at launch).
             </li>
             <li>
               <strong>Stripe, Inc.</strong> (United States, with Australian
-              presence) — payment processing at launch.
+              presence): payment processing at launch.
             </li>
             <li>
-              <strong>GitHub, Inc.</strong> (United States) — OAuth provider
+              <strong>GitHub, Inc.</strong> (United States): OAuth provider
               and (at launch) GitHub App platform for repository
               integrations.
             </li>
             <li>
-              <strong>Google LLC</strong> (United States) — OAuth provider at
+              <strong>Google LLC</strong> (United States): OAuth provider at
               launch.
             </li>
             <li>
-              <strong>Resend</strong> or equivalent — transactional email
+              <strong>Resend</strong> or equivalent: transactional email
               delivery (magic links, account email) at launch.
             </li>
           </ul>
@@ -179,7 +179,7 @@ export default function DPAPage() {
           <p>
             Note that model providers (Anthropic, OpenAI, GitHub Copilot, and
             others) are <em>not</em> reveren subprocessors when the CLI runs
-            locally — your contract with those providers is direct, using
+            locally. Your contract with those providers is direct, using
             your keys. They become relevant subprocessors only if a future
             hosted-execution feature ships and you opt in to it. We&apos;ll
             update this page before any such change.

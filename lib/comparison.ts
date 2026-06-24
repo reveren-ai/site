@@ -30,7 +30,7 @@ export const comparisonRows: ComparisonRow[] = [
     cursorrules: "—",
     copilot: "—",
     windsurf: "—",
-    reveren: "Yes — plan → ship → review → qa",
+    reveren: "Yes: plan → ship → review → qa",
   },
   {
     feature: "Agent compatibility",

@@ -42,7 +42,7 @@ export const featureTeaser: FeatureTeaserCard[] = [
     status: 'release-1',
     statusLabel: 'Release 1 · Aug 2026',
     title: 'Protocol generator',
-    body: 'Describe what you are building. Reveren scaffolds the core protocols for the job — versioned, repo-aware, ready to run.',
+    body: 'Describe what you are building. Reveren scaffolds the core protocols for the job: versioned, repo-aware, ready to run.',
     bullets: [
       'Describe-to-scaffold prompt',
       'Stack-aware protocol selection',

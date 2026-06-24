@@ -37,7 +37,7 @@ export default function ChangelogPage() {
           </Typography>
           <Typography variant="body1" color="text.secondary">
             What&apos;s shipped on npm and what&apos;s next. The CLI is versioned
-            with changesets — every entry here matches a published{" "}
+            with changesets. Every entry here matches a published{" "}
             <code>@reveren-ai/core</code> release.
           </Typography>
         </Stack>

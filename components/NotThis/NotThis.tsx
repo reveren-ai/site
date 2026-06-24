@@ -25,7 +25,7 @@ export default function NotThis() {
               Six things we deliberately don't do.
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Counter-positioning matters more than feature lists. Here's where we draw lines — including the one that separates an open marketplace from a vendor-locked one.
+              Counter-positioning matters more than feature lists. Here's where we draw lines, including the one that separates an open marketplace from a vendor-locked one.
             </Typography>
           </Stack>
         </MotionReveal>

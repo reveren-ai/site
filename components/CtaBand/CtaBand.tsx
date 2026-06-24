@@ -32,7 +32,7 @@ export default function CtaBand() {
           </Typography>
           <Typography variant="body1" color="text.secondary">
             No credit card. No signup. One command sets reveren up in your repo and
-            wires the agent you're already using — your agent does the rest.
+            wires the agent you're already using. Your agent does the rest.
           </Typography>
           <Stack
             direction={{ xs: "column", sm: "row" }}

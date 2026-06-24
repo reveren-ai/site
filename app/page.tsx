@@ -16,7 +16,7 @@ import { softwareApplicationJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
   description:
-    "reveren gives your AI agent the rules of your project so it stops re-breaking things and ships fewer bugs — and won't let you ship something broken. Works with Claude, Cursor, Copilot, Windsurf, Lovable, Bolt, and v0. Free to start, no terminal required, bring your own model.",
+    "reveren gives your AI agent the rules of your project so it stops re-breaking things and ships fewer bugs, and won't let you ship something broken. Works with Claude, Cursor, Copilot, Windsurf, Lovable, Bolt, and v0. Free to start, no terminal required, bring your own model.",
   alternates: { canonical: "/" },
 };
 

@@ -55,7 +55,7 @@ export default function Hero() {
                     fontSize: { xs: '1.0625rem', md: '1.1875rem' }
                   }}
                 >
-                  reveren gives your AI agent the rules of your project — so it
+                  reveren gives your AI agent the rules of your project, so it
                   stops re-breaking things, ships fewer bugs, and you stop
                   babysitting it. Works with Claude, Cursor, Copilot, Windsurf,
                   Lovable, Bolt, and v0.{' '}
@@ -67,7 +67,7 @@ export default function Hero() {
                   >
                     Stop correcting your AI. Start directing it.
                   </strong>{' '}
-                  One command sets it up — your agent does the rest.
+                  One command sets it up. Your agent does the rest.
                 </Typography>
               </MotionItem>
 

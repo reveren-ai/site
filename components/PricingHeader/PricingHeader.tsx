@@ -17,7 +17,7 @@ export default function PricingHeader() {
               The <code>rvr</code> CLI, the full protocol library, and every
               agent at its baseline are free forever, with unlimited local use
               and no metering. <strong>Pro</strong> ($12/mo) is the one paid
-              tier — the maintained Engineering Pod plus the vibe-coder layer —
+              tier (the maintained Engineering Pod plus the vibe-coder layer),
               and the Protocol Marketplace follows. Pro is pre-launch; join the
               waitlist below.
             </Typography>

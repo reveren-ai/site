@@ -10,7 +10,7 @@ import { faqPageJsonLd } from "@/lib/jsonLd";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "The reveren CLI, the full protocol library, and every agent at its baseline are free forever, with unlimited local use and no metering. Pro ($12/mo) is the one paid tier — the maintained Engineering Pod plus the vibe-coder layer — with the Protocol Marketplace to follow.",
+    "The reveren CLI, the full protocol library, and every agent at its baseline are free forever, with unlimited local use and no metering. Pro ($12/mo) is the one paid tier (the maintained Engineering Pod plus the vibe-coder layer), with the Protocol Marketplace to follow.",
   alternates: { canonical: "/pricing" },
   openGraph: {
     title: "Pricing · reveren",

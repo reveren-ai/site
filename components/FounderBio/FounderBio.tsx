@@ -28,7 +28,7 @@ export default function FounderBio() {
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={founder.photoUrl}
-                  alt={`${founder.name} — ${founder.role}`}
+                  alt={`${founder.name}, ${founder.role}`}
                   width={160}
                   height={160}
                   style={{

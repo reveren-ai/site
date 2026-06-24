@@ -64,8 +64,8 @@ export default function SecurityPage() {
               location;
             </li>
             <li>
-              calls the model provider directly over TLS — no reveren proxy in
-              the path;
+              calls the model provider directly over TLS, with no reveren proxy
+              in the path;
             </li>
             <li>
               writes results back to your working directory, leaving a diff for
@@ -172,7 +172,7 @@ export default function SecurityPage() {
             reviews them, runs your tests, and decides whether to merge. We
             don&apos;t commit to your repository on your behalf; the CLI
             leaves a diff, and the GitHub App integration (at launch) opens a
-            pull request — never a force-push.
+            pull request, never a force-push.
           </p>
 
           <h2>Reporting a vulnerability</h2>

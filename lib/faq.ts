@@ -9,7 +9,7 @@ export const faq: FaqItem[] = [
     id: "what-is-a-protocol",
     question: "What is a protocol, exactly?",
     answer:
-      "A short Markdown file in your repo that tells an AI coding agent how your team works — how you name things, test things, ship things. The agent reads the relevant protocol before doing the work, so it stops guessing your conventions. Authored once, reused by every agent you run.",
+      "A short Markdown file in your repo that tells an AI coding agent how your team works: how you name things, test things, ship things. The agent reads the relevant protocol before doing the work, so it stops guessing your conventions. Authored once, reused by every agent you run.",
   },
   {
     id: "vs-cursorrules",
@@ -21,7 +21,7 @@ export const faq: FaqItem[] = [
     id: "what-do-i-pay-for",
     question: "What do I actually pay for?",
     answer:
-      "One paid tier at launch: Pro ($12/mo). It's the maintained Engineering Pod — kept current as models move — plus a pre-ship gate (review + QA + security as one go/no-go), auto-fix, and a supervised pipeline, all powered by the open protocols and coordinator reveren already ships and running on your machine and your keys (reveren never holds your credentials). A cross-agent project brain and deeper guardrails are rolling out, and the Protocol Marketplace follows. Everything else is free — the CLI, the full base protocol library, every specialist agent at its baseline, and the self-improvement loop — unlimited and bring-your-own-model. Pro is pre-launch today; join the waitlist and we'll tell you when it opens.",
+      "One paid tier at launch: Pro ($12/mo). It's the maintained Engineering Pod (kept current as models move) plus a pre-ship gate (review + QA + security as one go/no-go), auto-fix, and a supervised pipeline, all powered by the open protocols and coordinator reveren already ships and running on your machine and your keys (reveren never holds your credentials). A cross-agent project brain and deeper guardrails are rolling out, and the Protocol Marketplace follows. Everything else is free (the CLI, the full base protocol library, every specialist agent at its baseline, and the self-improvement loop), unlimited and bring-your-own-model. Pro is pre-launch today; join the waitlist and we'll tell you when it opens.",
   },
   {
     id: "self-host",
