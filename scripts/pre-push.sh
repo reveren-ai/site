@@ -59,9 +59,79 @@ while read -r local_ref local_sha remote_ref remote_sha; do
   fi
 done
 
+# --- Dev-server handoff for the local e2e run -------------------------------
+# Next.js 16 allows only ONE dev server per project directory (not per port).
+# The e2e stage boots the site's own dev server, so any dev server you already
+# have running for this repo blocks it ("Another next dev server is already
+# running") and the push aborts. To keep `git push` from interrupting your
+# workflow, we stop a standing dev server before e2e and ALWAYS restart it
+# afterwards — on the same port — whether the gate passes, fails, or aborts.
+#
+# Next records the running server in `.next/dev/lock` as {"pid":…,"port":…},
+# which is how we find it and which port to bring it back on. On CI there's no
+# standing dev server, so all of this is a no-op.
+DEV_LOCK=".next/dev/lock"
+DEV_RESTART_PORT=""
+
+_lock_pid() { grep -o '"pid":[0-9]*' "$DEV_LOCK" 2>/dev/null | grep -o '[0-9]*' | head -1; }
+_lock_port() { grep -o '"port":[0-9]*' "$DEV_LOCK" 2>/dev/null | grep -o '[0-9]*' | head -1; }
+
+# Runs on EXIT (success, failure, or set -e abort) once armed — this is the
+# "always restart after" guarantee.
+restart_dev_server() {
+  [ -z "$DEV_RESTART_PORT" ] && return 0
+  # Wait for the e2e dev server to release the per-dir lock.
+  _n=0
+  while [ -f "$DEV_LOCK" ] && [ "$_n" -lt 6 ]; do
+    _p="$(_lock_pid)"
+    { [ -n "$_p" ] && kill -0 "$_p" 2>/dev/null; } || break
+    _n=$((_n + 1)); sleep 1
+  done
+  # Hard-stop any lingering same-dir server (e.g. an e2e server Playwright did
+  # not reap) so Next's one-server-per-dir guard does not reject the restart.
+  if [ -f "$DEV_LOCK" ]; then
+    _p="$(_lock_pid)"
+    if [ -n "$_p" ] && kill -0 "$_p" 2>/dev/null; then kill "$_p" 2>/dev/null || true; sleep 1; fi
+  fi
+  # Belt-and-braces: free the target port in case a worker still lingers.
+  if command -v lsof >/dev/null 2>&1; then
+    _hold="$(lsof -ti tcp:"$DEV_RESTART_PORT" 2>/dev/null || true)"
+    [ -n "$_hold" ] && kill $_hold 2>/dev/null || true
+  fi
+  echo "▶ Restarting your dev server on port $DEV_RESTART_PORT (it was stopped for e2e)"
+  PORT="$DEV_RESTART_PORT" nohup pnpm dev >"/tmp/reveren-dev-restart-${DEV_RESTART_PORT}.log" 2>&1 &
+  disown 2>/dev/null || true
+}
+
+# Stop a standing dev server for THIS directory so the e2e stage can boot its
+# own. Arms the EXIT trap only when we actually stop one — so a failed
+# typecheck/lint/unit run (which happens before this) never disturbs the
+# server, and the scoped gate never touches it either.
+stop_standing_dev_server() {
+  [ "${CI:-}" = "true" ] && return 0
+  [ -f "$DEV_LOCK" ] || return 0
+  _pid="$(_lock_pid)"; _port="$(_lock_port)"
+  [ -n "$_pid" ] || return 0
+  kill -0 "$_pid" 2>/dev/null || return 0   # stale lock (dead pid) — no conflict
+  DEV_RESTART_PORT="${_port:-3000}"
+  echo "▶ Stopping your dev server (pid $_pid, port $DEV_RESTART_PORT) so e2e can boot its own — it will be restarted after"
+  trap restart_dev_server EXIT
+  kill "$_pid" 2>/dev/null || true
+  _n=0
+  while kill -0 "$_pid" 2>/dev/null && [ "$_n" -lt 6 ]; do _n=$((_n + 1)); sleep 1; done
+  # Next runs a parent + a worker; free anything still holding the port so the
+  # same-port restart later isn't bumped onto a different port. Safe because
+  # DEV_RESTART_PORT is this repo's own dev port, read from its lock.
+  if command -v lsof >/dev/null 2>&1; then
+    _hold="$(lsof -ti tcp:"$DEV_RESTART_PORT" 2>/dev/null || true)"
+    [ -n "$_hold" ] && kill $_hold 2>/dev/null || true
+  fi
+}
+
 run_full_gate() {
   echo "▶ Pushing to main — running FULL pre-push gate (typecheck + lint + unit + e2e)"
   pnpm pre-push
+  stop_standing_dev_server
   echo "▶ E2E (playwright) on port $E2E_PORT"
   PORT="$E2E_PORT" pnpm test:e2e
 }

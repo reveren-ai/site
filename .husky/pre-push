@@ -7,6 +7,11 @@
 # against the diff base. CI still runs the full suite when the branch reaches
 # a PR to main.
 #
+# The full gate's e2e stage needs a dev server; Next 16 allows only one per
+# project dir, so the script stops any dev server you have running, runs e2e,
+# and ALWAYS restarts it on the same port after — a push never leaves your
+# dev server dead.
+#
 # Explicit skip: `PRE_PUSH_SKIP=1 git push` (logged intent, preferred).
 # Emergency bypass: `git push --no-verify` (use sparingly).
 
