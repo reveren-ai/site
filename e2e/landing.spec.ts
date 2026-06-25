@@ -29,11 +29,32 @@ test.describe("landing page", () => {
 
   test("nav offers Pricing and Manifesto links that resolve", async ({ page }) => {
     await page.goto("/");
-    await page.getByRole("link", { name: "Pricing" }).first().click();
-    await expect(page).toHaveURL(/\/pricing$/);
+
+    // The first navigation to a route triggers a cold Turbopack compile that
+    // can exceed the default 5s assertion timeout — clicking and immediately
+    // asserting toHaveURL flakes. So assert the link target first (cheap), then
+    // navigate with a generous waitForURL budget and confirm the destination
+    // actually rendered (h1 visible), not just that the URL string changed.
+    const NAV_TIMEOUT = 30_000;
+
+    const pricing = page.getByRole("link", { name: "Pricing" }).first();
+    await expect(pricing).toHaveAttribute("href", "/pricing");
+    await Promise.all([
+      page.waitForURL(/\/pricing$/, { timeout: NAV_TIMEOUT }),
+      pricing.click(),
+    ]);
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+
     await page.goBack();
-    await page.getByRole("link", { name: "Manifesto" }).first().click();
-    await expect(page).toHaveURL(/\/manifesto$/);
+    await page.waitForURL((url) => url.pathname === "/", { timeout: NAV_TIMEOUT });
+
+    const manifesto = page.getByRole("link", { name: "Manifesto" }).first();
+    await expect(manifesto).toHaveAttribute("href", "/manifesto");
+    await Promise.all([
+      page.waitForURL(/\/manifesto$/, { timeout: NAV_TIMEOUT }),
+      manifesto.click(),
+    ]);
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });
 
   test("sections render in the canonical IA order", async ({ page }) => {
