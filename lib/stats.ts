@@ -14,7 +14,7 @@ export const proofStats: Stat[] = [
     label: 'protocols shipped',
     hint: 'all MIT in the base library'
   },
-  { value: '7', label: 'agents tested' },
+  { value: '7', label: 'bespoke application-based agents' },
   { value: '4', label: 'pipeline runners' },
   { value: '2800+', label: 'tests passing' },
   { value: '95%+', label: 'code coverage' },
