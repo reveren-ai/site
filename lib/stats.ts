@@ -23,6 +23,6 @@ export const proofStats: Stat[] = [
 
 export const proofStory = {
   eyebrow: 'Built with reveren',
-  headline: 'mrktable runs on its own protocols.',
-  body: 'mrktable is a production financial-media platform (a weekly markets digest, Market Moves, Deep Dives, an AGI tracker, and an analysis Terminal in beta) built on Next.js 16, Prisma 7, Stripe, and Auth.js, with an automated AI pipeline that researches, drafts, and publishes. Every surface is shipped by AI agents working from reveren’s protocol library; we dogfood reveren before we release it. The numbers below are real, not aspirational.'
+  headline: 'Mrktable runs on its own protocols.',
+  body: 'Mrktable is a production financial-media platform (a weekly markets digest, Market Moves, Deep Dives, an AGI tracker, and an analysis Terminal in beta) built on Next.js 16, Prisma 7, Stripe, and Auth.js, with an automated AI pipeline that researches, drafts, and publishes. Every surface is shipped by AI agents working from reveren’s protocol library; we dogfood reveren before we release it. The numbers below are real, not aspirational.'
 }
